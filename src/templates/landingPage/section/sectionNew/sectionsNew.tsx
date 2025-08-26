@@ -6,7 +6,7 @@ import { release } from "os";
 
 export function SectionNew() {
   return (
-    <section className="flex - flex-col gap-4">
+    <section className="flex  flex-col gap-4 " >
 
       <div className=" flex justify-center">
         <h3 className="text-heading-lg text-green-400">
@@ -14,9 +14,9 @@ export function SectionNew() {
         </h3>
       </div>
 
-      <div className="w-full">
+      <div className="grid md:grid-cols-2 gap-6 mt-10">
         {newReleases.map((release)=>(
-            <CardNew description={release.description} img={release.img} key={release.img}/>
+            <CardNew description={release.description} img={release.img} key={release.id}/>
         ))}
 
 
