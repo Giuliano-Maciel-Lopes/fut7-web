@@ -1,20 +1,10 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { LandingPage } from "@/templates/landingPage/landingPage";
 
 export default function Home() {
   return (
-    <div>
+    <article className=" flex -clex-col">
+      <LandingPage/>
     
-    </div>
+    </article>
   );
 }
