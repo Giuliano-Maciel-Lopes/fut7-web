@@ -6,7 +6,7 @@ import { release } from "os";
 
 export function SectionNew() {
   return (
-    <section className="flex  flex-col gap-4 " >
+    <section className="flex  flex-col gap-4 container" >
 
       <div className=" flex justify-center">
         <h3 className="text-heading-lg text-green-400">

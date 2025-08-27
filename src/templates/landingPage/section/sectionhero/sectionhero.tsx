@@ -5,7 +5,7 @@ import { ChevronRight } from "lucide-react";
 
 export function SectionHero() {
   return (
-    <section className="mt-10">
+    <section className="mt-10 container">
       
       <div className="flex flex-col md:flex-row items-center gap-8">
         <div className="flex flex-col w-full md:w-1/2 gap-6">

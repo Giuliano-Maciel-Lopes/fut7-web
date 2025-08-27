@@ -16,7 +16,11 @@ export default {
         "2xl": "1200px",
       },
     },
+    
     extend: {
+        backgroundImage: {
+    "campo-gradiente": "linear-gradient(to bottom, #4B0082, #22543D)",
+  },
       colors: {
         white: "#FFFFFF",
         green: {
