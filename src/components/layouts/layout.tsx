@@ -14,9 +14,8 @@ export function Layout({ children }: props) {
       <main className="flex-1 flex flex-col items-center mt-20 md:mt-24">
         <div className="container ">{children}</div>
       </main>
-      <Fotter/>
 
-      
+      <Fotter/>
     </div>
   );
 }
