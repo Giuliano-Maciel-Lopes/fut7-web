@@ -1,4 +1,4 @@
-import { ActiveLink } from "../../acticve-link/activelink";
+import { LayoutAuth } from "@/components/auth";
 import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
 import { Logo } from "@/components/logo";
@@ -17,9 +17,9 @@ export function Header() {
           <NavHeader className="hidden md:flex gap-20" />
         </div>
 
-        <Button variant={"default"}>
-          <User /> loguin
-        </Button>
+       <LayoutAuth title="teste">
+        teste
+       </LayoutAuth>
       </div>
     </header>
   );

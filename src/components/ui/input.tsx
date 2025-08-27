@@ -8,9 +8,9 @@ type InputProps = React.ComponentProps<"input"> & {
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, legend, ...props }, ref) => {
     return (
-      <fieldset className="flex flex-col w-full">
+      <fieldset className="flex flex-col w-full ">
         {legend && (
-          <legend className="text-sm font-medium mb-1">{legend}</legend>
+          <legend className="text-sm uppercase  font-medium mb-3">{legend}</legend>
         )}
         <input
           type={type}
