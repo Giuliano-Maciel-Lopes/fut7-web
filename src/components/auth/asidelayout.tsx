@@ -25,7 +25,7 @@ export function LayoutAuth({ children, title }: Props) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="bg-blue-100 rounded-xl max-w-md w-[90%] p-6 ">
+      <DialogContent className="bg-blue-100 rounded-xl max-w-md w-[90%] p-6 border-2 border-white">
         <div className="flex flex-col items-center gap-3">
           <Logo />
           <DialogTitle className="text-heading-lg">{title}</DialogTitle>
