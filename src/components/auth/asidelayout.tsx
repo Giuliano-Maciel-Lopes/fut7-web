@@ -11,7 +11,6 @@ type Props = {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
 };
-
 export function LayoutAuth({
   children,
   title,
@@ -22,18 +21,24 @@ export function LayoutAuth({
 }: Props) {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-
-      <DialogContent className="bg-blue-100 rounded-3xl md:w-[500px] w-[300px] max-h-[90vh] md:px-6 px-4 pt-4">
-
-        <div className="flex flex-col items-center ">
+      <DialogContent className="bg-blue-50 rounded-3xl md:w-[500px] w-[300px] max-h-[90vh] md:px-6 px-4 pt-4 flex flex-col border-2 border-white">
+      
+        <div className="flex flex-col items-center">
           <Logo />
           <DialogTitle className="text-heading-lg">{title}</DialogTitle>
         </div>
 
-          
-        <div className="mt-4 mb-">{children}</div>
-        <Button size={"lg"} onClick={toggleButton}>{buttonText}</Button>
+       
+        <div className="flex-1 overflow-y-auto mt-4">
+          {children}
+        </div>
 
+        
+        <div className="mt-4">
+          <Button className="w-full" size="lg" onClick={toggleButton}>
+            {buttonText}
+          </Button>
+        </div>
       </DialogContent>
     </Dialog>
   );

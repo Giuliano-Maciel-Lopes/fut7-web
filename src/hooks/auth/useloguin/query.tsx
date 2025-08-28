@@ -1,8 +1,10 @@
 import { api } from "@/services/axios";
 import { useMutation } from "@tanstack/react-query";
+import { CreateSessionInput } from "@/schemazod/session/creat";
 
-async function FetchData() {
-  const res = await api.get("/session");
+
+async function FetchData(data:CreateSessionInput) {
+  const res = await api.post("/session" ,data );
 
  return  res.data;
 }
@@ -14,7 +16,7 @@ export function UseLoguin() {
         console.log(data)
         
     },onError(error, variables, context) {
-        
+        console.log(error)
     },
 
 

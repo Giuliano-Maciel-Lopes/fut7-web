@@ -12,8 +12,13 @@ type Props = {
 };
 
 export function Asideloguin({ toggleButton, isOpen, onOpenChange }: Props) {
-  const { errors, handleSubmit, register } = useLoguinForm();
-  const { data } = UseLoguin();
+  const { errors, handleSubmit, register  } = useLoguinForm();
+  const {  mutate } = UseLoguin();
+
+   const submit = handleSubmit((data)=>{
+    mutate(data)
+    console.log("teste")
+  })
 
   return (
     <LayoutAuth
@@ -24,17 +29,20 @@ export function Asideloguin({ toggleButton, isOpen, onOpenChange }: Props) {
         onOpenChange={onOpenChange}
       >
     
-    <form className="flex flex-col gap-4">
+    <form className="flex flex-col gap-4" onSubmit={submit}>
       
         <Input
           placeholder="ex: @gmail.com"
           legend="email"
           {...register("email")}
+          error={errors.email?.message}
         />
         <Input
           placeholder="digite sua senha"
           legend="senha"
           {...register("password")}
+          error={errors.password?.message}
+          
         />
         <Button type="submit" size={"lg"} variant={"secundary"} className=" w-full">
           ENTRAR
