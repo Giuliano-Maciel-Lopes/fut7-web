@@ -4,17 +4,20 @@ import { useMutation } from "@tanstack/react-query";
 async function FetchData() {
   const res = await api.get("/session");
 
-  res.data;
+ return  res.data;
 }
 
-function UseLoguin() {
+export function UseLoguin() {
   const mutation = useMutation({
     mutationFn:FetchData,
     onSuccess(data,) {
+        console.log(data)
+        
+    },onError(error, variables, context) {
         
     },
 
 
   });
-  return {mutation}
+  return {...mutation}
 }

@@ -1,4 +1,4 @@
-import { LayoutAuth } from "@/components/auth";
+import { useAsideAuth } from "@/hooks/context/authaside";
 import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
 import { Logo } from "@/components/logo";
@@ -6,6 +6,7 @@ import { MenuBar } from "./menu";
 import { NavHeader } from "./nav/nav";
 
 export function Header() {
+  const {loguin} = useAsideAuth()
   return (
     <header className=" bg-blue-800 w-full text-md h-20 md:h-24 flex  items-center fixed z-50 border-b-2 border-gray-400">
       <div className="container flex items-center justify-between">
@@ -17,9 +18,9 @@ export function Header() {
           <NavHeader className="hidden md:flex gap-20" />
         </div>
 
-       <LayoutAuth title="teste">
-        teste
-       </LayoutAuth>
+       <Button onClick={loguin.open} variant="default">
+          <User /> login
+        </Button>
       </div>
     </header>
   );

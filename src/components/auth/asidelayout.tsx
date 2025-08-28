@@ -1,39 +1,39 @@
 import React from "react";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-  DialogClose,
-} from "../ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { User, X } from "lucide-react";
 import { Logo } from "../logo";
-import { Input } from "../ui/input";
 
 type Props = {
   children?: React.ReactNode;
   title: string;
+  buttonText: string;
+  toggleButton: () => void;
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
 };
 
-export function LayoutAuth({ children, title }: Props) {
+export function LayoutAuth({
+  children,
+  title,
+  buttonText,
+  isOpen,
+  onOpenChange,
+  toggleButton,
+}: Props) {
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="default">
-          <User /> login
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
 
-      <DialogContent className="bg-blue-100 rounded-xl max-w-md w-[90%] p-6 border-2 border-white">
-        <div className="flex flex-col items-center gap-3">
+      <DialogContent className="bg-blue-100 rounded-3xl md:w-[500px] w-[300px] max-h-[90vh] md:px-6 px-4 pt-4">
+
+        <div className="flex flex-col items-center ">
           <Logo />
           <DialogTitle className="text-heading-lg">{title}</DialogTitle>
         </div>
 
-        <div className="mt-4">
-          <Input legend="fildset" /> {children}
-        </div>
+          
+        <div className="mt-4 mb-">{children}</div>
+        <Button size={"lg"} onClick={toggleButton}>{buttonText}</Button>
+
       </DialogContent>
     </Dialog>
   );
