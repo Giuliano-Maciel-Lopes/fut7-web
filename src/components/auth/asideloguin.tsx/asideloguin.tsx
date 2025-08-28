@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { useLoguinForm } from "@/hooks/auth/useloguin/form";
 import { UseLoguin } from "@/hooks/auth/useloguin/query";
 import { LayoutAuth } from "../asidelayout";
-import { useToggle } from "@/hooks/usetoggle";
+import { ErrorAlert } from "@/components/erroAlert.tsx/erroalert";
 
 type Props = {
   toggleButton: () => void;
@@ -13,7 +13,7 @@ type Props = {
 
 export function Asideloguin({ toggleButton, isOpen, onOpenChange }: Props) {
   const { errors, handleSubmit, register  } = useLoguinForm();
-  const {  mutate } = UseLoguin();
+  const {  mutate , erroMsg} = UseLoguin();
 
    const submit = handleSubmit((data)=>{
     mutate(data)
@@ -48,6 +48,7 @@ export function Asideloguin({ toggleButton, isOpen, onOpenChange }: Props) {
           ENTRAR
         </Button>
 
+{erroMsg && (<ErrorAlert message={erroMsg}/>)}
       
     </form>
     </LayoutAuth>
