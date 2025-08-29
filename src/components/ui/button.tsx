@@ -11,9 +11,10 @@ const buttonVariants = cva(
       variant: {
         default: "bg-green-400 text-white hover:bg-green-600 rounded-full",
 
-        transparent:"bg-transparent text-white hover:bg-green-400 rounded-full",
+        transparent:
+          "bg-transparent text-white hover:bg-green-400 rounded-full",
 
-           secundary: "bg-blue-600 text-white hover:bg-blue-700 rounded-full",
+        secundary: "bg-blue-600 text-white hover:bg-blue-700 rounded-full",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -30,23 +31,30 @@ const buttonVariants = cva(
 );
 
 function Button({
-   type = "button",
+  type = "button",
   className,
   variant,
   size,
   asChild = false,
+  isLoading = false,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    isLoading?: boolean;
   }) {
   const Comp = asChild ? Slot : "button";
 
   return (
     <Comp
-     type={Comp === "button" ? type : undefined} 
+      type={Comp === "button" ? type : undefined}
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size, className }),(
+          isLoading || props.disabled
+        ) && "opacity-50 cursor-not-allowed"
+      )}
+      disabled={isLoading || props.disabled}
       {...props}
     />
   );
