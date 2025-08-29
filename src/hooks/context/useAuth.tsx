@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { AuthContext } from "@/context/auth";
 
-function UseAuth(){
-const  context =  useContext(AuthContext)
+export function UseAuth(){
+ const  context =  useContext(AuthContext)
 
   if (!context) {
   throw new Error("erro no context useAuth");

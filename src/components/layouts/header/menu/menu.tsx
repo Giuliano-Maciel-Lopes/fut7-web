@@ -1,52 +1,29 @@
+import { MenuLayout } from "./layout/menuLayout";
+import { NavPages } from "../nav/navPages";
+import { NavRest } from "../nav/navRest";
 import { Button } from "@/components/ui/button";
-import {
-  Drawer,
-  DrawerTrigger,
-  DrawerTitle,
-  DrawerContent,
-  DrawerClose,
-} from "@/components/ui/drawer";
-import { Menu } from "lucide-react";
-import { NavHeader } from "../nav/nav";
-import { X } from "lucide-react";
+import { LogOut } from "lucide-react";
+import { UseAuth } from "@/hooks/context/useAuth";
 
-export function MenuBar() {
+export function Menu() {
+  const { remove } = UseAuth();
+
   return (
-    <Drawer>
-     
-      <DrawerTrigger asChild>
-        <Button variant="transparent" className="md:hidden">
-          <Menu className="w-6 h-6 text-white" />
-        </Button>
-      </DrawerTrigger>
+    <aside>
+      <MenuLayout>
+        <nav className="flex flex-col gap-2 text-white  ">
+          <div className="md:hidden ">
+            <NavPages className="flex flex-col gap-2" />
+          </div>
 
-    
-      <DrawerContent className="h-full w-full md:w-96 bg-blue-600 text-white p-6 flex flex-col">
+          <NavRest />
 
-        <div className="flex items-center justify-between mb-6">
-          <DrawerTitle className="text-2xl font-bold tracking-tight">
-            Menu
-          </DrawerTitle>
-
-          <DrawerClose asChild>
-            <Button
-              variant="transparent"
-              className=""
-            >
-              <X className="w-5 h-5" />
-            </Button>
-          </DrawerClose>
-        </div>
-
-  
-        <NavHeader className="flex flex-col gap-4 text-white md:hidden" />
-
-
-        <div className="mt-auto pt-6 border-t border-white/20 text-sm text-white/70">
-          © 2025 Fut7. Todos os direitos reservados.
-        </div>
-      </DrawerContent>
-    </Drawer>
+          <Button onClick={remove}>
+            {" "}
+            <LogOut /> Sair
+          </Button>
+        </nav>
+      </MenuLayout>
+    </aside>
   );
 }
-  

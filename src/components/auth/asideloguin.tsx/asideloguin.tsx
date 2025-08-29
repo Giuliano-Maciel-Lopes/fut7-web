@@ -6,6 +6,7 @@ import { LayoutAuth } from "../asidelayout";
 import { ErrorAlert } from "@/components/erroAlert.tsx/erroalert";
 
 
+
 type Props = {
   toggleButton: () => void;
   isOpen: boolean;
@@ -21,6 +22,7 @@ export function Asideloguin({ toggleButton, isOpen, onOpenChange ,closedAside }:
 
     mutate(data)
     console.log("teste")
+
   })
 
   return (
