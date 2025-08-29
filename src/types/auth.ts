@@ -2,9 +2,9 @@ export type Role ="ADMIN"|"JOGADOR"
 
 
 
-export type Auth={
+export type AuthResponse={
     token:string
-    user:{
+    datauser:{
         id:string
         email:string
         name:string

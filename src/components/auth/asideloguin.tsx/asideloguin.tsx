@@ -5,17 +5,20 @@ import { UseLoguin } from "@/hooks/auth/useloguin/query";
 import { LayoutAuth } from "../asidelayout";
 import { ErrorAlert } from "@/components/erroAlert.tsx/erroalert";
 
+
 type Props = {
   toggleButton: () => void;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
+  closedAside?:() =>void
 };
 
-export function Asideloguin({ toggleButton, isOpen, onOpenChange }: Props) {
-  const { errors, handleSubmit, register  } = useLoguinForm();
-  const {  mutate , erroMsg} = UseLoguin();
+export function Asideloguin({ toggleButton, isOpen, onOpenChange ,closedAside }: Props) {
+  const { errors, handleSubmit, register   } = useLoguinForm();
+  const {  mutate , erroMsg , isPending} = UseLoguin(closedAside );
 
    const submit = handleSubmit((data)=>{
+
     mutate(data)
     console.log("teste")
   })
@@ -44,7 +47,7 @@ export function Asideloguin({ toggleButton, isOpen, onOpenChange }: Props) {
           error={errors.password?.message}
           
         />
-        <Button type="submit" size={"lg"} variant={"secundary"} className=" w-full">
+        <Button isLoading={isPending}  type="submit" size={"lg"} variant={"secundary"} className=" w-full">
           ENTRAR
         </Button>
 

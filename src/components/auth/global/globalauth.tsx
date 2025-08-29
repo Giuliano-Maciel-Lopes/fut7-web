@@ -1,4 +1,4 @@
-import { useAsideAuth } from "@/hooks/context/authaside";
+import { useAsideAuth } from "@/hooks/context/useAuthaside";
 import { AsideRegister } from "../asideRegister/asideregister";
 import { Asideloguin } from "../asideloguin.tsx/asideloguin";
 
@@ -9,6 +9,7 @@ export function GlobalAuth() {
     <>
       {loguin.isOpen && (
         <Asideloguin
+        closedAside={loguin.closed}
         isOpen={loguin.isOpen}
         onOpenChange={loguin.toggle}
 

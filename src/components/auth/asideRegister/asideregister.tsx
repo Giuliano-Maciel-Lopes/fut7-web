@@ -12,7 +12,7 @@ type Props = {
 };
 
 export function AsideRegister({ toggleButton, isOpen ,onOpenChange}: Props) {
-  const{mutate ,erroMsg} = useCreateRegister()
+  const{mutate ,erroMsg , isPending} = useCreateRegister()
   const{errors ,handleSubmit ,register } =useRegisterForm()
   
   const submit = handleSubmit((data)=>{
@@ -56,7 +56,7 @@ export function AsideRegister({ toggleButton, isOpen ,onOpenChange}: Props) {
             {...register("confirmPassword")}
           />
 
-          <Button size={"lg"} type="submit" variant={"secundary"}>CADASTRAR</Button>
+          <Button isLoading={isPending} size={"lg"} type="submit" variant={"secundary"}>CADASTRAR</Button>
 
           {erroMsg && (<ErrorAlert message={erroMsg}/>)}
         </form>

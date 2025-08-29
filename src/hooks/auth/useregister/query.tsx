@@ -3,9 +3,13 @@ import { CreateUserInput } from "@/schemazod/user/creat";
 import { useMutation } from "@tanstack/react-query";
 import { errosApiMessage } from "@/utils/ErrosApi";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import type { User } from "@shared/prisma";
+
+type ApiUser = Omit<User, "password">;
 
 async function fetchData(data: CreateUserInput) {
-  const res = await api.post("/users", data);
+  const res = await api.post<ApiUser>("/users", data);
 
   return res.data;
 }
@@ -17,7 +21,9 @@ export function useCreateRegister() {
     mutationFn: fetchData,
 
     onSuccess(data) {
-      console.log(data);
+      toast.success(
+        `Seja bem-vindo, ${data.name}! Que comece os jogos `
+      );
     },
 
     onError(errors) {
@@ -25,6 +31,6 @@ export function useCreateRegister() {
       setErroMsg(message);
     },
   });
-  
+
   return { ...mutation, erroMsg };
 }

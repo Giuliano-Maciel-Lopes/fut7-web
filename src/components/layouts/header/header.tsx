@@ -1,4 +1,4 @@
-import { useAsideAuth } from "@/hooks/context/authaside";
+import { useAsideAuth } from "@/hooks/context/useAuthaside";
 import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
 import { Logo } from "@/components/logo";

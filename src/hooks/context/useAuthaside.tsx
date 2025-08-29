@@ -5,7 +5,7 @@ export function useAsideAuth() {
   const context = useContext(AuthAsideContext)
   
    if (!context) {
-  throw new Error("erro no context useauthmodal");
+  throw new Error("erro no context useAuthAside");
 }
   return context
   
