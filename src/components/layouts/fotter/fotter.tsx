@@ -1,5 +1,11 @@
 import { Logo } from "@/components/logo";
-import { ActiveLink } from "@/components/acticve-link/activelink";
+import { ActiveLink, ActiveLinkBorder } from "@/components/acticve-link";
+
+const footerLinks = [
+  { name: "Termos de Uso", href: "/" },
+  { name: "Política de Privacidade", href: "/" },
+  { name: "Enviar Feedback", href: "/" },
+];
 
 export function Fotter() {
   return (
@@ -7,9 +13,11 @@ export function Fotter() {
       <div className="container flex justify-between items-center">
         <Logo />
         <div className="flex flex-col md:flex-row md:gap-4 gap-3 ">
-          <ActiveLink href="/">Termos de Uso</ActiveLink>
-          <ActiveLink href="/">Politica de Privacidade</ActiveLink>
-          <ActiveLink href="/">Enviar feedback</ActiveLink>
+          {footerLinks.map((link) => (
+            <ActiveLink key={link.name} href={link.href}>
+              {link.name}
+            </ActiveLink>
+          ))}
         </div>
       </div>
     </footer>

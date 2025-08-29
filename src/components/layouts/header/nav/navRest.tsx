@@ -1,12 +1,17 @@
+import { ActiveLink, ActiveLinkBorder } from "@/components/acticve-link";
 
-import { ActiveLink } from "@/components/acticve-link/activelink";
-import Link from "next/link";
 export function NavRest() {
+  const navLinks = [{ name: "Cartinha", href: "/" }];
+
   return (
     <nav>
-      <ActiveLink href={"/"}/>
-      
-
+      {navLinks.map((link) => (
+        <ActiveLinkBorder>
+          <ActiveLink key={link.name} href={link.href}>
+            {link.name}
+          </ActiveLink>
+        </ActiveLinkBorder>
+      ))}
     </nav>
   );
 }
