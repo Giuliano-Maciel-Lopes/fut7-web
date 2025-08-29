@@ -1,4 +1,4 @@
-import { ActiveLink, ActiveLinkBorder } from "@/components/acticve-link";
+import { Activelink } from "@/components/acticve-link";
 
 type Props = {
   className?: string;
@@ -16,15 +16,15 @@ export function NavPages({ className }: Props) {
   return (
     <nav className={className}>
       {navPagesLinks.map((link) => (
-        <div key={link.name}>
+        <div >
           
-          <ActiveLinkBorder className="md:hidden">
-            <ActiveLink href={link.href}>{link.name}</ActiveLink>
-          </ActiveLinkBorder>
+          <Activelink.conatiner key={link.name} className="md:hidden" >
+           <Activelink.content key={link.href} href={link.href}>{link.name}</Activelink.content>
+          </Activelink.conatiner>
 
           
           <div className="hidden md:block">
-            <ActiveLink href={link.href}>{link.name}</ActiveLink>
+            <Activelink.content key={link.href} href={link.href}>{link.name}</Activelink.content>
           </div>
 
         </div>
