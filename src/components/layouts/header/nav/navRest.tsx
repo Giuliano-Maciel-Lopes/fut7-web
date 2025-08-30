@@ -1,7 +1,7 @@
 import { Activelink } from "@/components/acticve-link";
 
 export function NavRest() {
-  const navLinks = [{ name: "Cartinha", href: "/" }];
+  const navLinks = [{ name: "Cartinha", href: "/letter" }];
 
   return (
     <nav>
