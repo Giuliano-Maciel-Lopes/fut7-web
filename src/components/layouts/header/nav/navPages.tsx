@@ -16,10 +16,10 @@ export function NavPages({ className }: Props) {
   return (
     <nav className={className}>
       {navPagesLinks.map((link) => (
-        <div >
+        <div  key={link.name}>
           
           <Activelink.conatiner key={link.name} className="md:hidden" >
-           <Activelink.content key={link.href} href={link.href}>{link.name}</Activelink.content>
+           <Activelink.content  key={link.href} href={link.href}>{link.name}</Activelink.content>
           </Activelink.conatiner>
 
           
