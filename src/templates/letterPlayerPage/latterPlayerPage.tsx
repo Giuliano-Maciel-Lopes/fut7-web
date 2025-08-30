@@ -1,21 +1,32 @@
-import { LetterPlayer } from "@/components/LetterPlayer";
+import { PlayerLetter } from "@/components/LetterPlayer";
+import { Loading } from "@/components/loading/loading";
+import { UsePLayerFindByuser } from "@/hooks/player/findyByuser/findyByuser";
+import { PlayerLayout } from "./layout";
 
 export function LatterPlayerpage() {
+  const { isLoading, data } = UsePLayerFindByuser();
+
+  if (isLoading) return <Loading />;
   return (
-    <div className="relative w-screen h-screen flex flex-col items-center justify-center">
-     
-      <div
-        className="hidden md:flex absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/assets/fundofutebol.jpg')" }}
-      >
-        <div className="absolute inset-0 bg-black/60"></div>
+    <PlayerLayout className="" bgImage="/assets/fundofutebol.jpg">
 
+    <section className="container flex flex-col md:flex-row z-10 items-center">
+      <div className="md:w-1/2 ">
+        <PlayerLetter.container size="lg">
+          <PlayerLetter.image size="lg" img={data?.photoUrl || undefined} />
+          <PlayerLetter.data
+            size="lg"
+            assistencia={data?.assists ?? 0}
+            gols={data?.goals ?? 0}
+            nameCart={data?.nameCart || "Crie sua cartinha"}
+          />
+        </PlayerLetter.container>
       </div>
 
-      {/* Card sempre visível */}
-      <div className="relative z-10">
-        <LetterPlayer size="lg" assistencia="10" gols="10" nome="Giuliano" LogoTeam={"/logo.png"} img={"/assets/giu.jpg"} />
+      <div className="">
+        
       </div>
-    </div>
+    </section>
+    </PlayerLayout>
   );
 }
