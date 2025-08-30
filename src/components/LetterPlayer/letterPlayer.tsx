@@ -8,7 +8,7 @@ type Props = {
   gols: string;
   LogoTeam?: string | StaticImageData;
   className?: string;
-   size?: "sm" | "md" | "lg";
+  size?:  | "md" | "lg";
 };
 
 export function LetterPlayer({
@@ -27,25 +27,36 @@ export function LetterPlayer({
       className={`relative ${s.w} ${s.h} shadow-xl border-4 border-yellow-200 overflow-hidden flex flex-col items-center
       bg-gradient-to-b from-yellow-400 via-yellow-300 to-yellow-500 clip-card ${className}`}
     >
-      {LogoTeam && (
-        <Image
-          src={LogoTeam}
-          alt="Team logo"
-          className={`absolute top-2 left-2 object-contain ${s.logo}`}
-        />
-      )}
+     
+      <div className="relative flex w-full justify-center  mt-4 h-1/2">
+        
+        {img && (
+          <Image
+            src={img}
+            alt={""}
+            width={s.playerImgWidth}
+            height={s.playerImgHeight}
+            className="rounded-full border-2 border-white object-cover shadow-md"
+          />
+        )}
 
-      {img && (
-        <Image
-          src={img}
-          alt={nome}
-          className={`rounded-full border-2 border-white object-cover shadow-md ${s.img}`}
-        />
-      )}
+       
+        {LogoTeam && (
+          <Image
+            src={LogoTeam}
+            alt="Team logo"
+            width={s.logoWidth}
+            height={s.logoHeight}
+            className="absolute top-5 left-0 object-contain"
+          />
+        )}
+      </div>
 
-      <h2 className={`mt-3 font-bold text-gray-900 ${s.text}`}>{nome}</h2>
+     
+      <h2 className={`mt-4 font-bold text-gray-900 ${s.text}`}>{nome}</h2>
 
-      <div className={`mt-4 w-full px-4 text-gray-800 font-semibold ${s.text}`}>
+      
+      <div className={`mt-2 w-full px-4 text-gray-800 font-semibold ${s.text}`}>
         <div className="flex justify-between">
           <span>Gols</span>
           <span>{gols}</span>
