@@ -1,2 +1,3 @@
 export * from "./latterPlayerPage"
-export * from "./layout"
+export * from "./layouts"
+export * from "./components"
