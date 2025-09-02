@@ -7,9 +7,10 @@ import { Uploadinput } from "@/hooks/uplods/uploads";
 type Props = {
   editCreat: UseCreateEditPlayerFormReturn;
   uploadfile: Uploadinput;
+  onConfirm:()=>void
 };
 
-export function CreateEditForm({ editCreat, uploadfile }: Props) {
+export function CreateEditForm({ editCreat, uploadfile ,onConfirm }: Props) {
   const { errors, register } = editCreat;
   const { error, file, setFile } = uploadfile;
   return (
@@ -45,7 +46,7 @@ export function CreateEditForm({ editCreat, uploadfile }: Props) {
           }}
         />
 
-        <Button type="submit">Salvar</Button>
+        <Button onClick={onConfirm} >Salvar</Button>
       </form>
     </CreatEditLayout>
   );

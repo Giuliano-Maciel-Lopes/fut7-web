@@ -21,7 +21,7 @@ export function LayoutAuth({
 }: Props) {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-blue-50 rounded-3xl md:w-[500px] w-[300px] max-h-[90vh] md:px-6 px-4 pt-4 flex flex-col border-2 border-white">
+      <DialogContent className="bg-aside rounded-3xl md:w-[500px] w-[300px] max-h-[90vh] md:px-6 px-4 pt-4 flex flex-col border-2 border-white">
       
         <div className="flex flex-col items-center">
           <Logo />

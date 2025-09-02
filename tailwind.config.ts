@@ -19,6 +19,7 @@ export default {
     
     extend: {
         backgroundImage: {
+      
     "campo-gradiente": "linear-gradient(to bottom, #4B0082, #22543D)",
   },
       colors: {

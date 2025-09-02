@@ -6,8 +6,11 @@ import { CreateEditForm } from "./components";
 import { useCreateEditPlayerForm } from "@/hooks/player/createEdit/form";
 import { useUpload } from "@/hooks/uplods/uploads";
 import { useCreateEditPlayer } from "@/hooks/player/createEdit/query";
+import { useToggle } from "@/hooks/usetoggle";
+import { ConfirmLayout } from "@/components/confirmLogout";
 
 export function LatterPlayerpage() {
+  const confirm = useToggle();
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
   const { isLoading, data } = UsePLayerFindByuser(); // busca dados player
 
@@ -15,7 +18,7 @@ export function LatterPlayerpage() {
   const { handleSubmit, setValue } = editcreat;
 
   const { mutate, isPending } = useCreateEditPlayer(); // cria  e edita
-  const uploadfile = useUpload();
+  const uploadfile = useUpload(); // upl
 
   const handleConfirm = async () => {
     if (uploadfile.file) {
@@ -24,12 +27,12 @@ export function LatterPlayerpage() {
       setValue("photoUrl", patchurl);
 
       handleSubmit((dataform) => {
-        mutate({ data: dataform, id: data?.id }); 
-      });
+        mutate({ data: dataform, id: data?.id });
+      })();
     } else {
       handleSubmit((dataform) => {
         mutate({ data: dataform, id: data?.id });
-      });
+      })();
     }
   };
 
@@ -54,9 +57,22 @@ export function LatterPlayerpage() {
         </div>
 
         <div className="md:w-1/2">
-          <CreateEditForm editCreat={editcreat} uploadfile={uploadfile} />
+          <CreateEditForm
+            editCreat={editcreat}
+            uploadfile={uploadfile}
+            onConfirm={confirm.open}
+          />
         </div>
       </section>
+
+        <ConfirmLayout
+          mensg="Tem certeza que deseja modificar sua cartinha ?"
+          onCancel={confirm.closed}
+          onConfirm={()=>{confirm.closed(); handleConfirm()}}
+          onOpenChange={confirm.toggle}
+          open={confirm.isOpen}
+        />
+      
     </PlayerLayout>
   );
 }
