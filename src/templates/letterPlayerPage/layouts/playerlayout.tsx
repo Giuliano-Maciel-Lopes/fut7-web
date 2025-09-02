@@ -7,7 +7,7 @@ type Props = {
 export function PlayerLayout({ children, bgImage, className }: Props) {
   return (
     <div
-      className={`relative w-screen h-screen flex flex-col justify-center ${
+      className={`relative w-screen h-screen flex flex-col justify-center z-0 ${
         className ?? ""
       }`}
     >
@@ -20,7 +20,7 @@ export function PlayerLayout({ children, bgImage, className }: Props) {
         </div>
       )}
 
-      <section className="">{children}</section>
+      <section className="z-10">{children}</section>
     </div>
   );
 }

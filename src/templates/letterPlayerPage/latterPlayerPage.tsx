@@ -2,16 +2,20 @@ import { PlayerLetter } from "@/components/LetterPlayer";
 import { Loading } from "@/components/loading/loading";
 import { UsePLayerFindByuser } from "@/hooks/player/findyByuser/findyByuser";
 import { PlayerLayout } from "./layouts";
+import { CreateEditForm } from "./components";
+
 
 export function LatterPlayerpage() {
   const { isLoading, data } = UsePLayerFindByuser();
+
 
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
 
   if (isLoading) return <Loading />;
   return (
     <PlayerLayout className="" bgImage="/assets/fundofutebol.jpg">
-      <section className="container flex flex-col md:flex-row z-10 items-center">
+
+      <section className="container flex flex-col md:flex-row  items-center">
         <div className="md:w-1/2 ">
           <PlayerLetter.container size="lg">
 
@@ -29,8 +33,12 @@ export function LatterPlayerpage() {
           </PlayerLetter.container>
         </div>
 
-        <div className=""></div>
+        <div className="md:w-1/2">
+        <CreateEditForm />
+        
+        </div>
       </section>
+
     </PlayerLayout>
   );
 }

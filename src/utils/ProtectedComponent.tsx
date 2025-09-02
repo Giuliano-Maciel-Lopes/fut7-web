@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { UseAuth } from "@/hooks/context/useAuth";
 import { useAsideAuth } from "@/hooks/context/useAuthaside";
-useAsideAuth;
+
 
 export function ProtectedComponent({
   children,
@@ -15,7 +15,9 @@ export function ProtectedComponent({
 
   useEffect(() => {
     if (!session?.token) {
-      loguin.open();
+       loguin.open();       // abre o login
+      router.replace("/"); // redireciona pra home
+      
     }
   }, [session, router]);
 
