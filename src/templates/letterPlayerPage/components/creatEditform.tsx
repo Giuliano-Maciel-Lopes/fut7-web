@@ -2,23 +2,50 @@ import { Input } from "@/components/ui/input";
 import { CreatEditLayout } from "../layouts";
 import { Button } from "@/components/ui/button";
 import { UseCreateEditPlayerFormReturn } from "@/hooks/player/createEdit/form";
+import { Uploadinput } from "@/hooks/uplods/uploads";
 
-export function CreateEditForm(editCreat: UseCreateEditPlayerFormReturn) {
-  const { errors, handleSubmit, register } = editCreat;
+type Props = {
+  editCreat: UseCreateEditPlayerFormReturn;
+  uploadfile: Uploadinput;
+};
+
+export function CreateEditForm({ editCreat, uploadfile }: Props) {
+  const { errors, register } = editCreat;
+  const { error, file, setFile } = uploadfile;
   return (
     <CreatEditLayout className="w-full h-auto">
-      <form>
+      <h1 className="text-blue-600 font">
+        FALA JOGADOR! AQUI VOCE PDE CRIAR E EDITAR SUAS CARTA{" "}
+      </h1>
+      <form className="flex flex-col gap-2 text-black">
         <Input
           legend="Nome do Jogador"
           error={errors.nameCart?.message}
           {...register("nameCart")}
-
         />
-        <Input   {...register("number")}/>
-        <Input    {...register("photoUrl")}/>
-        <Input   {...register("position")} />
+        <Input
+          legend="Número"
+          error={errors.number?.message}
+          {...register("number")}
+        />
 
-        <Button />
+        <Input
+          legend="Posição"
+          error={errors.position?.message}
+          {...register("position")}
+        />
+        <Input
+          className="h-52 text-center "
+          type="file"
+          legend="Imagem"
+          error={error}
+          onChange={(e) => {
+            const file = e.target.files?.[0] ?? null;
+            setFile(file);
+          }}
+        />
+
+        <Button type="submit">Salvar</Button>
       </form>
     </CreatEditLayout>
   );

@@ -7,4 +7,5 @@ export const API_ROUTES = {
   GROUPS: "/group",
   INVITES: "/invites",
   MATCH_EVENTS: "/match_event",
+  Uploads: "/uploads",
 };

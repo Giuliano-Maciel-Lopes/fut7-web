@@ -1,11 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { PlayerBodySchema, PlayerInput } from "@/schemazod/player/create";
-import {
-  PlayerBodySchemaupdate,
-  updatePlayerInput,
-} from "@/schemazod/player/update";
+import { PlayerBodySchema,  } from "@/schemazod/player/create";
+import { PlayerBodySchemaupdate } from "@/schemazod/player/update";
 import { Player } from "@shared/prisma";
+import z from "zod";
 
 type Props = {
   player?: Player;
@@ -14,21 +12,27 @@ type Props = {
 export function useCreateEditPlayerForm({ player }: Props) {
   const isEdit = !!player;
 
+  const schema = isEdit ? PlayerBodySchemaupdate : PlayerBodySchema;
+
+  type schemaInput = z.infer<typeof schema>;
+
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<PlayerInput | updatePlayerInput>({
-    resolver: zodResolver(isEdit ? PlayerBodySchemaupdate : PlayerBodySchema),
+    setValue
+  } = useForm<schemaInput>({
+    resolver: zodResolver(schema),
     defaultValues: {
       nameCart: player?.nameCart ?? undefined,
       number: player?.number ?? undefined,
       position: player?.position ?? undefined,
       photoUrl: player?.photoUrl ?? undefined,
-      role: player?.role ?? undefined,
     },
   });
 
-  return { register, errors, handleSubmit };
+  return { register, errors, handleSubmit ,setValue};
 }
-export type UseCreateEditPlayerFormReturn = ReturnType<typeof useCreateEditPlayerForm>;
+export type UseCreateEditPlayerFormReturn = ReturnType<
+  typeof useCreateEditPlayerForm
+>;

@@ -6,8 +6,8 @@ export function NavRest() {
   return (
     <nav>
       {navLinks.map((link) => (
-        <Activelink.conatiner>
-          <Activelink.content key={link.name} href={link.href}>
+        <Activelink.conatiner key={link.name}>
+          <Activelink.content  href={link.href}>
             {link.name}
           </Activelink.content>
         </Activelink.conatiner>

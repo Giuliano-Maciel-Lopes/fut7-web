@@ -8,9 +8,10 @@ type Props = {
 export function CreatEditLayout({ children, className = "" }: Props) {
   return (
     <div
-      className={`w-full h-auto bg-white border border-gray-300 rounded-lg shadow-sm p-6  mx-auto my-8  ${className}`}
+      className={` flex flex-col w-full h-auto bg-white border-4 border-blue-800 rounded-lg shadow-sm p-6  mx-auto my-8  ${className}`}
     >
-      {children}
+      <div>{children}</div>
+      <div></div>
     </div>
   );
 }
