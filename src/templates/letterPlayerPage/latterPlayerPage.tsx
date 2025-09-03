@@ -9,6 +9,7 @@ import { useCreateEditPlayer } from "@/hooks/player/createEdit/query";
 import { useToggle } from "@/hooks/usetoggle";
 import { ConfirmLayout } from "@/components/confirmLogout";
 
+
 export function LatterPlayerpage() {
   const confirm = useToggle();
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;

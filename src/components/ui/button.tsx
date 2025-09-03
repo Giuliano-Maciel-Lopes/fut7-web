@@ -15,6 +15,7 @@ const buttonVariants = cva(
           "bg-transparent text-white hover:bg-green-400 rounded-full",
 
         secundary: "bg-blue-600 text-white hover:bg-blue-700 rounded-full",
+        
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

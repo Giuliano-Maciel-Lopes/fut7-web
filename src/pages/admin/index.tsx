@@ -1,7 +1,9 @@
-export function AdminDashoborads() {
+import { AdminDashoboardsPage } from "@/templates/admin/adminDashborads/adminDashbords";
+
+export function Dashoboards() {
   return (
     <div>
-      adminDashbords
+    <AdminDashoboardsPage/>
     </div>
   );
 }

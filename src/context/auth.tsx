@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { api } from "@/services/axios";
 import { AuthResponse } from "@/types/auth";
+import Cookies from "js-cookie";
 
 type AuthContextType = {
   session: null |AuthResponse;
