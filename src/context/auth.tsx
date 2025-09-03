@@ -19,26 +19,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   function save(data: AuthResponse) {
     setSession(data);
 
-    localStorage.setItem(
-      `${LOCAL_STORAGE_KEY}:datauser`,
-      JSON.stringify(data.datauser)
-    );
-    localStorage.setItem(`${LOCAL_STORAGE_KEY}:token`, data.token);
+      Cookies.set("token", data.token, { expires: 1 }); // expira em 7 dias
+    Cookies.set("datauser", JSON.stringify(data.datauser), { expires: 1 });
 
       api.defaults.headers["Authorization"] = `Bearer ${data.token}`
   }
 
   function remove() {
-    localStorage.removeItem(`${LOCAL_STORAGE_KEY}:datauser`);
-    localStorage.removeItem(`${LOCAL_STORAGE_KEY}:token`);
+     Cookies.remove("token");
+    Cookies.remove("datauser");
     setSession(null);
     window.location.assign("/");
   }
   
 
   function loaduser() {
-    const datauser = localStorage.getItem(`${LOCAL_STORAGE_KEY}:datauser`);
-    const token = localStorage.getItem(`${LOCAL_STORAGE_KEY}:token`);
+     const token = Cookies.get("token");
+    const datauser = Cookies.get("datauser");
     api.defaults.headers["Authorization"] = `Bearer ${token}`
 
     if (token && datauser) {
