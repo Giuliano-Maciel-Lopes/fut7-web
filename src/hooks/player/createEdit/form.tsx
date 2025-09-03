@@ -14,14 +14,16 @@ export function useCreateEditPlayerForm({ player }: Props) {
 
   const schema = isEdit ? PlayerBodySchemaupdate : PlayerBodySchema;
 
-  type schemaInput = z.infer<typeof schema>;
+   type SchemaInput =
+    | z.infer<typeof PlayerBodySchema>
+    | z.infer<typeof PlayerBodySchemaupdate>;
 
   const {
     register,
     formState: { errors },
     handleSubmit,
     setValue
-  } = useForm<schemaInput>({
+  } = useForm< SchemaInput>({
     resolver: zodResolver(schema),
     defaultValues: {
       nameCart: player?.nameCart ?? undefined,
