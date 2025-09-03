@@ -7,17 +7,15 @@ import { Uploadinput } from "@/hooks/uplods/uploads";
 type Props = {
   editCreat: UseCreateEditPlayerFormReturn;
   uploadfile: Uploadinput;
-  onConfirm:()=>void
+  onConfirm: () => void;
 };
 
-export function CreateEditForm({ editCreat, uploadfile ,onConfirm }: Props) {
+export function CreateEditForm({ editCreat, uploadfile, onConfirm }: Props) {
   const { errors, register } = editCreat;
   const { error, file, setFile } = uploadfile;
   return (
     <CreatEditLayout className="w-full h-auto">
-      <h1 className="text-blue-600 font">
-        FALA JOGADOR! AQUI VOCE PDE CRIAR E EDITAR SUAS CARTA{" "}
-      </h1>
+     
       <form className="flex flex-col gap-2 text-black">
         <Input
           legend="Nome do Jogador"
@@ -46,7 +44,7 @@ export function CreateEditForm({ editCreat, uploadfile ,onConfirm }: Props) {
           }}
         />
 
-        <Button onClick={onConfirm} >Salvar</Button>
+        <Button onClick={onConfirm}>Salvar</Button>
       </form>
     </CreatEditLayout>
   );
