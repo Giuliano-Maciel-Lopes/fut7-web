@@ -34,7 +34,7 @@ export function CreateEditForm({ editCreat, uploadfile, onConfirm }: Props) {
           {...register("position")}
         />
         <Input
-          className="h-52 text-center "
+          className="h-48 text-center "
           type="file"
           legend="Imagem"
           error={error}

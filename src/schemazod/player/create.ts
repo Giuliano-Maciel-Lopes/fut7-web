@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const PlayerBodySchema = z.object({
-  nameCart: z.string().min(1, "O nome é obrigatório"),
+  nameCart: z.string().trim().min(1, "O nome é obrigatório"),
   position: z.enum(
     ["GOLEIRO", "DEFENSOR", "MEIOCAMPO", "ATACANTE"],
     "escolha uma opçao"

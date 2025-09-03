@@ -12,6 +12,7 @@ type Props = {
   onCancel: () => void;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  isLoading?: boolean;
 };
 
 export function ConfirmLayout({
@@ -20,6 +21,7 @@ export function ConfirmLayout({
   onCancel,
   onOpenChange,
   open,
+  isLoading
 }: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -39,6 +41,7 @@ export function ConfirmLayout({
             Cancelar
           </Button>
           <Button
+          isLoading={isLoading}
             variant="default"
             className="w-36 h-14 text-white bg-blue-700 rounded-xl shadow-lg hover:bg-blue-800 transition"
             onClick={onConfirm}

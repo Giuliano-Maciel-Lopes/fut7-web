@@ -12,7 +12,8 @@ import { ConfirmLayout } from "@/components/confirmLogout";
 export function LatterPlayerpage() {
   const confirm = useToggle();
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
-  const { isLoading, data } = UsePLayerFindByuser(); // busca dados player
+  const { isLoading, data , } = UsePLayerFindByuser(); // busca dados player
+  
 
   const editcreat = useCreateEditPlayerForm({ player: data }); // formulario
   const { handleSubmit, setValue } = editcreat;
@@ -38,9 +39,11 @@ export function LatterPlayerpage() {
 
   if (isLoading) return <Loading />;
 
+  
+
   return (
     <PlayerLayout className="" bgImage="/assets/fundofutebol.jpg">
-      <section className="container flex flex-col md:flex-row  items-center">
+      <section className="container flex flex-col md:flex-row  items-center gap-10 md:gap-0 my-5">
         <div className="md:w-1/2 ">
           <PlayerLetter.container size="lg">
             <PlayerLetter.image
@@ -66,6 +69,7 @@ export function LatterPlayerpage() {
       </section>
 
         <ConfirmLayout
+        isLoading={isPending}
           mensg="Tem certeza que deseja modificar sua cartinha ?"
           onCancel={confirm.closed}
           onConfirm={()=>{confirm.closed(); handleConfirm()}}

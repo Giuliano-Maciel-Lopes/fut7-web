@@ -15,6 +15,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {legend}
           </legend>
         )}
+        
         <input
           type={type}
           className={cn(
