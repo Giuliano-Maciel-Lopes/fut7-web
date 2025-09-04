@@ -12,7 +12,7 @@ export function Layout({ children }: props) {
       <Header />
 
       <main className="flex-1 flex flex-col items-center mt-20 md:mt-24">
-        <div >{children}</div>
+       <div className="w-full max-w-12xl ">{children}</div>
       </main>
 
       <Fotter/>

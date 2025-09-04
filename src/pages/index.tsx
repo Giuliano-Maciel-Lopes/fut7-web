@@ -6,7 +6,7 @@ import { Dashoboards } from "./admin";
 export default function Home() {
  const {session} =   UseAuth()
 const role = session?.datauser.role
-   if (!session?.token) {
+   if (!session?.datauser.role) {
     return <LandingPage />; 
 
   } else if(role === "ADMIN"){
