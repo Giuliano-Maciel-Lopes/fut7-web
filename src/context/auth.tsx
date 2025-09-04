@@ -23,7 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   function remove() {
-    Cookies.remove("token");
+   
     Cookies.remove("datauser");
     setSession(null);
     window.location.assign("/");

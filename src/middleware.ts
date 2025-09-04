@@ -1,15 +1,15 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import { jwtVerify } from "jose";
 
-const JWT_SECRET = process.env.JWT_SECRET!;
+const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
 
-interface MyJwtPayload extends JwtPayload {
-  id: string;
+interface MyJwtPayload {
+  sub: string; // user id
   role: "ADMIN" | "JOGADOR";
 }
 
-export function middlewareAuth(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
 
   if (!token) {
@@ -17,20 +17,28 @@ export function middlewareAuth(req: NextRequest) {
   }
 
   let payload: MyJwtPayload;
+
   try {
-    payload = jwt.verify(token, JWT_SECRET) as MyJwtPayload;
-  } catch {
+    const { payload: verifiedPayload } = await jwtVerify(token, secret);
+   
+    payload = verifiedPayload as unknown as MyJwtPayload;
+
+    console.log("Payload decodificado:", payload);
+  } catch (err) {
+    console.log("Erro ao verificar token:", err);
     return NextResponse.redirect(new URL("/", req.url));
   }
 
   const role = payload.role;
   const path = req.nextUrl.pathname;
 
+  // ADMIN acessa /admin
   if (path.startsWith("/admin") && role !== "ADMIN") {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  if (path.startsWith("/players") && role !== "JOGADOR") {
+  // JOGADOR acessa /jogadores
+  if (path.startsWith("/jogadores") && role !== "JOGADOR") {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
