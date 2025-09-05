@@ -32,6 +32,7 @@ export function useCreateEditPlayer() {
     onSuccess: (_, variables) => {
       
       queryClient.invalidateQueries({ queryKey: ["playersByUser", userId] });
+      queryClient.invalidateQueries({ queryKey: ["playersByUser", variables.id] });
 
       toast.success(
         variables.id

@@ -1,6 +1,6 @@
 import { LatterPlayerpage } from "@/templates/letterPlayerPage";
 import { UsePLayerFindByuser } from "@/hooks/player/findyByuser/findyByuser";
-import { useUploadFormConfirm } from "@/hooks/uploadsform/handleconfirm";
+import { useUploadFormConfirm } from "@/hooks/uploadsform/useUploadFormConfirm";
 import { useCreateEditPlayerForm } from "@/hooks/player/createEdit/form";
 import { useCreateEditPlayer } from "@/hooks/player/createEdit/query";
 import { useUpload } from "@/hooks/uplods/uploads";

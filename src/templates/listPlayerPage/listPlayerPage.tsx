@@ -38,7 +38,7 @@ export function ListPlayerPage({ players, adminMode, isLoading, data }: Props) {
 
       <div className="flex flex-col md:flex-row gap-2 mt-5">
         {displayPlayers?.map((pl) => (
-          <PlayerLetter.container onclick={()=> {router.push(`admin/player/${pl.id}`)}} >
+          <PlayerLetter.container onclick={()=> {router.push(`/admin/player/${pl.id}`)}} >
             <PlayerLetter.image img={`${BaseURL}/${pl.photoUrl}`}/>
 
             <PlayerLetter.data
