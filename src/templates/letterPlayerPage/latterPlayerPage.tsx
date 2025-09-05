@@ -13,13 +13,14 @@ import { ConfirmLayout } from "@/components/confirmLogout";
 export function LatterPlayerpage() {
   const confirm = useToggle();
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
+  
   const { isLoading, data , } = UsePLayerFindByuser(); // busca dados player
   
 
   const editcreat = useCreateEditPlayerForm({ player: data }); // formulario
   const { handleSubmit, setValue } = editcreat;
 
-  const { mutate, isPending } = useCreateEditPlayer(); // cria  e edita
+  const { mutate, isPending  } = useCreateEditPlayer(); // cria  e edita
   const uploadfile = useUpload(); // upl
 
   const handleConfirm = async () => {

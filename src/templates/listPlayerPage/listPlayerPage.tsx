@@ -1,7 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { PlayerLetter } from "@/components/LetterPlayer";
 import { Player } from "@shared/prisma";
-import { useListPlayer } from "@/hooks/player/List/list";
 import { Loading } from "@/components/loading/loading";
 import { useRouter } from "next/router";
 

@@ -2,6 +2,7 @@
 import { LandingPage } from "@/templates/landingPage/landingPage";
 import { UseAuth } from "@/hooks/context/useAuth";
 import { Dashoboards } from "./admin";
+import { PlayersDashBorads } from "./players";
 
 export default function Home() {
  const {session} =   UseAuth()
@@ -11,8 +12,9 @@ const role = session?.datauser.role
 
   } else if(role === "ADMIN"){
       return <Dashoboards />; // pag do admin 
-  }else{
-     return <LandingPage />;
+      
+  }else if(role === "JOGADOR"){
+     return <PlayersDashBorads />;
   }
 
 }

@@ -19,7 +19,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   function save(data: AuthResponse) {
     setSession(data);
 
-    Cookies.set("datauser", JSON.stringify(data.datauser), { expires: 1 });
+    Cookies.set("datauser", JSON.stringify(data.datauser), { expires: 1 }); // expira emz
   }
 
   function remove() {
@@ -29,35 +29,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     window.location.assign("/");
   }
 
-  function loaduser() {
-    const datauser = Cookies.get("datauser");
 
-    if (datauser) {
-      setSession({
-        datauser: JSON.parse(datauser),
-      });
-    }
-  }
 
-  useEffect(() => {
-    loaduser();
-
-    // Interceptor para deslogar no 401
-    const interceptor = api.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        if (error.response?.status === 401) {
-          remove();
-        }
-        return Promise.reject(error);
-      }
-    );
-
-    // Remove interceptor quando o AuthProvider desmontar
-    return () => {
-      api.interceptors.response.eject(interceptor);
-    };
-  }, []);
 
   return (
     <AuthContext.Provider value={{ session, save, remove }}>
