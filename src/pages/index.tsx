@@ -13,7 +13,7 @@ const role = session?.datauser.role
   } else if(role === "ADMIN"){
       return <Dashoboards />; // pag do admin 
       
-  }else if(role === "JOGADOR"){
+  }else if(role === "PLAYER"){
      return <PlayersDashBorads />;
   }
 

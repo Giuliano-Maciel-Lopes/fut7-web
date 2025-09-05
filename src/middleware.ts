@@ -6,7 +6,7 @@ const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
 
 interface MyJwtPayload {
   sub: string; // user id
-  role: "ADMIN" | "JOGADOR";
+  role: "ADMIN" | "PLAYER";
 }
 
 export async function middleware(req: NextRequest) {
@@ -37,8 +37,8 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  // JOGADOR acessa /jogadores
-  if (path.startsWith("/jogadores") && role !== "JOGADOR") {
+  
+  if (path.startsWith("/player") && role !== "PLAYER") {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
@@ -46,5 +46,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/jogadores/:path*"],
+  matcher: ["/admin/:path*", "/player/:path*"],
 };

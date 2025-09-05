@@ -1,4 +1,4 @@
-export type Role ="ADMIN"|"JOGADOR"
+export type Role ="ADMIN"|"PLAYER"
 
 
 
