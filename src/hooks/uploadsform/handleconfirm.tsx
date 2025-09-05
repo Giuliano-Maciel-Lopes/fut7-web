@@ -1,9 +1,11 @@
 import type { UseFormReturn, FieldValues, Path } from "react-hook-form";
 import type { Uploadinput } from "../uplods/uploads";
 
+// obs photoUrl? ESTA PAdronizado esse campo tanto no team quanto no palyer para mduara  imagem de ambos 
+
 type EntityName = "PLAYERS" | "TEAM";
 
-type Props<TFormValues extends FieldValues> = {
+type Props<TFormValues extends FieldValues > = {
   uploadfile: Uploadinput;
   form: UseFormReturn<TFormValues>;
   mutate: (args: { data: TFormValues; id?: string }) => void;
@@ -21,15 +23,15 @@ export function useUploadFormConfirm<TFormValues extends FieldValues>({
   const { handleSubmit, setValue } = form;
 
   const handleConfirm = async () => {
+
     handleSubmit(async (dataform) => {
+       let formData: TFormValues & { photoUrl?: string } = { ...dataform };
       if (uploadfile.file) {
         const patchurl = await uploadfile.onSubmit(entityName);
-
-      
-        setValue("photoUrl" as Path<TFormValues>, patchurl); // padronizei tds os campo do bd chama se photoUrl team e players
+        
+        formData.photoUrl = patchurl
       }
-
-      mutate({ data: dataform, id });
+      mutate({ data:formData , id });
     })();
   };
 

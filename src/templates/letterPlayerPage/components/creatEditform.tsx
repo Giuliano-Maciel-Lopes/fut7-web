@@ -11,7 +11,7 @@ type Props = {
 };
 
 export function CreateEditForm({ editCreat, uploadfile, onConfirm }: Props) {
-  const { errors, register } = editCreat;
+  const { formState:{errors}, register } = editCreat;
   const { error, file, setFile } = uploadfile;
   return (
     <CreatEditLayout className="w-full h-auto">

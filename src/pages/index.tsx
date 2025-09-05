@@ -2,7 +2,7 @@
 import { LandingPage } from "@/templates/landingPage/landingPage";
 import { UseAuth } from "@/hooks/context/useAuth";
 import { Dashoboards } from "./admin";
-import { PlayersDashBorads } from "./players";
+import { PlayersDashBorads } from "./player";
 
 export default function Home() {
  const {session} =   UseAuth()

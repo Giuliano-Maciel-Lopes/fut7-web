@@ -20,23 +20,23 @@ export function useCreateEditPlayerForm({ player }: Props) {
 
   const getFormValues = () => ({
     nameCart: player?.nameCart ?? "",
-    number: player?.number ?? undefined,  // ms coisa bunero 
-    position: player?.position ?? undefined, // pq  e enum ai vai reclar 
+    number: player?.number ?? undefined, // ms coisa bunero
+    position: player?.position ?? undefined, // pq  e enum ai vai reclar
     photoUrl: player?.photoUrl ?? "",
   });
 
-  const { register, formState: { errors }, handleSubmit, setValue, reset } =
-    useForm<SchemaInput>({
-      resolver: zodResolver(schema),
-      defaultValues: getFormValues(),
-    });
+  const form = useForm<SchemaInput>({
+    resolver: zodResolver(schema),
+    defaultValues: getFormValues(),
+  });
 
   //  Atualiza inputs quando player muda
   useEffect(() => {
-    if (player) reset(getFormValues());
-  }, [player, reset]);
+    if (player) form.reset(getFormValues());
+  }, [player, form.reset]);
 
-  return { register, errors, handleSubmit, setValue };
+  return form;
+  //os que eu vou usar  register, errors, handleSubmit, setValue 
 }
 
 export type UseCreateEditPlayerFormReturn = ReturnType<

@@ -28,6 +28,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setSession(null);
     window.location.assign("/");
   }
+  function loaduser() {
+    const datauser = Cookies.get("datauser");
+
+    if (datauser) {
+      setSession({
+        datauser: JSON.parse(datauser),
+      });
+    }
+  }
+
+  useEffect(() => {
+    loaduser();
+
+    // Interceptor para deslogar no 401
+    const interceptor = api.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response?.status === 401) {
+         
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    // Remove interceptor quando o AuthProvider desmontar
+    return () => {
+      api.interceptors.response.eject(interceptor);
+    };
+  }, []);
 
 
 
