@@ -16,7 +16,7 @@ if (!session?.datauser) return null; // usuário não logado, não mostra nada /
 // aqui para usauarios nao logados
 
   return (
-    <nav>
+    <nav className="gap-2 flex flex-col">
       {navLinks.map((link) => (
       <Activelink.conatiner key={link.href}>
           <Activelink.content  href={`${role}${link.href}`}>
