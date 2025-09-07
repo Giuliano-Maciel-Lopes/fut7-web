@@ -31,7 +31,11 @@ export function ListPlayerPage({
   const router = useRouter();
 
   if (adminMode && isLoading) return <Loading />;
-
+  let testeimg
+displayPlayers?.map((pl) =>{
+ testeimg =  pl.photoUrl
+})
+  console.log(`${BaseURL}/${testeimg}`)
   return (
     <div className="container mx-auto px-4">
       <HeaderlistPlayerPage onSelectFilter={onSelectFilter} setSearch={setSearch} search={search} />
