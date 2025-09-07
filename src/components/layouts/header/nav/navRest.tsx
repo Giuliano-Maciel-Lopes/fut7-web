@@ -6,7 +6,11 @@ export function NavRest() {
   const {session} = UseAuth()
   const role = session?.datauser.role.toLowerCase()
   
-  const navLinks = [{ name: "Cartinha", href: "/letter" }];
+  const navLinks = [
+    { name: "Cartinha", href: "/letter" },
+    { name: "Jogadores", href: "/letter" }
+
+  ];
 
 if (!session?.datauser) return null; // usuário não logado, não mostra nada // mas para frente trabalhar 
 // aqui para usauarios nao logados

@@ -13,14 +13,17 @@ type Props = {
 };
 
 export function HeaderlistPlayerPage({ search, setSearch ,onSelectFilter }: Props) {
-  const [inputValue, setInputValue] = useState(search || undefined);
+  const [inputValue, setInputValue] = useState(search || "");
+
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const trimmed = inputValue?.trim();
     
     if (!trimmed) return;
+    onSelectFilter("searchName")
     setSearch(trimmed);
   }
+  
   return (
     <div>
       <header className="bg-blue-800 text-white rounded-md p-6 flex flex-col md:flex-row gap-4 md:items-center md:gap-16">

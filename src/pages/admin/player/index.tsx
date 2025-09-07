@@ -17,12 +17,17 @@ export default function PlayerList() {
 if (activeFilter === "goals") params.goals = true;
 if (activeFilter === "assists") params.assists = true;
 if (activeFilter === "participatory") params.participatory = true;
-if (search) params.searchName = search;
+if (activeFilter === "searchName" && search) params.searchName = search;
+
+  useEffect(() => {
+    if (activeFilter !== "searchName") {
+      setSearch(undefined);
+    }
+  }, [activeFilter]);
 
 
-useEffect(() => {
-  setSearch(undefined);
-}, [activeFilter]);
+
+
 
   const { data, isLoading , } = useListPlayer(params);
  

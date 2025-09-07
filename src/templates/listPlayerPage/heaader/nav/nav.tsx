@@ -37,7 +37,7 @@ export function PlayerNav({ onSelectFilter }: Props) {
 
   return (
     <>
-      {/* Botão mobile */}
+      {/* Botão mobile  abrir o aside*/}
       <div className="md:hidden mb-4">
         <Button
           onClick={() => setOpen(true)}
@@ -49,7 +49,7 @@ export function PlayerNav({ onSelectFilter }: Props) {
         </Button>
       </div>
 
-      {/* Navegação desktop */}
+      
       <nav className="hidden md:flex gap-4">
         {navItems.map((item) => (
           <Button
@@ -64,7 +64,7 @@ export function PlayerNav({ onSelectFilter }: Props) {
         ))}
       </nav>
 
-      {/* Drawer mobile */}
+      {/* aside mobile */}
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerContent className="h-1/2 w-full md:w-96 bg-aside text-white p-6 flex flex-col">
           <DrawerTitle>Filtros de Jogadores</DrawerTitle>

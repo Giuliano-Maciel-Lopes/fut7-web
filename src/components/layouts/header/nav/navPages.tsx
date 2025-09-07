@@ -10,6 +10,7 @@ const navPagesLinks = [
   { name: "Times Confirmados", href: "/teamConfirmed" },
   { name: "Classificação", href: "/classificacao" },
   { name: "Inscrição", href: "/" },
+ 
 ];
 
 export function NavPages({ className }: Props) {
