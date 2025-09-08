@@ -6,15 +6,13 @@ import { useRouter } from "next/router";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { FilterType } from "./heaader";
 
-
 type Props = {
   players?: Player[]; // para pag de (ISR)
   adminMode?: boolean; // flag para diferenciar se é admin
   data?: Player[]; // dados carregados via React Query // admin
   isLoading?: boolean; // loading do admin
-  search?: string; // 
+  search?: string; //
   setSearch: (value: string) => void;
-  onSelectFilter:(filter:FilterType )=> void
 };
 
 export function ListPlayerPage({
@@ -24,28 +22,24 @@ export function ListPlayerPage({
   data,
   setSearch,
   search,
-  onSelectFilter
 }: Props) {
   const displayPlayers = adminMode ? data : players;
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
   const router = useRouter();
 
   if (adminMode && isLoading) return <Loading />;
-  let testeimg
-displayPlayers?.map((pl) =>{
- testeimg =  pl.photoUrl
-})
-  console.log(`${BaseURL}/${testeimg}`)
+
   return (
     <div className="container mx-auto px-4">
-      <HeaderlistPlayerPage onSelectFilter={onSelectFilter} setSearch={setSearch} search={search} />
+      <HeaderlistPlayerPage setSearch={setSearch} search={search} />
 
       {!displayPlayers || displayPlayers.length === 0 ? (
         <NotfoundItems msgNotfound="Ops! jogador nao encontardo!F Esse jogador não existe ou você digitou errado." />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-items-center items-center my-10">
           {displayPlayers?.map((pl) => (
-            <PlayerLetter.container key={pl.id}
+            <PlayerLetter.container
+              key={pl.id}
               onclick={() => {
                 router.push(`/admin/player/${pl.id}`);
               }}

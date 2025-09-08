@@ -7,31 +7,36 @@ import {
   DrawerClose,
 } from "@/components/ui/drawer";
 import { Trophy, Award, Star, Filter } from "lucide-react";
+import { useRouter } from "next/router";
+import { UseAuth } from "@/hooks/context/useAuth";
 
-export type FilterType =   "goals" | "assists" | "participatory"|"searchName";
+
+export type FilterType =   "goals" | "assists" | "participatory";
 
 type NavItem = {
   label: string;
   icon: React.ReactNode;
   query: FilterType;
+
 };
 
-type Props = {
-  onSelectFilter: (filter: FilterType) => void;
-};
+
 
 // Navegação
 const navItems: NavItem[] = [
-  { label: "Top 50", icon: <Trophy />, query: "participatory" },
+  { label: "Top 50", icon: <Trophy />, query: "participatory"  },
   { label: "Artilharia", icon: <Award />, query: "goals" },
   { label: "Assistência", icon: <Star />, query: "assists" },
 ];
 
-export function PlayerNav({ onSelectFilter }: Props) {
+export function PlayerNav() {
+  const router =useRouter()
   const [open, setOpen] = useState(false);
 
   const handleSelect = (filter: FilterType) => {
-    onSelectFilter(filter);
+   
+    router.push(`/players/filter/${filter}`);
+
     setOpen(false);
   };
 

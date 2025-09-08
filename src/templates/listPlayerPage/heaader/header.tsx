@@ -3,27 +3,30 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PlayerNav } from "./nav";
-import { FilterType } from "./nav";
-
+import { useRouter } from "next/router";
 
 type Props = {
   search?: string;
   setSearch: (value: string) => void;
-  onSelectFilter:(filter:FilterType ) =>void
 };
 
-export function HeaderlistPlayerPage({ search, setSearch ,onSelectFilter }: Props) {
+export function HeaderlistPlayerPage({ search, setSearch }: Props) {
+  const router = useRouter();
   const [inputValue, setInputValue] = useState(search || "");
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const trimmed = inputValue?.trim();
-    
     if (!trimmed) return;
-    onSelectFilter("searchName")
+
+    router.push({
+      pathname: "/players/search",
+      query: { search: trimmed },
+    });
+
     setSearch(trimmed);
   }
-  
+
   return (
     <div>
       <header className="bg-blue-800 text-white rounded-md p-6 flex flex-col md:flex-row gap-4 md:items-center md:gap-16">
@@ -44,9 +47,9 @@ export function HeaderlistPlayerPage({ search, setSearch ,onSelectFilter }: Prop
             </Button>
           </form>
         </div>
-      
+
         <div className="md:w-1/2">
-        <PlayerNav onSelectFilter={onSelectFilter} />
+          <PlayerNav />
         </div>
       </header>
     </div>

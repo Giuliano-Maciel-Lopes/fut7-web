@@ -8,7 +8,7 @@ type Props = {
 const navPagesLinks = [
   { name: "Início", href: "/" },
   { name: "Times Confirmados", href: "/teamConfirmed" },
-  { name: "Classificação", href: "/classificacao" },
+  { name: "Jogadores", href: "/players" },
   { name: "Inscrição", href: "/" },
  
 ];
