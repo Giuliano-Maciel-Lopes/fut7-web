@@ -3,10 +3,15 @@ import { API_ROUTES } from "@/utils/routes";
 import { Player } from "@shared/prisma";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { schemazBOdyIsactiveUpdate , IsActiveUpdate  } from "@/schemazod/updateISactive";
+type props ={
+  id:string
+  data:IsActiveUpdate
+}
 
-async function FetchIsActiveUpdatePlayer(id: string) {
+async function FetchIsActiveUpdatePlayer({data ,id}:props) {
     
-  const res = await api.patch<Player>(`${API_ROUTES.PLAYERS}/${id}`);
+  const res = await api.patch<Player>(`${API_ROUTES.PLAYERS}/isActive/${id}`,data );
 
  // await new Promise(resolve => setTimeout(resolve, 2000));
   return res.data;
@@ -17,11 +22,11 @@ export function useIsActivePlayer() {
   const mutate = useMutation({
     mutationFn: FetchIsActiveUpdatePlayer,
     onSuccess(data, variables, context) {
-      useQuery.invalidateQueries({ queryKey: ["playersByUser", variables] }); 
+      useQuery.invalidateQueries({ queryKey: ["playersByUser", variables.id] }); 
       
     
       useQuery.setQueriesData<Player[]>({ queryKey: ["ListPlayer"] }, (old) =>
-        old ? old.filter((p) => p.id !== variables) : old
+        old ? old.filter((p) => p.id !== variables.id) : old
       );
       
 

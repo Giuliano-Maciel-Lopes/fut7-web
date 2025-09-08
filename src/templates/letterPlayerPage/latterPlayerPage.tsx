@@ -7,10 +7,14 @@ import { Uploadinput } from "@/hooks/uplods/uploads";
 import type { UseCreateEditPlayerFormReturn } from "@/hooks/player/createEdit/form";
 
 type Props={
-data?:Player,
- editCreat: UseCreateEditPlayerFormReturn;
+data?:Player, // para ambos 
+
+// admin e donos de sua contas
+ editCreat: UseCreateEditPlayerFormReturn; 
 uploadfile: Uploadinput;
 onConfirm:()=> void
+
+// admin e donos de sua contas
 
 }
 

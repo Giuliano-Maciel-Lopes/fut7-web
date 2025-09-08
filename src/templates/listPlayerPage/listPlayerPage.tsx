@@ -10,23 +10,35 @@ import { useDeletePlayer } from "@/hooks/player/delete/delete";
 import { useState } from "react";
 import { useListPlayer } from "@/hooks/player/List/list";
 import { useParamsListPlayer } from "@/hooks/player/List/queryParams";
+import { UseAuth } from "@/hooks/context/useAuth";
+import { DeleteActive } from "./components/deleteActive";
+import { useIsActivePlayer } from "@/hooks/player/isactiveUpdate/isactiveupdate";
 
 type Props = {
-  initialData:Player[] // veio de ssr 
+  initialData: Player[]; // veio de ssr
 };
 
-export function ListPlayerPage({initialData}:Props) {
+export function ListPlayerPage({ initialData }: Props) {
+  const { session } = UseAuth();
+  const ADM = session?.datauser.role === "ADMIN";
+
   const { setSearch, search, params } = useParamsListPlayer();
-  const { data, isLoading } = useListPlayer(params , initialData);
+  const { data, isLoading } = useListPlayer(params, initialData);
 
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
   const router = useRouter();
-  const [selectPlayerId, setSelectPlayerId] = useState<string | null>(null);
+
   const { mutateAsync: mutateDel, isPending: isPendingDel } = useDeletePlayer();
+  const { mutateAsync: mutateActive, isPending: isPendingActive } =
+    useIsActivePlayer();
 
   const confirmmDel = useToggle();
+  const confirmIsActive = useToggle();
+  const [activeState, setActiveState] = useState<boolean | null>(null);
+  const [selectPlayerId, setSelectPlayerId] = useState<string | null>(null);
 
   if (isLoading) return <Loading />;
+
   return (
     <div className="container mx-auto px-4">
       <HeaderlistPlayerPage setSearch={setSearch} search={search} />
@@ -36,24 +48,37 @@ export function ListPlayerPage({initialData}:Props) {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-items-center items-center my-10">
           {data.map((pl) => (
-            <PlayerLetter.container
-              onDelete={() => {
-                setSelectPlayerId(pl.id);
-                confirmmDel.open();
-              }}
-              key={pl.id}
-              onclick={() => {
-                router.push(`/admin/player/${pl.id}`);
-              }}
-            >
-              <PlayerLetter.image img={`${BaseURL}/${pl.photoUrl}`} />
+            <div key={pl.id}>
+              <div>
+                <DeleteActive
+                  isactive={pl.isActive}
+                  setActive={(newState: boolean) => {
+                    setSelectPlayerId(pl.id);
+                    setActiveState(newState); // pega o valor do checkbox
+                    confirmIsActive.open();
+                  }}
+                  onDelete={() => {
+                    setSelectPlayerId(pl.id);
+                    confirmmDel.open();
+                  }}
+                />
+              </div>
+              <PlayerLetter.container
+                onclick={() => {
+                  router.push(
+                    ADM ? `/admin/player/${pl.id}` : `/player/${pl.id}`
+                  );
+                }}
+              >
+                <PlayerLetter.image img={`${BaseURL}/${pl.photoUrl}`} />
 
-              <PlayerLetter.data
-                assistencia={pl.assists}
-                gols={pl.goals}
-                nameCart={pl.nameCart}
-              />
-            </PlayerLetter.container>
+                <PlayerLetter.data
+                  assistencia={pl.assists}
+                  gols={pl.goals}
+                  nameCart={pl.nameCart}
+                />
+              </PlayerLetter.container>
+            </div>
           ))}
         </div>
       )}
@@ -67,6 +92,23 @@ export function ListPlayerPage({initialData}:Props) {
         open={confirmmDel.isOpen}
         onOpenChange={confirmmDel.toggle}
         isLoading={isPendingDel}
+      />
+      <ConfirmLayout
+        mensg="Tem certeza que deseja ativar ou desativar esse player?"
+        onCancel={confirmIsActive.closed}
+        onConfirm={async () => {
+          if (selectPlayerId && activeState !== null) {
+            await mutateActive({
+              id: selectPlayerId,
+              data: { isActive: activeState },
+            });
+          }
+
+          confirmIsActive.closed();
+        }}
+        open={confirmIsActive.isOpen}
+        onOpenChange={confirmIsActive.toggle}
+        isLoading={isPendingActive}
       />
     </div>
   );
