@@ -5,6 +5,7 @@ import { updatePlayerInput } from "@/schemazod/player/update";
 import { PlayerInput } from "@/schemazod/player/create";
 import { toast } from "react-toastify";
 import { UseAuth } from "@/hooks/context/useAuth";
+import { errosApiMessage } from "@/utils/ErrosApi";
 
 type Props = {
   id?: string; // se tiver -> update, se não -> create
@@ -40,8 +41,9 @@ export function useCreateEditPlayer() {
           : "Cartinha criada com sucesso!"
       );
     },
-    onError: () => {
-      toast.error("Erro ao salvar cartinha ");
+    onError: (error) => {
+     const message =  errosApiMessage(error)
+     toast.error(message)
     },
   });
 }
