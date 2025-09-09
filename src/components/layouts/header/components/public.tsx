@@ -21,7 +21,10 @@ export function HeaderPublic({ loguin }: Props) {
       <div className="hidden md:flex items-center gap-4">
         <div className="flex items-center gap-16">
           <Menu />
-          <Logo />
+          <div className="hidden lg:block">
+             <Logo />
+          </div>
+         
           <NavPages className="hidden md:flex gap-20" />
         </div>
       </div>

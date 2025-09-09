@@ -12,7 +12,7 @@ export function useParamsListPlayer() {
   const activeFilter = router.query.filter as FilterType | undefined;
 
   const params: ListPlayerParams = {};
-
+  if(!activeFilter && !search)params.participatory=true
   if (activeFilter === "goals") params.goals = true;
   if (activeFilter === "assists") params.assists = true;
   if (activeFilter === "participatory") params.participatory = true;

@@ -55,7 +55,7 @@ export function PlayerNav() {
       </div>
 
       
-      <nav className="hidden md:flex gap-4">
+      <nav className="hidden md:grid lg:flex gap-4">
         {navItems.map((item) => (
           <Button
             key={item.label}
