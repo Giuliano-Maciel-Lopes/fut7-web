@@ -9,6 +9,7 @@ import { useUpload } from "@/hooks/uplods/uploads";
 import { useToggle } from "@/hooks/usetoggle";
 import { ConfirmLayout } from "@/components/confirmLogout";
 import { NotfoundItems } from "@/components/notfound/nutfound";
+import { CreateEditForm } from "@/templates/letterPlayerPage";
 
 export default function PlayerId() {
   const router = useRouter();
@@ -31,17 +32,19 @@ export default function PlayerId() {
   if (isLoading) return <Loading />;
   if (!data)
     return (
-<NotfoundItems msgNotfound="Este jogador não existe mais ou foi excluído." />
+      <NotfoundItems msgNotfound="Este jogador não existe mais ou foi excluído." />
     );
 
   return (
     <div>
-      <LatterPlayerpage
-        editCreat={editcreate}
-        onConfirm={confirm.open}
-        uploadfile={uploadfile}
-        data={data}
-      />
+      <LatterPlayerpage data={data}>
+        <CreateEditForm
+          editCreat={editcreate}
+          uploadfile={uploadfile}
+          onConfirm={confirm.open}
+        />
+      </LatterPlayerpage>
+
       <ConfirmLayout
         isLoading={isPending}
         mensg="Tem certeza que deseja modificar a cartinha desse usuario ?"

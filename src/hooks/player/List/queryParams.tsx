@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 export function useParamsListPlayer() {
   const router = useRouter();
   const searchQuery = router.query.search as string | undefined;
+  console.log( "search " + searchQuery)
   const [search, setSearch] = useState<string | undefined>(searchQuery);
 
   const activeFilter = router.query.filter as FilterType | undefined;

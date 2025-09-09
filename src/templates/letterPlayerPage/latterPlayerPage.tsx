@@ -5,21 +5,18 @@ import { CreateEditForm } from "./components";
 import { Player } from "@shared/prisma";
 import { Uploadinput } from "@/hooks/uplods/uploads";
 import type { UseCreateEditPlayerFormReturn } from "@/hooks/player/createEdit/form";
+import React from "react";
 
 type Props={
 data?:Player, // para ambos 
+children:React.ReactNode
 
-// admin e donos de sua contas
- editCreat: UseCreateEditPlayerFormReturn; 
-uploadfile: Uploadinput;
-onConfirm:()=> void
 
-// admin e donos de sua contas
 
 }
 
 
-export function LatterPlayerpage({data ,editCreat , onConfirm , uploadfile}:Props) {
+export function LatterPlayerpage({data  , children}:Props) {
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
   
   return (
@@ -41,11 +38,7 @@ export function LatterPlayerpage({data ,editCreat , onConfirm , uploadfile}:Prop
         </div>
 
         <div className="md:w-1/2">
-          <CreateEditForm
-            editCreat={editCreat}
-            uploadfile={uploadfile}
-            onConfirm={onConfirm}
-          />
+          {children}
         </div>
       </section>
     </PlayerLayout>

@@ -7,6 +7,7 @@ import { useUpload } from "@/hooks/uplods/uploads";
 import { Loading } from "@/components/loading/loading";
 import { useToggle } from "@/hooks/usetoggle";
 import { ConfirmLayout } from "@/components/confirmLogout";
+import { CreateEditForm } from "@/templates/letterPlayerPage";
 
 export default function Leterr() {
   const confirm = useToggle();
@@ -29,14 +30,16 @@ export default function Leterr() {
 
   return (
     <div>
-      <LatterPlayerpage
-        data={data}
-        editCreat={editcreat}
-        onConfirm={confirm.open}
-        uploadfile={uploadfile}
-      />
+      <LatterPlayerpage data={data}>
 
-      
+        <CreateEditForm
+          editCreat={editcreat}
+          uploadfile={uploadfile}
+          onConfirm={confirm.open}
+        />
+        
+      </LatterPlayerpage>
+
       <ConfirmLayout
         isLoading={isPending}
         mensg="Tem certeza que deseja modificar sua cartinha ?"

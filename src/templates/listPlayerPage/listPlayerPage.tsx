@@ -15,7 +15,7 @@ import { DeleteActive } from "./components/deleteActive";
 import { useIsActivePlayer } from "@/hooks/player/isactiveUpdate/isactiveupdate";
 
 type Props = {
-  initialData: Player[]; // veio de ssr
+  initialData?: Player[]; // veio de ssr
 };
 
 export function ListPlayerPage({ initialData }: Props) {
@@ -37,7 +37,8 @@ export function ListPlayerPage({ initialData }: Props) {
   const [activeState, setActiveState] = useState<boolean | null>(null);
   const [selectPlayerId, setSelectPlayerId] = useState<string | null>(null);
 
-  if (isLoading) return <Loading />;
+ if (isLoading && !initialData) return <Loading />;
+
 
   return (
     <div className="container mx-auto px-4">
@@ -66,7 +67,7 @@ export function ListPlayerPage({ initialData }: Props) {
               <PlayerLetter.container
                 onclick={() => {
                   router.push(
-                    ADM ? `/admin/player/${pl.id}` : `/player/${pl.id}`
+                    ADM ? `/admin/player/${pl.id}` : `/players/${pl.id}`
                   );
                 }}
               >
