@@ -25,9 +25,13 @@ export function useIsActivePlayer() {
       useQuery.invalidateQueries({ queryKey: ["playersByUser", variables.id] }); 
       
     
-      useQuery.setQueriesData<Player[]>({ queryKey: ["ListPlayer"] }, (old) =>
-        old ? old.filter((p) => p.id !== variables.id) : old
-      );
+ useQuery.setQueriesData<Player[]>({ queryKey: ["ListPlayer"] }, (old) =>
+  old
+    ? old.map(p =>
+        p.id === variables.id ? { ...p, isActive: data.isActive } : p
+      )
+    : old
+);
       
 
       toast.success(`jogador ${data.nameCart} desativado`);
