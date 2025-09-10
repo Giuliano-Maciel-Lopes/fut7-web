@@ -5,8 +5,8 @@ import {
 } from "lucide-react";
 
 export const boxFunctionalUtils = [
-  { id: 1, icon: User, title: "Jogadores", description: "Visualize e edite todos os jogadores.", url: "/players" },
-  { id: 2, icon: Settings, title: "Configurações", description: "Altere as configurações do sistema.", url: "/admin/configuracoes" },
+  { id: 1, icon: User, title: "Jogadores", description: "Visualize e edite todos os jogadores.", url: "/players" }, // ja tem / admin na pag da cartinha 
+  { id: 2, icon: Settings, title: "team", description: "crie times manualmente.", url: "/admin/createTeam" },
   { id: 3, icon: Database, title: "Banco de Dados", description: "Gerencie os registros e dados.", url: "/admin/banco-dados" },
   { id: 4, icon: PieChart, title: "Relatórios", description: "Veja relatórios detalhados de desempenho.", url: "/admin/relatorios" },
   { id: 5, icon: Calendar, title: "Agenda", description: "Gerencie eventos e compromissos.", url: "/admin/agenda" },

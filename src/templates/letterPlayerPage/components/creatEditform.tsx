@@ -14,7 +14,7 @@ export function CreateEditForm({ editCreat, uploadfile, onConfirm }: Props) {
   const { formState:{errors}, register } = editCreat;
   const { error, file, setFile } = uploadfile;
   return (
-    <CreatEditLayout className="w-full h-auto">
+    <CreatEditLayout  msg=" FALA JOGADOR! AQUI VOCÊ PODE CRIAR E EDITAR SUAS CARTAS" className="w-full h-auto">
      
       <form className="flex flex-col gap-2 text-black">
         <Input

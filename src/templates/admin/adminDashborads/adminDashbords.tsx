@@ -1,4 +1,4 @@
-import { BoxFunctional } from "../components/boxFunctional";
+import { BoxFunctional } from "./components/boxFunctional";
 import { boxFunctionalUtils } from "./utlils";
 import { useRouter } from "next/router";
 

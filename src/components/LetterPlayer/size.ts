@@ -17,4 +17,13 @@ export const sizes = {
     logoWidth: 40,
     logoHeight: 40,
   },
+  sm: {
+    w: "w-16",           // largura menor
+    h: "h-24",           // altura menor
+    text: "text-xs",     // texto ainda menor
+    playerImgHeight: 40, // altura da imagem pequena
+    playerImgWidth: 30,  // largura da imagem pequena
+    logoWidth: 12,       // opcional se usar logo
+    logoHeight: 12,      // opcional se usar logo
+  },
 };

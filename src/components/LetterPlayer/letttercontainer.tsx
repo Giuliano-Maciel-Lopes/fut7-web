@@ -2,7 +2,7 @@ import { sizes } from "./size";
 import { UseAuth } from "@/hooks/context/useAuth";
 
 type PlayerCardContainerProps = {
-  size?: "md" | "lg";
+  size?: "md" | "lg"|"sm";
   className?: string;
   children: React.ReactNode;
   onclick?: () => void;
