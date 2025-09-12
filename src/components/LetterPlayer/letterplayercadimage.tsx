@@ -5,7 +5,7 @@ import { User } from "lucide-react";
 type PlayerCardImageProps = {
   img?: string | StaticImageData;
   LogoTeam?: string | StaticImageData;
-  size?: "md" | "lg";
+  size?: "md" | "lg" ;
 };
 
 export function PlayerLetterImage({
@@ -26,13 +26,13 @@ export function PlayerLetterImage({
           alt="Player"
           width={s.playerImgWidth}
           height={s.playerImgHeight}
-          className="rounded-full border-2 border-white object-cover shadow-md"
+          className="rounded-full  object-cover shadow-md"
         />
       ) : (
-        <div className="flex items-center justify-center bg-gray-200 rounded-full border-2 border-white shadow-md">
+        <div className="flex items-center justify-center  rounded-full  shadow-md">
           <User
-            width={s.playerImgWidth}
-            height={s.playerImgHeight}
+            width= {200}
+            height={40}
             className="text-gray-500"
           />
         </div>
