@@ -4,6 +4,7 @@ import { uselistTeam } from "@/hooks/team/list/list";
 import { Loading } from "@/components/loading/loading";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion"
 
 type Props = {};
 
@@ -28,7 +29,20 @@ export function TeamConfirmedPage() {
         />
       </div>
 
+      <div className="relative w-full md:w-full overflow-hidden">
+  <AnimatePresence mode="wait">
+    <motion.div
+      key={index}
+      initial={{ x: "100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: "-100%", opacity: 0 }}
+      transition={{ duration: 0.4 }}
+      className="w-full h-full"
+    >
       <Campo data={data[index]} />
+    </motion.div>
+  </AnimatePresence>
+</div>
     </section>
   );
 }
