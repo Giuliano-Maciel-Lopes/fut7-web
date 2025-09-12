@@ -3,13 +3,13 @@ import { TeamConfirmedPage } from "@/templates/teamConfirmedPage/teamConfirmedPa
 import { ListTeamReturn } from "@/types/api/TEAM/list";
 
 type Props ={
-  initialTeam?:ListTeamReturn
+  initialTeam?:ListTeamReturn[]
 }
 
 export default function TeamConfirmed({initialTeam}:Props) {
   return (
     <div>
-      <TeamConfirmedPage />
+      <TeamConfirmedPage initialData={initialTeam}  />
     </div>
   );
 }

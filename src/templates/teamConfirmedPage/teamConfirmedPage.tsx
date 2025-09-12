@@ -5,12 +5,15 @@ import { Loading } from "@/components/loading/loading";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion"
+import { ListTeamReturn } from "@/types/api/TEAM/list";
 
-type Props = {};
+type Props = {
+  initialData?:ListTeamReturn[]
+};
 
-export function TeamConfirmedPage() {
+export function TeamConfirmedPage({initialData}:Props) {
   const [index, setIndex] = useState(0);
-  const { data, isLoading } = uselistTeam();
+  const { data, isLoading } = uselistTeam(initialData);
 
   if (isLoading) return <Loading />;
   if (!data || data.length === 0)

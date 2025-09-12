@@ -10,7 +10,7 @@ type Props = {
   onConfirm: () => void;
 };
 
-export function CreateEditForm({ editCreat, uploadfile, onConfirm }: Props) {
+export function CreateEditFormTeam({ editCreat, uploadfile, onConfirm }: Props) {
   const { formState:{errors}, register } = editCreat;
   const { error, file, setFile } = uploadfile;
   return (
