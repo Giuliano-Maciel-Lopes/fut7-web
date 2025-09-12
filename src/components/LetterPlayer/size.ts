@@ -8,6 +8,15 @@ export const sizes = {
     logoWidth: 32,
     logoHeight: 32,
   },
+    md2: {
+    w: "w-32",
+    h: "h-48",
+    text: "text-sm",
+    playerImgHeight: 300,
+    playerImgWidth: 110,
+    logoWidth: 32,
+    logoHeight: 32,
+  },
   lg: {
     w: "w-64",
     h: "h-96",
