@@ -9,6 +9,8 @@ import { useUpload } from "@/hooks/uplods/uploads";
 import { useToggle } from "@/hooks/usetoggle";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { ConfirmLayout } from "@/components/confirmLogout";
+import { ImgTeam } from "../components/ImgTeam/img.team";
+
 
 export function TeamPlayerPageAdmin() {
   const router = useRouter();
@@ -37,7 +39,9 @@ export function TeamPlayerPageAdmin() {
   return (
     <aside className="container my-10">
       <div className="flex flex-col md:flex-row gap-6">
-        <div className="md:w-1/2 h-60 border-2">imagem</div>
+        <div className=" relative md:w-1/2 h-60 border-2">
+       {data.photoUrl &&( <ImgTeam img={data.photoUrl}/>)}
+        </div>
         <div className="md:w-1/2">
           <CreatEditFormTeam
             editCreat={editCreat}

@@ -21,7 +21,8 @@ export function AdminTeamsPage() {
             key={t.id}
             onClick={() => router.push(`/admin/teams/${t.id}`)}
             nameTeam={t.name}
-          /> // img
+            img={t.photoUrl}
+          />
         ))}
       </div>
     </section>

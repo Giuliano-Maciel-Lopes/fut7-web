@@ -1,8 +1,8 @@
-import { useForm } from "react-hook-form";
+import { useForm , Resolver } from "react-hook-form";
 import { TeamBodySchema } from "@/schemazod/team/create";
 import { TeamUpdateSchema } from "@/schemazod/team/update";
 import { Team } from "@shared/prisma";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver ,  } from "@hookform/resolvers/zod";
 import { UseAuth } from "@/hooks/context/useAuth";
 import { useEffect } from "react";
 import z from "zod";
@@ -29,7 +29,7 @@ export function useCreateEditFormTeam({ team }: Props) {
   });
 
   const form = useForm<TeamFormInput>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema) as Resolver<TeamFormInput>,
     defaultValues: getFormValues(),
   });
 
