@@ -1,20 +1,12 @@
 import { PlayerLetter } from "@/components/LetterPlayer";
 import { PlayerLayout } from "./layouts";
-import { CreateEditForm } from "./components";
-
 import { Player } from "@shared/prisma";
-import { Uploadinput } from "@/hooks/uplods/uploads";
-import type { UseCreateEditPlayerFormReturn } from "@/hooks/player/createEdit/form";
 import React from "react";
 
 type Props={
 data?:Player, // para ambos 
 children:React.ReactNode
-
-
-
 }
-
 
 export function LatterPlayerpage({data  , children}:Props) {
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;

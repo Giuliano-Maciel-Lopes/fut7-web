@@ -4,7 +4,7 @@ import { API_ROUTES } from "@/utils/routes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 type Props = {
   data: TeamBodySchemaInput;
-  id: string;
+  id?: string;
 };
 
 async function Fetchdata({ id, data }: Props) {

@@ -5,8 +5,8 @@ import { NotfoundItems } from "@/components/notfound/nutfound";
 import { useRouter } from "next/router";
 
 export function AdminTeamsPage() {
-  const router = useRouter()
-  const {data , isLoading} =  uselistTeam()
+  const router = useRouter();
+  const { data, isLoading } = uselistTeam();
 
   if (isLoading) return <Loading />;
   if (!data || data.length === 0)
@@ -16,11 +16,14 @@ export function AdminTeamsPage() {
   return (
     <section className="container mt-10">
       <div className="grid grid-cols-2  ">
-         {data.map((t)=> (
-            <BoxTeams   nameTeam={t.name}  /> // img
+        {data.map((t) => (
+          <BoxTeams
+            key={t.id}
+            onClick={() => router.push(`/admin/teams/${t.id}`)}
+            nameTeam={t.name}
+          /> // img
         ))}
       </div>
-        
     </section>
   );
 }

@@ -1,21 +1,62 @@
-import { CreateEditFormTeam } from "@/templates/letterPlayerPage";
-import { CreatEditFormTeam } from "./components/createEditTeam";
+import { CreatEditFormTeam } from "./components/createEditFormTeam";
 import { useUploadFormConfirm } from "@/hooks/uploadsform/useUploadFormConfirm";
 import { useCreateEditTeam } from "@/hooks/team/createEdit/query";
 import { useCreateEditFormTeam } from "@/hooks/team/createEdit/form";
+import { useShowTeamId } from "@/hooks/team/showId/showId";
+import { useRouter } from "next/router";
+import { Loading } from "@/components/loading/loading";
+import { useUpload } from "@/hooks/uplods/uploads";
+import { useToggle } from "@/hooks/usetoggle";
+import { NotfoundItems } from "@/components/notfound/nutfound";
+import { ConfirmLayout } from "@/components/confirmLogout";
 
 export function TeamPlayerPageAdmin() {
+  const router = useRouter();
+  const id = router.query.id;
+  const ConfirmEdit = useToggle();
+
+  const { data, isLoading } = useShowTeamId(id as string);
+  const { mutate, isPending } = useCreateEditTeam();
+  const uploadfile = useUpload();
+
+  const editCreat = useCreateEditFormTeam({ team: data });
+
+  const { handleConfirm } = useUploadFormConfirm({
+    entityName: "TEAM",
+    form: editCreat,
+    mutate,
+    uploadfile,
+    id: data?.id, // c tiver time vai ser data caso contrario vai esta criando
+  });
+  if (isLoading) return <Loading />;
+  if (!data)
+    return (
+      <NotfoundItems msgNotfound="Este Time não existe mais ou foi excluído." />
+    );
 
   return (
-    <aside className="container">
-      <div className="flex flex-col md:flex-row">
-        <div className="md:w-1/2 h-60 border-2">
-        
-        </div>
+    <aside className="container my-10">
+      <div className="flex flex-col md:flex-row gap-6">
+        <div className="md:w-1/2 h-60 border-2">imagem</div>
         <div className="md:w-1/2">
-          <CreatEditFormTeam editCreat={} onConfirm={} uploadfile={} />{" "}
+          <CreatEditFormTeam
+            editCreat={editCreat}
+            onConfirm={ConfirmEdit.open}
+            uploadfile={uploadfile}
+          />
         </div>
       </div>
+      <ConfirmLayout
+        mensg="tem certeza que deseja modificar esse time"
+        onCancel={ConfirmEdit.closed}
+        onConfirm={async () => {
+          await handleConfirm();
+          ConfirmEdit.closed() 
+        }}
+        open={ConfirmEdit.isOpen}
+        onOpenChange={ConfirmEdit.toggle}
+        isLoading={isPending}
+      />
     </aside>
   );
 }

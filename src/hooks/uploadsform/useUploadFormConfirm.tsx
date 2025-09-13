@@ -28,10 +28,12 @@ export function useUploadFormConfirm<TFormValues extends FieldValues>({
 
       handleSubmit((dataform) => {
         mutate({ data: dataform, id });
+          console.log("Dados do formulário:", dataform);
       })();
     } else {
       handleSubmit((dataform) => {
         mutate({ data: dataform, id });
+          console.log("Dados do formulário:", dataform);
       })();
     }
   };
