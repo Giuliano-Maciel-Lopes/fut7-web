@@ -13,7 +13,7 @@ type Props = {
 
 export function TeamConfirmedPage({initialData}:Props) {
   const [index, setIndex] = useState(0);
-  const { data, isLoading } = uselistTeam(initialData);
+  const { data, isLoading ,isFetching} = uselistTeam(initialData);
 
   if (isLoading) return <Loading />;
   if (!data || data.length === 0)

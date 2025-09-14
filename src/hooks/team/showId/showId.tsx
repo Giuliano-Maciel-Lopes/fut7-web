@@ -14,7 +14,7 @@ export async function fetchDataShowTeamrId(id: string) {
 
 export function useShowTeamId(id: string, ) {
   return useQuery({
-    queryKey: ["player", id],
+    queryKey: ["team", id],
     queryFn: () => fetchDataShowTeamrId(id),
     enabled: !!id, 
   });

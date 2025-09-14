@@ -5,11 +5,11 @@ export const TeamUpdateSchema = z.object({
   photoUrl: z.string().optional(),
  captainId: z.preprocess(
     (v) => (v === "" ? undefined : v),
-    z.string().uuid({ message: "ID do capitão inválido" }).optional()
+    z.uuid({ message: "ID do capitão inválido" }).optional()
   ),
   groupId: z.preprocess(
     (v) => (v === "" ? undefined : v),
-    z.string().uuid({ message: "ID do grupo inválido" }).optional()
+    z.uuid({ message: "ID do grupo inválido" }).optional()
   ),
 });
 

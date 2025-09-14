@@ -13,7 +13,8 @@ export function uselistTeam(initialTeam?:ListTeamReturn[]) {
   const query = useQuery({
     queryFn: fetchDataListTeam,
     queryKey: ["listTeam"],
-    initialData:initialTeam
+    initialData:initialTeam,
+     staleTime: 1000 * 60,
   });
   return { ...query };
 }
