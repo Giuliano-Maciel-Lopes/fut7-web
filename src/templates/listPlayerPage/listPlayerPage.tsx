@@ -19,14 +19,17 @@ type Props = {
 };
 
 export function ListPlayerPage({ initialData }: Props) {
+  const router = useRouter();
+  const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
   const { session } = UseAuth();
   const ADM = session?.datauser.role === "ADMIN";
 
   const { setSearch, search, params } = useParamsListPlayer();
-  const { data, isLoading } = useListPlayer(params, initialData);
+  const { data:dataquey, isLoading } = useListPlayer(params  );
+const data = router.pathname === "/players/search" || ADM
+  ? dataquey
+  : initialData;
 
-  const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
-  const router = useRouter();
 
   const { mutateAsync: mutateDel, isPending: isPendingDel } = useDeletePlayer();
   const { mutateAsync: mutateActive, isPending: isPendingActive } =
@@ -37,7 +40,7 @@ export function ListPlayerPage({ initialData }: Props) {
   const [activeState, setActiveState] = useState<boolean | null>(null);
   const [selectPlayerId, setSelectPlayerId] = useState<string | null>(null);
 
- if (isLoading && !initialData) return <Loading />;
+ if (isLoading && !data) return <Loading />;
 
 
   return (

@@ -1,22 +1,18 @@
 import { StepTeam } from "./components/stepTeam";
 import { Campo } from "./components/campo";
-import { uselistTeam } from "@/hooks/team/list/list";
-import { Loading } from "@/components/loading/loading";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion"
 import { ListTeamReturn } from "@/types/api/TEAM/list";
 
 type Props = {
-  initialData?:ListTeamReturn[]
+  data?:ListTeamReturn[]
 };
 
-export function TeamConfirmedPage({initialData}:Props) {
+export function TeamConfirmedPage({data}:Props) {
   const [index, setIndex] = useState(0);
-  const { data, isLoading ,isFetching} = uselistTeam(initialData);
-
-  if (isLoading) return <Loading />;
-  if (!data || data.length === 0)
+ 
+  if (!data|| data.length === 0)
     return (
       <NotfoundItems msgNotfound="nenhum time encontrado no momento volte novamente mais tarde" />
     );
@@ -46,6 +42,7 @@ export function TeamConfirmedPage({initialData}:Props) {
     </motion.div>
   </AnimatePresence>
 </div>
+ 
     </section>
   );
 }

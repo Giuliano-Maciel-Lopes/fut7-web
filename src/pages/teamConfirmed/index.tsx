@@ -3,18 +3,18 @@ import { TeamConfirmedPage } from "@/templates/teamConfirmedPage/teamConfirmedPa
 import { ListTeamReturn } from "@/types/api/TEAM/list";
 
 type Props ={
-  initialTeam?:ListTeamReturn[]
+  data?:ListTeamReturn[]
 }
 
-export default function TeamConfirmed({initialTeam}:Props) {
+export default function TeamConfirmed({data}:Props) {
   return (
     <div>
-      <TeamConfirmedPage initialData={initialTeam}  />
+      <TeamConfirmedPage data={data}  />
     </div>
   );
 }
 export async function getServerSideProps() {
- const initialTeam =   await fetchDataListTeam()
+ const data =   await fetchDataListTeam()
  
-  return { props: {initialTeam } }
+  return { props: {data } }
 }

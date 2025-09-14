@@ -12,7 +12,7 @@ export async function FetchaDataListPlayer(params?: ListPlayerParams , ) {
   const res = await api.get<Player[]>(`${API_ROUTES.PLAYERS}`, {
     params: dataParams,
   });
- 
+   await new Promise(resolve => setTimeout(resolve, 2000));
   return res.data;
 }
 
@@ -21,7 +21,9 @@ export function useListPlayer(params?: ListPlayerParams ,initialData?: Player[])
     queryFn: () => FetchaDataListPlayer(params),
     queryKey: ["ListPlayer", JSON.stringify(params)],
     staleTime: 1000 * 60 * 5,
-    initialData
+    // n passar ent ne ? 
+    
+   
   });
   return { ...query };
 }

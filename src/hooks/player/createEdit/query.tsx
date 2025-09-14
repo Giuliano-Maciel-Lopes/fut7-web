@@ -34,8 +34,8 @@ export function useCreateEditPlayer() {
       
       queryClient.invalidateQueries({ queryKey: ["playersByUser", userId] });
       queryClient.invalidateQueries({ queryKey: ["playersByUser", variables.id] });
-      // tem list player mas n vou invalidar por id  na page par melho performace
-      // mas o metodo delete e isactive tem
+      queryClient.invalidateQueries({ queryKey: ["ListPlayer"] });
+      
 
       toast.success(
         variables.id

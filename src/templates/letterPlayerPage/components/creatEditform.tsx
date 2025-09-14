@@ -12,7 +12,7 @@ type Props = {
 
 export function CreateEditForm({ editCreat, uploadfile, onConfirm }: Props) {
   const { formState:{errors}, register } = editCreat;
-  const { error, file, setFile } = uploadfile;
+  const { error,  setFile } = uploadfile;
   return (
     <CreatEditLayout  msg=" FALA JOGADOR! AQUI VOCÊ PODE CRIAR E EDITAR SUAS CARTAS" className="w-full h-auto">
      
