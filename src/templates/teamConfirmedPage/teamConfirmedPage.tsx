@@ -1,5 +1,5 @@
 import { StepTeam } from "./components/stepTeam";
-import { Campo } from "../../components/campo";
+import { Campo } from "../../components/campo/campo";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion"

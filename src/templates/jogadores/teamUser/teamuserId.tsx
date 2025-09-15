@@ -1,5 +1,5 @@
 import { Loading } from "@/components/loading/loading";
-import { Campo } from "../../../components/campo"
+import { Campo } from "../../../components/campo/campo"
 import { useTeamShowUserId } from "@/hooks/team/showIduserId/showUserId";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 
