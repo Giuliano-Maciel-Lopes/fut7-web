@@ -8,6 +8,7 @@ export function NavRest() {
   
   const navLinks = [
     { name: "Cartinha", href: "/letter" },
+    { name: "Meu Time ", href: "/team" },
     { name: "Jogadores", href: "/letter" }
 
   ];
@@ -19,7 +20,7 @@ if (!session?.datauser) return null; // usuário não logado, não mostra nada /
     <nav className="gap-2 flex flex-col">
       {navLinks.map((link) => (
       <Activelink.conatiner key={link.href}>
-          <Activelink.content  href={`${role}${link.href}`}>
+          <Activelink.content  href={`/${role}${link.href}`}>
             {link.name}
           </Activelink.content>
         </Activelink.conatiner>

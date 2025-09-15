@@ -1,12 +1,12 @@
 import { StepTeam } from "./components/stepTeam";
-import { Campo } from "./components/campo";
+import { Campo } from "../../components/campo";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion"
-import { ListTeamReturn } from "@/types/api/TEAM/list";
+import {GetTeamReturn } from "@/types/api/TEAM/get";
 
 type Props = {
-  data?:ListTeamReturn[]
+  data?:GetTeamReturn[]
 };
 
 export function TeamConfirmedPage({data}:Props) {

@@ -1,9 +1,9 @@
 import { fetchDataListTeam } from "@/hooks/team/list/list";
 import { TeamConfirmedPage } from "@/templates/teamConfirmedPage/teamConfirmedPage";
-import { ListTeamReturn } from "@/types/api/TEAM/list";
+import {GetTeamReturn} from "@/types/api/TEAM/get";
 
 type Props ={
-  data?:ListTeamReturn[]
+  data?:GetTeamReturn[]
 }
 
 export default function TeamConfirmed({data}:Props) {

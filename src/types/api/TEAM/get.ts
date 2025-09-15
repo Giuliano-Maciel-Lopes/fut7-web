@@ -7,6 +7,6 @@ export type PlayerMini = {
   id:string
 };
 
-export type ListTeamReturn = Team & {
+export type GetTeamReturn = Team & {
   players: PlayerMini[];
 };

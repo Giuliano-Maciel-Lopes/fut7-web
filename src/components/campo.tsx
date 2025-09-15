@@ -1,8 +1,8 @@
 import { PlayerLetter } from "@/components/LetterPlayer";
-import { ListTeamReturn } from "@/types/api/TEAM/list";
+import { GetTeamReturn } from "@/types/api/TEAM/get";
 import { useRouter } from "next/router";
 type Props = {
-  data: ListTeamReturn;
+  data: GetTeamReturn;
 };
 
 export function Campo({ data }: Props) {
@@ -10,13 +10,13 @@ export function Campo({ data }: Props) {
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
   // posições fixas no campo
   const playerPositions = [
-    "absolute bottom-4 left-20 lg:left-1/2 lg:-translate-x-1/2", // goleiro
-    "absolute bottom-16 left-4 ", // Lateral esquerda
-    "absolute bottom-16 right-4 ", //  lateral direita
-    "absolute top-[50%] left-1/2 -translate-x-1/2 ", // 1 volnte             // V
-    "absolute top-20 left-12 ", // Lateral esquerda
-    "absolute top-20 right-12 ", // Lateral direita
-    "absolute top-4 left-1/2 -translate-x-1/2 ", // Goleiro
+    "absolute bottom-4 left-1/2 -translate-x-1/2",       // goleiro
+  "absolute bottom-16 left-[10%]",                    // lateral esquerda
+  "absolute bottom-16 right-[10%]",                   // lateral direita
+  "absolute top-[50%] left-1/2 -translate-x-1/2",     // volante
+  "absolute top-[25%] left-[20%]",                    // meia esquerda
+  "absolute top-[25%] right-[20%]",                   // meia direita
+  "absolute top-4 left-1/2 -translate-x-1/2",         // atacante
   ];
 
   // slots fixos para cada posição (mesmo se não houver jogador)
@@ -46,7 +46,7 @@ export function Campo({ data }: Props) {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-16 border-2 border-white"></div>
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/3 h-16 border-2 border-white"></div>
 
-          {/* Renderiza jogadores dinamicamente */}
+          {/* Renderiza jogadores */}
           {titulares.map((player, index) => (
             <div
               key={index}
@@ -58,7 +58,6 @@ export function Campo({ data }: Props) {
                     router.push(`/players/${player.id}`);
                   }
                 }}
-                key={player?.nameCart || index}
                 size="sm"
                 className={`absolute ${playerPositions[index]} flex items-center justify-center`}
               >
