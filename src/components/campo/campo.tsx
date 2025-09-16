@@ -2,6 +2,7 @@ import { PlayerLetter } from "@/components/LetterPlayer";
 import { GetTeamReturn } from "@/types/api/TEAM/get";
 import { useRouter } from "next/router";
 import { ContainerCampo } from "./container";
+import { playerPositions } from "./positionfixed";
 
 type Props = {
   data: GetTeamReturn;
@@ -10,18 +11,8 @@ type Props = {
 export function Campo({ data }: Props) {
   const router = useRouter();
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
-  // posições fixas no campo
-  const playerPositions = [
-    "absolute bottom-4 left-1/2 -translate-x-1/2", // goleiro
-    "absolute bottom-16 left-[10%]", // lateral esquerda
-    "absolute bottom-16 right-[10%]", // lateral direita
-    "absolute top-[50%] left-1/2 -translate-x-1/2", // volante
-    "absolute top-[25%] left-[20%]", // meia esquerda
-    "absolute top-[25%] right-[20%]", // meia direita
-    "absolute top-4 left-1/2 -translate-x-1/2", // atacante
-  ];
 
-  // slots fixos para cada posição (mesmo se não houver jogador)
+  // slots fixos para cada posição (mesmo se não houver jogador) ;// titulares
   const titulares = Array.from({ length: 7 }, (_, index) => {
     const player = data.players.find((p) => p.positionIndex === index);
     return player || null;
@@ -45,7 +36,7 @@ export function Campo({ data }: Props) {
                 }
               }}
               size="sm"
-              className={`absolute ${playerPositions[index]} flex items-center justify-center`}
+              className={`absolute  flex items-center justify-center`}
             >
               <PlayerLetter.image
                 size="lg"
