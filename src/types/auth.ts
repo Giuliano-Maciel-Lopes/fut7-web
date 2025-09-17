@@ -1,7 +1,5 @@
 export type Role ="ADMIN"|"PLAYER"
 
-
-
 export type AuthResponse={
    
     datauser:{
@@ -11,4 +9,10 @@ export type AuthResponse={
         role:Role
     }
     
+}
+// servidor 
+
+export interface MyJwtPayload {
+  userId: string; // user id
+  role: "ADMIN" | "PLAYER";
 }

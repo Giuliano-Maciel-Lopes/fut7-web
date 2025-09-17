@@ -4,7 +4,7 @@ import { GetTeamReturn } from "@/types/api/TEAM/get";
 import { API_ROUTES } from "@/utils/routes";
 import { useQuery } from "@tanstack/react-query";
 
-async function fetchDataTeamUserId() {
+export async function fetchDataTeamUserId() {
   const res = await api.get<GetTeamReturn>(`${API_ROUTES.TEAMS}/me`);
   return res.data;
 }

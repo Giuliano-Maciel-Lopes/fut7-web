@@ -3,13 +3,12 @@ import { useTeamShowUserId } from "@/hooks/team/showIduserId/showUserId";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { CampoEditable } from "@/components/campo/campoEditable/campoeditable";
 import { useTeamUpdateIndex } from "@/hooks/team/updatepositionIndex/updatepositionIndex";
-import { ConfirmLayout } from "@/components/confirmLogout";
-import { PlayerMini, PlayerPositionIndex } from "@/types/api/TEAM/get";
+import { PlayerPositionIndex } from "@/types/api/TEAM/get";
 
 
 
 
-export function TeamUserPage() {
+export function TeamTrainingPage() {
   const {data , isLoading }= useTeamShowUserId()
   const {mutate , isPending} = useTeamUpdateIndex()
 

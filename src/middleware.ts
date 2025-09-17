@@ -1,13 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
+import { MyJwtPayload } from "./types/auth";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
 
-interface MyJwtPayload {
-  sub: string; // user id
-  role: "ADMIN" | "PLAYER";
-}
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
