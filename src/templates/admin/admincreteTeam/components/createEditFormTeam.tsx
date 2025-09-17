@@ -3,6 +3,7 @@ import { CreatEditLayout } from "@/templates/letterPlayerPage";
 import { Button } from "@/components/ui/button";
 import { FormTeamReturn } from "@/hooks/team/createEdit/form";
 import { Uploadinput } from "@/hooks/uplods/uploads";
+import { UseAuth } from "@/hooks/context/useAuth";
 
 type Props = {
   editCreat: FormTeamReturn;
@@ -11,11 +12,14 @@ type Props = {
 };
 
 export function CreatEditFormTeam({ editCreat, uploadfile, onConfirm }: Props) {
+  const { session } = UseAuth();
+  const ADM = session?.datauser.role === "ADMIN";
+
   const {
     formState: { errors },
     register,
   } = editCreat;
-  const { error,  setFile } = uploadfile;
+  const { error, setFile } = uploadfile;
 
   return (
     <CreatEditLayout msg="Área de Times" className="w-full h-auto">
@@ -26,17 +30,21 @@ export function CreatEditFormTeam({ editCreat, uploadfile, onConfirm }: Props) {
           {...register("name")}
         />
 
-        <Input
-          legend="Id do Grupo"
-          error={errors.groupId?.message}
-          {...register("groupId")}
-        />
+        {ADM && (
+          <>
+            <Input
+              legend="Id do Grupo"
+              error={errors.groupId?.message}
+              {...register("groupId")}
+            />
 
-        <Input
-          legend="ID do Capitão"
-          error={errors.captainId?.message}
-          {...register("captainId")}
-        />
+            <Input
+              legend="ID do Capitão"
+              error={errors.captainId?.message}
+              {...register("captainId")}
+            />
+          </>
+        )}
 
         <Input
           className="h-48 text-center"
@@ -49,7 +57,9 @@ export function CreatEditFormTeam({ editCreat, uploadfile, onConfirm }: Props) {
           }}
         />
 
-        <Button onClick={onConfirm}>Salvar</Button>
+        <Button type="button" onClick={onConfirm}>
+          Salvar
+        </Button>
       </form>
     </CreatEditLayout>
   );

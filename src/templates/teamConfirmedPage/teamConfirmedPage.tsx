@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { GetTeamReturn } from "@/types/api/TEAM/get";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/router";
+import Team from "@/pages/player/team";
 
 type Props = {
   data?: GetTeamReturn | GetTeamReturn[];
@@ -13,7 +14,7 @@ type Props = {
 };
 
 export function TeamConfirmedPage({ data, isCaptain }: Props) {
-  const router =  useRouter()
+  const router = useRouter();
   const [index, setIndex] = useState(0);
   const team = data ? (Array.isArray(data) ? data : [data]) : [];
   if (team.length === 0)
@@ -24,7 +25,16 @@ export function TeamConfirmedPage({ data, isCaptain }: Props) {
 
   return (
     <section className="flex flex-col container gap-4 pt-10 pb-28">
-      <div>{isCaptain && <Button onClick={()=>router.push("/player/team/training")}>Editar Formaçao</Button>}</div>
+      {isCaptain && (
+        <div className=" flex gap-4">
+          <Button onClick={() => router.push("/player/team/training")}>
+            Editar Formaçao
+          </Button>
+          <Button onClick={() => router.push(`/player/team/${team[0].id}`)}>
+            Editar Time
+          </Button>
+        </div>
+      )}{" "}
       <div>
         {team.length > 1 && (
           <div className="mt-10">
