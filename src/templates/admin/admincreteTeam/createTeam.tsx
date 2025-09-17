@@ -39,8 +39,8 @@ export function TeamPlayerPageAdmin() {
   return (
     <aside className="container my-10">
       <div className="flex flex-col md:flex-row gap-6">
-        <div className=" relative md:w-1/2 h-60 border-2">
-       {data.photoUrl &&( <ImgTeam img={data.photoUrl}/>)}
+        <div className="bg-white relative md:w-1/2 h-60 border-2 flex items-center justify-center">
+        <ImgTeam img={data.photoUrl ?? null}/>
         </div>
         <div className="md:w-1/2">
           <CreatEditFormTeam

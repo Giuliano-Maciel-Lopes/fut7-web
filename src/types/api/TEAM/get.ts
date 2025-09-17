@@ -10,3 +10,5 @@ export type PlayerMini = {
 export type GetTeamReturn = Team & {
   players: PlayerMini[];
 };
+
+export type PlayerPositionIndex = Pick<PlayerMini, "id" | "positionIndex">;

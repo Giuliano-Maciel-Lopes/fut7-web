@@ -3,6 +3,7 @@ import { GetTeamReturn } from "@/types/api/TEAM/get";
 import { useRouter } from "next/router";
 import { ContainerCampo } from "./container";
 import { playerPositions } from "./positionfixed";
+import { ImgTeam } from "@/templates/admin/components/ImgTeam/img.team";
 
 type Props = {
   data: GetTeamReturn;
@@ -55,9 +56,9 @@ export function Campo({ data }: Props) {
       </ContainerCampo>
 
       {/* Reservas */}
-      <div className="md:w-1/2 p-3 flex flex-col h-60 border-4 from-purple-400 via-pink-500 to-purple-600">
-        <div className="grid md:grid-cols-3 grid-cols-2 gap-2">
-          <h3 className="text-heading-lg">Reservas</h3>
+      <div className="md:w-1/2 p-3 flex flex-col h-auto border-4 from-purple-400 via-pink-500 to-purple-600 gap-6">
+        <h3 className="text-heading-lg">Reservas</h3>
+        <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-3 gap-2">
           {reservas.map((player) => (
             <div
               key={player.nameCart}
@@ -70,12 +71,24 @@ export function Campo({ data }: Props) {
                     router.push(`/players/${player.id}`);
                   }
                 }}
-                size="md2"
+                size="sm"
               >
+                <PlayerLetter.image
+                  size="lg"
+                  img={
+                    player?.photoUrl
+                      ? `${BaseURL}/${player?.photoUrl}`
+                      : undefined
+                  }
+                />
+
                 {player.nameCart}
               </PlayerLetter.container>
             </div>
           ))}
+        </div>
+        <div className=" relative h-60 border-2 w-full">
+          <ImgTeam img={data.photoUrl ?? null} />
         </div>
       </div>
     </div>
