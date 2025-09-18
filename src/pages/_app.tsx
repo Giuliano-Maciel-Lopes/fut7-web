@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import { Layout } from "@/components/layouts";
 import type { AppProps } from "next/app";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider , hydrate } from "@tanstack/react-query";
 import { query } from "../services/reactquery";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AsideAuthProvider } from "@/context/authaside";
@@ -10,7 +10,11 @@ import { ToastProvider } from "@/services/toast";
 import { AuthProvider } from "@/context/auth";
 
 export default function App({ Component, pageProps }: AppProps) {
+  if (pageProps.dehydratedState) {
+    hydrate(query, pageProps.dehydratedState);
+  }
   return (
+    
     <QueryClientProvider client={query}>
       <AuthProvider>
         <AsideAuthProvider>

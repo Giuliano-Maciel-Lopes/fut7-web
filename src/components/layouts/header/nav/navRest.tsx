@@ -9,7 +9,8 @@ export function NavRest() {
   const navLinks = [
     { name: "Cartinha", href: "/letter" },
     { name: "Meu Time ", href: "/team" },
-    { name: "Jogadores", href: "/letter" }
+    { name: "Jogadores", href: "/letter" },
+    { name: "convites", href: "/invite" }
 
   ];
 

@@ -11,13 +11,14 @@ import { API_ROUTES } from "@/utils/routes";
 type Props = {
   data: PlayerShows;
   isCaptain: boolean;
+  teamIdCaptain: string
 };
 
-export default function PlayersId({ data, isCaptain }: Props) {
+export default function PlayersId({ data, isCaptain , teamIdCaptain }: Props) {
   return (
     <div>
       <LatterPlayerpage data={data}>
-        <DataPlayer isCaptain={isCaptain} data={data} />
+        <DataPlayer isCaptain={isCaptain} data={data} teamIdCaptain={teamIdCaptain} />
       </LatterPlayerpage>
     </div>
   );
@@ -38,9 +39,10 @@ export async function getServerSideProps(
   const dataLogged = res.data;
 
   const isCaptain = dataLogged.role === "CAPITAO";
+  const teamIdCaptain = dataLogged.teamId
 
   return {
-    props: { data, isCaptain },
+    props: { data, isCaptain , teamIdCaptain },
   };
 }
 

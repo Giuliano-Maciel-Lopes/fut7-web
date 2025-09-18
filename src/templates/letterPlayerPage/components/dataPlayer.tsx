@@ -9,17 +9,18 @@ import { useInviteCreate } from "@/hooks/invites/create/create";
 type Props = {
   data: PlayerShows;
   isCaptain?: boolean;
+  teamIdCaptain: string;
 };
 
-export function DataPlayer({ data, isCaptain }: Props) {
+export function DataPlayer({ data, isCaptain, teamIdCaptain }: Props) {
   const confirmInv = useToggle();
-  const {mutate , isPending } =  useInviteCreate()
+  const { mutateAsync, isPending } = useInviteCreate();
 
   return (
     <CreatEditLayout msg="Dados do jogador">
       <div className="flex flex-col gap-6 text-black">
         <div className=" text-heading-lg flex flex-col gap-5 text-center overflow-hidden">
-            <h3>Time: {data.team?.name}</h3>
+          <h3>Time: {data.team?.name}</h3>
           <div className="relative h-60 flex  flex-col items-center justify-center">
             <ImgTeam img={data.team?.photoUrl ?? null} />
           </div>
@@ -47,7 +48,17 @@ export function DataPlayer({ data, isCaptain }: Props) {
             </Button>
           </div>
         )}
-        <ConfirmLayout mensg=" " onCancel={ } onConfirm={ } onOpenChange={ } open isLoading={}/>
+        <ConfirmLayout
+          mensg={`Deseja realmente convidar ${data.nameCart} para seu time?`}
+          onCancel={confirmInv.closed}
+          onConfirm={async () => {
+            await mutateAsync({ receiverId: data.id, teamId: teamIdCaptain });
+            confirmInv.closed();
+          }}
+          onOpenChange={confirmInv.toggle}
+          open={confirmInv.isOpen}
+          isLoading={isPending}
+        />
       </div>
     </CreatEditLayout>
   );

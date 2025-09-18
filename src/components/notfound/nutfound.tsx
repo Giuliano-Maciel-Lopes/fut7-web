@@ -1,10 +1,12 @@
 import { useRouter } from "next/router";
 import { Button } from "../ui/button";
-useRouter;
+import { LucideIcon } from "lucide-react";
 
 type Props = {
   msgNotfound?: string;
+  icone?: LucideIcon
 };
+
 
 export function NotfoundItems({ msgNotfound }: Props) {
   const router = useRouter();
