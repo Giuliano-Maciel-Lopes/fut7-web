@@ -1,10 +1,10 @@
 import { PlayerLetter } from "@/components/LetterPlayer";
 import { PlayerLayout } from "./layouts";
-import { Player } from "@shared/prisma";
+import { PlayerShows } from "@/types/api/players/get";
 import React from "react";
 
 type Props={
-data?:Player, // para ambos 
+data?:PlayerShows, // para ambos 
 children:React.ReactNode
 }
 

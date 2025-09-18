@@ -1,4 +1,4 @@
-import { InviteUpdateSchema , InviteUpdate } from "@/schemazod/invite/update";
+import { InviteBodySchema , InviteBodyInput } from "@/schemazod/invite/create";
 import { api } from "@/services/axios";
 import { errosApiMessage } from "@/utils/ErrosApi";
 import { API_ROUTES } from "@/utils/routes";
@@ -10,12 +10,12 @@ import { toast } from "react-toastify";
 
 
 
-async function FetchInvite(data: InviteUpdate) {
-  const res = await api.patch<Invite>(`${API_ROUTES.INVITES}`,data.status );
+async function FetchInvite(data: InviteBodyInput) {
+  const res = await api.patch<Invite>(`${API_ROUTES.INVITES}`,data );
   return res.data;
 }
 
-export function useInviteMutation() {
+export function useInviteCreate() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({

@@ -21,7 +21,7 @@ export default function PlayerListFilter({ initialData }: Props) {
 export async function getServerSideProps(ctx: any) {
   const role = await getUserRole(ctx);
 
-  // Admin → nada, só React Query client-side
+  // Admin  nada, só React Query client-side
   if (role === "ADMIN") {
     return { props: {} };
   }
