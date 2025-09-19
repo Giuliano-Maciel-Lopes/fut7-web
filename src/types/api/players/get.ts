@@ -1,6 +1,4 @@
-
 import { Player } from "@shared/prisma";
-
 
 export type PlayerTeamInfo = {
   name: string;               // nome do time
@@ -8,6 +6,7 @@ export type PlayerTeamInfo = {
   captain?: {                 // player que é capitão
     id: string;
     userId: string;           // para verificar se o logado é capitão
+    nameCart: string;         // nome do jogador (cartinha)
   } | null;
 };
 

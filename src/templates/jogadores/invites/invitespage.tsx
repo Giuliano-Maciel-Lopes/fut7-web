@@ -2,9 +2,12 @@ import { NotfoundItems } from "@/components/notfound/nutfound";
 import { Mail } from "lucide-react";
 import { InvitesBox } from "./components/invitesbox";
 import { useListInvites } from "@/hooks/invites/list/list";
-import { Loading } from "@/components/loading/loading";
 
-export function InvitePages() {
+type Props = {
+  isCaptain: boolean;
+};
+
+export function InvitePages({ isCaptain }: Props) {
   const { data, isFetching } = useListInvites();
 
   if (!data || data.length === 0) {
@@ -33,11 +36,18 @@ export function InvitePages() {
             <span className="w-3 h-3 rounded-full bg-indigo-200" />
             <span>Pendente</span>
           </div>
+
+          <div className="flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-red-200" />
+            <span>Rejeitado</span>
+          </div>
         </div>
       </header>
 
       {data.map((i) => (
-        <InvitesBox
+        <InvitesBox 
+          isCaptain={isCaptain}
+          nameRevceveid={i.receiver.nameCart}
           key={i.id}
           inviteId={i.id}
           status={i.status}

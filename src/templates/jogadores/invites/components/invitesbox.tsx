@@ -1,41 +1,73 @@
 import { Button } from "@/components/ui/button";
-import { useDeleteInvite } from "@/hooks/invites/updatestatus/updatestatus";
-import TeamId from "@/pages/player/team/[id]";
+import { useUpdateStatusInvite } from "@/hooks/invites/updateStatus/updatestatus";
 import { X, Check, View } from "lucide-react";
 
-
 type Props = {
-  status:"PENDING" | "ACCEPTED", 
+  status: "PENDING" | "ACCEPTED" | "REJECT";
   teamName: string;
-  inviteId:string
+  inviteId: string;
+  isCaptain: boolean;
+  nameRevceveid: string;
 };
 
-export function InvitesBox({ status, teamName , inviteId }: Props) {
-   const {mutate , isPending} =  useDeleteInvite()
+export function InvitesBox({
+  status,
+  teamName,
+  inviteId,
+  isCaptain,
+  nameRevceveid,
+}: Props) {
+  const { mutate: mutateUpdate, isPending: isPendingUpdate } =
+    useUpdateStatusInvite();
+
   const bgColor =
     status === "ACCEPTED"
       ? "bg-green-500"
-      : "bg-indigo-200"; // PENDING ou outro status
+      : status === "REJECT"
+      ? "bg-red-800"
+      : "bg-indigo-200"; // PENDING
 
   return (
-      <div className={`flex justify-between items-center p-4 border rounded-xl ${bgColor}`}>
-      <div className=" flex items-center justify-center gap-10">
+    <div
+      className={`flex justify-between items-center p-4 border rounded-xl ${bgColor}`}
+    >
+      <div className="flex items-center gap-10">
         <p className="text-heading-sm text-black uppercase">{teamName}</p>
       </div>
 
-      <div className=" flex gap-4 flex-col md:flex-row">
-        <Button>
-          <Check /> aceitar
-        </Button>
-        <Button isLoading={isPending} onClick={()=> mutate(inviteId)} variant={"red"}>
-          <X />
-          Cancelar
-        </Button>
-        <Button variant={"secundary"}>
-          <View />
-          vizualizar time
-        </Button>
-      </div>
+      {!isCaptain ? (
+        <div className="flex gap-4 flex-col md:flex-row">
+          <Button
+            isLoading={isPendingUpdate}
+            onClick={() =>
+              mutateUpdate({ data: { status: "ACCEPTED" }, id: inviteId })
+            }
+          >
+            <Check /> Aceitar
+          </Button>
+
+          <Button
+            isLoading={isPendingUpdate}
+            onClick={() =>
+              mutateUpdate({ data: { status: "REJECT" }, id: inviteId })
+            }
+            variant="red"
+          >
+            <X /> Rejeitar
+          </Button>
+
+          <Button variant="secundary">
+            <View /> Visualizar time
+          </Button>
+        </div>
+      ) : (
+        <div className="flex flex-col md:flex-row items-center gap-4">
+          <span className="text-heading-sm text-black">{nameRevceveid}</span>
+          <Button variant="secundary">
+            <View /> Visualizar player
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

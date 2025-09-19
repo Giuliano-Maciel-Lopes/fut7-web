@@ -19,9 +19,8 @@ export function useInviteCreate() {
 
   const mutation = useMutation({
     mutationFn: FetchInvite,
-    onSuccess(data, ) {
-      const senderUserId = data.sender.user.id
-      queryClient.invalidateQueries({ queryKey: ["invites", senderUserId] }); 
+    onSuccess( ) {
+      queryClient.invalidateQueries({ queryKey: ["invites", userId] }); 
 
       toast.success("pedido enviado  com sucesso ")
     },

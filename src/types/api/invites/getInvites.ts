@@ -1,15 +1,16 @@
 import { Invite } from "@shared/prisma";
 
-// Tipagem mínima de user dentro do player
-type PlayerWithUserId = {
-  user: { id: string };
+// Tipagem mínima de user dentro do player + nome do player
+type PlayerWithUser = {
+  id: string;
+  nameCart: string;          // nome do jogador
+  user: { id: string };      // id do usuário
 };
-
 
 export type InviteWithTeamAndUsers = Invite & {
   team: { name: string };
-  sender: PlayerWithUserId;
-  receiver: PlayerWithUserId;
+  sender: PlayerWithUser;
+  receiver: PlayerWithUser;
 };
 
 // Array de convites

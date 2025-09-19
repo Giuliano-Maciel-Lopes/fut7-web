@@ -5,19 +5,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { UseAuth } from "@/hooks/context/useAuth";
 import { InviteSingle } from "@/types/api/invites/getInvites";
-import { InviteUpdate } from "@/schemazod/invite/update";
-type Props ={
-    data:InviteUpdate
-    id:String
-}
 
 
-async function FetchInvite({data , id}:Props) {
-  const res = await api.patch<InviteSingle>(`${API_ROUTES.INVITES}/${id}` , data);
+async function FetchInvite(id: String) {
+  const res = await api.delete<InviteSingle>(`${API_ROUTES.INVITES}/${id}`);
   return res.data;
 }
 
-export function useUpdateStatusInvite() {
+export function useDeleteInvite() {
   const queryClient = useQueryClient();
   const { session } = UseAuth();
   const userId = session?.datauser.id;
@@ -27,7 +22,7 @@ export function useUpdateStatusInvite() {
     onSuccess(data) {
       queryClient.invalidateQueries({ queryKey: ["invites", userId] });
 
-      toast.success("Pedido Aceito "); // pois so pode mudar para aceitar pois m vai ter historico de pedidos 
+      toast.success("Pedido recusado");
     },
     onError(error) {
       const msg = errosApiMessage(error);

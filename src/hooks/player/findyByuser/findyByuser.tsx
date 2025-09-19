@@ -5,10 +5,14 @@ import { PlayerShows } from "@/types/api/players/get";
 import { useQuery } from "@tanstack/react-query";
 
 
-export async function FetchDataFIndByUser() {
-  const res = await api.get<PlayerShows>(`${API_ROUTES.PLAYERS}/me`);
- 
- return res.data;
+export async function FetchDataFindByUser(token?: string) {
+  const headers = token ? { Cookie: `token=${token}` } : undefined;
+
+  const res = await api.get<PlayerShows>(`${API_ROUTES.PLAYERS}/me`, {
+    headers,
+  });
+
+  return res.data;
 }
 
 export function UsePLayerFindByuser() {
@@ -16,7 +20,7 @@ export function UsePLayerFindByuser() {
   const userId = session?.datauser.id
 
   const query = useQuery({
-    queryFn: FetchDataFIndByUser,
+  queryFn: () => FetchDataFindByUser, 
     queryKey: ["playersByUser" , userId],
     enabled:!!userId
     
