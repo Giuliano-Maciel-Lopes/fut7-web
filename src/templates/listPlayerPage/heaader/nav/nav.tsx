@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/drawer";
 import { Trophy, Award, Star, Filter } from "lucide-react";
 import { useRouter } from "next/router";
-import { UseAuth } from "@/hooks/context/useAuth";
 
 
 export type FilterType =   "goals" | "assists" | "participatory";

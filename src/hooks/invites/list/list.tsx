@@ -5,36 +5,47 @@ import { InvitesList } from "@/types/api/invites/getInvites";
 import { API_ROUTES } from "@/utils/routes";
 import { UseAuth } from "@/hooks/context/useAuth";
 
-// fetch function
-export async function fetchDataListInvites(token?: string) {
+// Tipagem para fetch
+type Props = {
+  token?: string;
+  status?: "PENDING" | "ACCEPTED" | "REJECT";
+};
+
+// Função de fetch
+export async function fetchDataListInvites({ token, status }:Props = {}) {
   const headers = token ? { Cookie: `token=${token}` } : undefined;
-  const res = await api.get<InvitesList>(API_ROUTES.INVITES, { headers });
- await new Promise(resolve => setTimeout(resolve, 2000));
+
+  const res = await api.get<InvitesList>(API_ROUTES.INVITES, {
+    headers,
+    params: { status }, 
+  });
+
   return res.data;
 }
 
-// hook React Query
-export function useListInvites(token?: string) {
+// Hook React Query
+export function useListInvites({ token, status }:Props = {}) {
   const { session } = UseAuth();
   const userId = session?.datauser.id;
+
   return useQuery({
-    queryKey: ["invites", userId],
-    queryFn: () => fetchDataListInvites(token),
+    queryKey: ["invites", userId ], 
+    queryFn: () => fetchDataListInvites({ token, status }),
     staleTime: 1000 * 60 * 5,
     enabled: !!userId,
   });
 }
 
-// função SSR
+// Função SSR
 export async function prefetchInvites(
   queryClient: QueryClient,
   userId?: string,
-  token?: string
+  { token, status }: Props = {}
 ) {
-  if (!userId) return; // não faz nada se não tiver userId
+  if (!userId) return;
 
   await queryClient.prefetchQuery({
-    queryKey: ["invites", userId],
-    queryFn: () => fetchDataListInvites(token),
+    queryKey: ["invites", userId], 
+    queryFn: () => fetchDataListInvites({ token, status }),
   });
 }
