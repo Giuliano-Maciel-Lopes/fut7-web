@@ -21,7 +21,7 @@ export function useListPlayer(params?: ListPlayerParams ,initialData?: Player[])
     queryFn: () => FetchaDataListPlayer(params),
     queryKey: ["ListPlayer", JSON.stringify(params)],
     staleTime: 1000 * 60 * 5,
-    // n passar ent ne ? 
+  
     
    
   });

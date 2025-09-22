@@ -20,32 +20,29 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const token = ctx.req.cookies["token"];
   const user = await verifyToken(token);
   const queryClient = new QueryClient();
- 
 
-  const data = await FetchDataFindByUser(token); // busco player logado 
+  const data = await FetchDataFindByUser(token); // busco player logado
 
-  const isCaptain = data.team?.captain?.userId === user?.userId
-   const queryStatus = ctx.query.status as
+  const isCaptain = data.team?.captain?.userId === user?.userId;
+  const queryStatus = ctx.query.status as
     | "PENDING"
     | "ACCEPTED"
     | "REJECT"
     | undefined;
 
-let status: "PENDING" | "ACCEPTED" | "REJECT";
-if (isCaptain) {
-  status = queryStatus ?? "PENDING"; // capitão também vê PENDING por padrão
-} else {
-  status = "PENDING"; // não capitão só pendentes
-}
- 
+  let status: "PENDING" | "ACCEPTED" | "REJECT";
+  if (isCaptain) {
+    status = queryStatus ?? "PENDING"; // capitão também vê PENDING por padrão
+  } else {
+    status = "PENDING"; // não capitão só pendentes
+  }
 
-  await prefetchInvites(queryClient, user?.userId, {token ,status}); 
-
+  await prefetchInvites(queryClient, user?.userId, { token, status });
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      isCaptain
+      isCaptain,
     },
   };
 }

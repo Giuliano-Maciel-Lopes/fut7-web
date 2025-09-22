@@ -17,7 +17,6 @@ export default function PlayerListFilter({ initialData }: Props) {
   );
 }
 
-// eu coloco so ecuta isso c n for admin ? 
 export async function getServerSideProps(ctx: any) {
   const role = await getUserRole(ctx);
 

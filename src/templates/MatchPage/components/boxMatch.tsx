@@ -1,14 +1,19 @@
 import { Matchsingle } from "@/types/api/match/getList";
 import { X } from "lucide-react";
-import { ImgTeam } from "../../components/ImgTeam/img.team";
+import { ImgTeam } from "../../admin/components/ImgTeam/img.team";
+import { useRouter } from "next/router";
 
 type Props = {
   data: Matchsingle;
 };
 
 export function BoxMatch({ data }: Props) {
+  const router = useRouter();
   return (
-    <div className="bg-indigo-200 flex w-full md:w-80 h-40 rounded-xl">
+    <div
+      onClick={() => router.push(`${router.pathname}/${data.id}`)}
+      className="bg-indigo-200 flex w-full md:w-80 h-40 rounded-xl cursor-pointer "
+    >
       <div className="p-2 flex flex-col justify-between w-[70%] border-r-2 text-black">
         <div className="flex items-center gap-4">
           <div className=" relative border-2 border-black w-20 h-10 flex justify-center items-center">
