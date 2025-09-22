@@ -1,5 +1,5 @@
 import { ImgTeam } from "../../components/ImgTeam/img.team";
-import { DeleteActive } from "@/templates/listPlayerPage/components/deleteActive";
+import { DeleteActive } from "@/components/deleteActive";
 
 type Props = {
   img?: string | null;

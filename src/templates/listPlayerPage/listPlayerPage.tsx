@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useListPlayer } from "@/hooks/player/List/list";
 import { useParamsListPlayer } from "@/hooks/player/List/queryParams";
 import { UseAuth } from "@/hooks/context/useAuth";
-import { DeleteActive } from "./components/deleteActive";
+import { DeleteActive } from "../../components/deleteActive";
 import { useIsActivePlayer } from "@/hooks/player/isactiveUpdate/isactiveupdate";
 
 type Props = {

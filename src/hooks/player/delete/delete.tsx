@@ -15,7 +15,7 @@ export function useDeletePlayer() {
   const useQuery = useQueryClient();
   const mutate = useMutation({
     mutationFn: FetchDataDelete,
-    onSuccess(data, variables, context) {
+    onSuccess(data, variables, ) {
       useQuery.invalidateQueries({ queryKey: ["playersByUser", variables] });
 
       useQuery.setQueriesData<Player[]>({ queryKey: ["ListPlayer"] }, (old) =>

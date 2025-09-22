@@ -9,11 +9,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ButtonStatus, BUTTON_STAGE } from "../utils/buttonQuerys";
-type props ={
-  isFetching:boolean
-}
 
-export function HeaderMatch({isFetching}:props) {
+
+export function HeaderMatch() {
   const router = useRouter();
   const { status, stage } = router.query;
 
@@ -34,7 +32,6 @@ export function HeaderMatch({isFetching}:props) {
 
   return (
     <header className="flex flex-col gap-4">
-    <h2>{isFetching && "Carregando..."}</h2>
       <h2 className="text-heading-md text-center">PARTIDAS</h2>
      
 

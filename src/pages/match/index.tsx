@@ -5,7 +5,7 @@ import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { verifyToken } from "@/utils/getToken";
 import { GetServerSidePropsContext } from "next";
 import { parseFiltersMatch } from "@/hooks/match/list/parsedFilter";
-
+// praa usuarios so ssr para admin ssr junto com react query
 type Props = {
   isAdm: boolean;
 };
@@ -25,8 +25,12 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const filters = parseFiltersMatch(ctx.query); 
 
   const user = await verifyToken(token);
-  await PrefetchMatch(queryClient , filters);
-  const isAdm = user?.role === "ADMIN";
+  const userId = user?.userId
+   const isAdm = user?.role === "ADMIN";
+
+  await PrefetchMatch(queryClient , filters ,userId );
+
+  
 
   return {
     props: {
