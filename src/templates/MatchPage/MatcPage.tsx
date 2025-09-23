@@ -11,16 +11,21 @@ import { useToggle } from "@/hooks/usetoggle";
 import { UseDeleteMatch } from "@/hooks/match/delete/delete";
 import { useUpdateIsActiveMatch } from "@/hooks/match/updateActive/updateIsactive";
 import { Loading } from "@/components/loading/loading";
+import { ListMatches } from "@/types/api/match/getList";
 
 type Props = {
   isAdm: boolean;
+  dataSsr:ListMatches
 };
 
-export function MatchPage({ isAdm }: Props) {
+export function MatchPage({ isAdm , dataSsr}: Props) {
   const router = useRouter();
   const filters = parseFiltersMatch(router.query);
 
-  const { data, isFetching } = useListMatch({ filters });
+  const { data:dataquery, isFetching } = useListMatch({ filters ,  });
+
+    const data = isAdm ? dataquery : dataSsr;
+
 
   const [selectedMatchId, setSelectedMatchId] = useState<string | null>(null);
   const [activeState, setActiveState] = useState<boolean | null>(null);

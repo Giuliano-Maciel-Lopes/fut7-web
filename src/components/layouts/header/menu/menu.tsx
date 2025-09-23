@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { UseAuth } from "@/hooks/context/useAuth";
 import { NavPublicMenu } from "../nav/navpagesPUblic";
+import { useLogout } from "@/hooks/auth/session/uselogoout";
+
 
 export function Menu() {
-  const { remove } = UseAuth();
+   const { mutate: logout, isPending } = useLogout();
 
   return (
     <aside>
@@ -20,7 +22,7 @@ export function Menu() {
           <NavPublicMenu/>
           <NavRest />
 
-          <Button onClick={remove}>
+          <Button isLoading={isPending} onClick={() => logout()}>
             {" "}
             <LogOut /> Sair
           </Button>

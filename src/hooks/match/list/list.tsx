@@ -24,16 +24,15 @@ export async function fetchDataListMatch({ filters }: Props) {
 export function useListMatch({ filters }: Props = {}) {
   const { session } = UseAuth();
   const userId = session?.datauser.id;
-  const isAdm = session?.datauser.role === "ADMIN"; 
-  const safeUserId = userId ?? null;
+  const isAdm = session?.datauser.role === "ADMIN";
 
   const filtersKey = JSON.stringify(filters ?? {});
 
   return useQuery({
-    queryKey: ["match", safeUserId, filtersKey],
+    queryKey: ["match", userId, filtersKey],
     queryFn: () => fetchDataListMatch({ filters }),
-    enabled: !!isAdm,     // pq so admin vai poder usar react query usarios vai ser ssr     
-    staleTime: 1000 * 60 * 5,   
+    enabled: !!isAdm, // pq so admin vai poder usar react query usarios vai ser ssr
+    staleTime: 1000 * 60 * 5,
   });
 }
 
@@ -45,10 +44,9 @@ export async function PrefetchMatch(
 ) {
   const safeFilters = filters ?? {};
   const filtersKey = JSON.stringify(safeFilters);
-  const safeUserId = userId ?? null;
 
   await queryClient.prefetchQuery({
-    queryKey: ["match", safeUserId, filtersKey],
+    queryKey: ["match", userId, filtersKey],
     queryFn: () => fetchDataListMatch({ filters: safeFilters }),
   });
 }

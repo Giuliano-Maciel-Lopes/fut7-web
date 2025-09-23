@@ -1,5 +1,6 @@
 import { ImgTeam } from "../../components/ImgTeam/img.team";
 import { DeleteActive } from "@/components/deleteActive";
+import { CopyIdButton } from "@/components/copieIdButton/copieIdButton";
 
 type Props = {
   img?: string | null;
@@ -8,6 +9,7 @@ type Props = {
   onDelete: () => void;
   setActive: (isActive: boolean) => void;
   isActive: boolean;
+  id:string
 };
 
 export function BoxTeams({
@@ -17,10 +19,11 @@ export function BoxTeams({
   onDelete,
   isActive,
   setActive,
+  id
 }: Props) {
   return (
-    <div className=" flex flex-col gap-2">
-      <div className="w-40  md:w-52">
+    <div className=" flex flex-col gap-2 w-40 md:w-52">
+      <div className="">
         <DeleteActive
           onDelete={onDelete}
           isactive={isActive}
@@ -44,6 +47,7 @@ export function BoxTeams({
           {nameTeam}
         </div>
       </div>
+      <CopyIdButton id={id}/>
     </div>
   );
 }
