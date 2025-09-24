@@ -6,7 +6,7 @@ import { useShowMatch } from "@/hooks/match/showId/showId";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { GetShowMatch } from "@/types/api/match/getshow";
 import { MatchImageTeams } from "./components/matchImgTeams";
-import { NavButton } from "./components/navbuttons";
+import { NavButton } from "./components/navbuttuns/navbuttons";
 
 type Props = {
   dataSsr: GetShowMatch;
@@ -27,7 +27,7 @@ export function MatchIdPage({ dataSsr, isAdm }: Props) {
 
   return (
     <section className="container mx-auto flex flex-col gap-4 p-4">
-      <NavButton IsAdm={isAdm} id={data.id} />
+      <NavButton status={data.status} IsAdm={isAdm} id={data.id} />
       <Score data={data} />
       <MatchImageTeams data={data} />
 
