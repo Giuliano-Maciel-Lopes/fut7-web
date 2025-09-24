@@ -8,6 +8,7 @@ import { API_ROUTES } from "@/utils/routes";
 // Tipagem do hook
 type Props = {
   filters?: ParamsMatch;
+ 
 };
 
 // Função de fetch
@@ -21,7 +22,7 @@ export async function fetchDataListMatch({ filters }: Props) {
   return res.data;
 }
 
-export function useListMatch({ filters }: Props = {}) {
+export function useListMatch({ filters  }: Props = {}) {
   const { session } = UseAuth();
   const isAdm = session?.datauser.role === "ADMIN";
 
@@ -32,6 +33,7 @@ export function useListMatch({ filters }: Props = {}) {
     queryFn: () => fetchDataListMatch({ filters }),
     enabled: !!isAdm, // pq so admin vai poder usar react query usarios vai ser ssr
     staleTime: 1000 * 60 * 5,
+  
   });
 }
 
@@ -39,13 +41,12 @@ export function useListMatch({ filters }: Props = {}) {
 export async function PrefetchMatch(
   queryClient: QueryClient,
   filters?: ParamsMatch,
-  userId?: string
 ) {
   const safeFilters = filters ?? {};
   const filtersKey = JSON.stringify(safeFilters);
 
   await queryClient.prefetchQuery({
-    queryKey: ["match", userId, filtersKey],
+    queryKey: ["match",  filtersKey],
     queryFn: () => fetchDataListMatch({ filters: safeFilters }),
   });
 }

@@ -1,5 +1,4 @@
 import { fetchDataListMatch, PrefetchMatch } from "@/hooks/match/list/list";
-import { ParamsMatch } from "@/schemazod/match/paramsList";
 import { MatchPage } from "@/templates/MatchPage/MatcPage";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { verifyToken } from "@/utils/getToken";
@@ -27,19 +26,16 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const filters = parseFiltersMatch(ctx.query);
 
   const user = await verifyToken(token);
-  const userId = user?.userId ;
   const isAdm = user?.role === "ADMIN";
 
   if (isAdm) {
-    await PrefetchMatch(queryClient, filters, userId);
+    await PrefetchMatch(queryClient, filters);
   }
 
   let dataSSR = null;
   if (!isAdm ) {
     dataSSR = await fetchDataListMatch({ filters });
   }
-console.log(dataSSR)
-console.log(isAdm)
 
   return {
     props: {

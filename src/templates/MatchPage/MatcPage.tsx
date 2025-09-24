@@ -23,7 +23,7 @@ export function MatchPage({ isAdm , dataSsr}: Props) {
   const router = useRouter();
   const filters = parseFiltersMatch(router.query);
 
-  const { data:dataquery, isFetching } = useListMatch({ filters ,  });
+  const { data:dataquery, isFetching } = useListMatch({ filters   });
 
     const data = isAdm ? dataquery : dataSsr;
 
