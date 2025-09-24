@@ -1,0 +1,1 @@
+export const Stage = ["GROUP", "QUARTAS", "SEMI", "FINAL"]

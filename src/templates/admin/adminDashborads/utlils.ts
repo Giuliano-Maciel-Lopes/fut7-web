@@ -7,7 +7,7 @@ import {
 export const boxFunctionalUtils = [
   { id: 1, icon: User, title: "Jogadores", description: "Visualize e edite todos os jogadores.", url: "/players" }, // ja tem / admin na pag da cartinha 
   { id: 2, icon: Settings, title: "team", description: "crie times manualmente.", url: "/admin/teams" },
-  { id: 3, icon: Database, title: "partidas", description: "Gerencie os registros e dados das partidas.", url: "/admin/match" },
+  { id: 3, icon: Database, title: "partidas", description: "Gerencie os registros e dados das partidas.", url: "/admin/match/create" },
   { id: 4, icon: PieChart, title: "Relatórios", description: "Veja relatórios detalhados de desempenho.", url: "/admin/relatorios" },
   { id: 5, icon: Calendar, title: "Agenda", description: "Gerencie eventos e compromissos.", url: "/admin/agenda" },
   { id: 6, icon: Bell, title: "Notificações", description: "Veja alertas e notificações importantes.", url: "/admin/notificacoes" },

@@ -8,12 +8,17 @@ import { useUpdateIsactiveTeam } from "@/hooks/team/updateisactive/Updateosactiv
 import { useToggle } from "@/hooks/usetoggle";
 import { ConfirmLayout } from "@/components/confirmLogout";
 import { useState } from "react";
+import {  SearchInput } from "./components/search";
 
 export function AdminTeamsPage() {
+  const router = useRouter();
+  const searchQuery = router.query.search as string | undefined;
+   const [search, setSearch] = useState(searchQuery || "");
+
   const del = useToggle();
   const update = useToggle();
-  const router = useRouter();
-  const { data, isLoading } = uselistTeam();
+
+   const { data, isLoading } = uselistTeam(searchQuery ? { search:searchQuery } : undefined);
   const { mutateAsync: mutatedel, isPending: isPendingdel } = useDeleteTeam();
   const { mutateAsync: mutateupd, isPending: isPendingUpdate } =
     useUpdateIsactiveTeam();
@@ -21,36 +26,38 @@ export function AdminTeamsPage() {
   const [storageActive, setStorageActive] = useState<boolean>();
 
   if (isLoading) return <Loading />;
-  if (!data || data.length === 0)
-    return (
-      <NotfoundItems msgNotfound="nenhum time encontrado no momento volte novamente mais tarde" />
-    );
+
   return (
     <section className="container mt-10">
-      <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4">
-        {data.map((t) => (
-          
-            <BoxTeams
-            id={t.id}
-              isActive={t.isActive}
-              setActive={() => {
-                setStorage(t.id);
-                setStorageActive(t.isActive);
-                update.open();
-              }}
-              onDelete={() => {
-                setStorage(t.id);
-                del.open();
-              }}
-              key={t.id}
-              onClick={() => router.push(`/admin/teams/${t.id}`)}
-              nameTeam={t.name}
-              img={t.photoUrl}
-            />
-          
-        ))}
-      </div>
-
+      <SearchInput  search={search} setSearch={setSearch}/>
+      
+      {!data || data.length === 0 ? (
+    <NotfoundItems msgNotfound="Nenhum time encontrado no momento, volte novamente mais tarde" />
+  ) : (
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+      {data.map((t) => (
+        <BoxTeams
+          key={t.id}
+          id={t.id}
+          nameTeam={t.name}
+          img={t.photoUrl}
+          isActive={t.isActive}
+          setActive={() => {
+            setStorage(t.id);
+            setStorageActive(t.isActive);
+            update.open();
+          }}
+          onDelete={() => {
+            setStorage(t.id);
+            del.open();
+          }}
+          onClick={() => router.push(`/admin/teams/${t.id}`)}
+        />
+      ))}
+    </div>
+  )}
+        
+          {/* so asides de confirmaçoes */}
       <ConfirmLayout
         mensg="Deseja realmente excluir este time? Essa ação não poderá ser desfeita. "
         onCancel={del.closed}

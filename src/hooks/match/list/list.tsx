@@ -23,13 +23,12 @@ export async function fetchDataListMatch({ filters }: Props) {
 
 export function useListMatch({ filters }: Props = {}) {
   const { session } = UseAuth();
-  const userId = session?.datauser.id;
   const isAdm = session?.datauser.role === "ADMIN";
 
   const filtersKey = JSON.stringify(filters ?? {});
 
   return useQuery({
-    queryKey: ["match", userId, filtersKey],
+    queryKey: ["match",  filtersKey],
     queryFn: () => fetchDataListMatch({ filters }),
     enabled: !!isAdm, // pq so admin vai poder usar react query usarios vai ser ssr
     staleTime: 1000 * 60 * 5,

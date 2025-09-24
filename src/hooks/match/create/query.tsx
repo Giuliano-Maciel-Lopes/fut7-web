@@ -1,27 +1,28 @@
-import { ParamsMatch } from "@/schemazod/match/paramsList";
+
+import { MatchBodyInput } from "@/schemazod/match/create";
 import { api } from "@/services/axios";
 import { errosApiMessage } from "@/utils/ErrosApi";
 import { API_ROUTES } from "@/utils/routes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
-async function FetchDataDelete(id: string) {
-  const res = await api.delete(`${API_ROUTES.MATCHES}/${id}`);
-  return res.data;
+export async function Fetchdata(data:MatchBodyInput) {
+  const res = await api.post(API_ROUTES.MATCHES , data);
+
+  res.data;
 }
 
-export function UseDeleteMatch(filters: ParamsMatch) {
+export function UseCreateMatch() {
   const queryClient = useQueryClient();
-  const filtersKey = JSON.stringify(filters ?? {});
 
   const mutation = useMutation({
-    mutationFn: FetchDataDelete,
+    mutationFn: Fetchdata,
     onSuccess() {
       queryClient.invalidateQueries({
-           queryKey: ["match",  filtersKey], 
+        queryKey: ["match" ],
       });
 
-      toast.success("Partida excluida");
+      toast.success("Partida criada");
     },
     onError(error) {
       const message = errosApiMessage(error);
