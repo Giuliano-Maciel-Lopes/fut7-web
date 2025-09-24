@@ -8,13 +8,14 @@ import { API_ROUTES } from "@/utils/routes";
 // Tipagem do hook
 type Props = {
   filters?: ParamsMatch;
- 
+  token?: string;
 };
 
 // Função de fetch
-export async function fetchDataListMatch({ filters }: Props) {
+export async function fetchDataListMatch({ filters, token }: Props) {
   const res = await api.get<ListMatches>(API_ROUTES.MATCHES, {
     params: filters,
+    headers: token ? { Cookie: `token=${token}` } : undefined,
   });
 
   await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -22,18 +23,17 @@ export async function fetchDataListMatch({ filters }: Props) {
   return res.data;
 }
 
-export function useListMatch({ filters  }: Props = {}) {
+export function useListMatch({ filters }: Props = {}) {
   const { session } = UseAuth();
   const isAdm = session?.datauser.role === "ADMIN";
 
   const filtersKey = JSON.stringify(filters ?? {});
 
   return useQuery({
-    queryKey: ["match",  filtersKey],
+    queryKey: ["match", filtersKey],
     queryFn: () => fetchDataListMatch({ filters }),
     enabled: !!isAdm, // pq so admin vai poder usar react query usarios vai ser ssr
     staleTime: 1000 * 60 * 5,
-  
   });
 }
 
@@ -41,12 +41,13 @@ export function useListMatch({ filters  }: Props = {}) {
 export async function PrefetchMatch(
   queryClient: QueryClient,
   filters?: ParamsMatch,
+  token?:string
 ) {
   const safeFilters = filters ?? {};
   const filtersKey = JSON.stringify(safeFilters);
 
   await queryClient.prefetchQuery({
-    queryKey: ["match",  filtersKey],
-    queryFn: () => fetchDataListMatch({ filters: safeFilters }),
+    queryKey: ["match", filtersKey],
+    queryFn: () => fetchDataListMatch({ filters: safeFilters , token }),
   });
 }

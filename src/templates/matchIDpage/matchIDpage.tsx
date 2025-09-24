@@ -1,59 +1,41 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/router";
-import { ImgTeam } from "../admin/components/ImgTeam/img.team";
 import { Score } from "./components/score";
 import { useShowMatch } from "@/hooks/match/showId/showId";
 import { NotfoundItems } from "@/components/notfound/nutfound";
-import { Loading } from "@/components/loading/loading";
+import { GetShowMatch } from "@/types/api/match/getshow";
+import { MatchImageTeams } from "./components/matchImgTeams";
+import { NavButton } from "./components/navbuttons";
 
-type Props = {};
+type Props = {
+  dataSsr: GetShowMatch;
+  isAdm: boolean;
+};
 
-export function MatchIdPage({}: Props) {
+export function MatchIdPage({ dataSsr, isAdm }: Props) {
   const router = useRouter();
   const id = router.query.id;
-  const { data, isLoading } = useShowMatch(id as string);
+  const { data: dataquery } = useShowMatch(id as string);
+  const data = isAdm ? dataquery : dataSsr;
 
   if (!data) {
     return (
       <NotfoundItems msgNotfound="Essa partida foi apagada ou desativada" />
     );
   }
-  if (isLoading) return <Loading />;
 
   return (
     <section className="container mx-auto flex flex-col gap-4 p-4">
-      <Button
-        onClick={() => router.push("/match")}
-        variant="transparent"
-        className="w-fit flex items-center gap-2"
-      >
-        <ArrowLeft /> Voltar
-      </Button>
-
+      <NavButton IsAdm={isAdm} id={data.id} />
       <Score data={data} />
+      <MatchImageTeams data={data} />
 
-      <div className="flex gap-4 mt-8 items-center ">
-        <div className=" relative w-1/2 sm:h-32 lg:h-64 border bg-indigo-200 flex items-center justify-center">
-          <ImgTeam img={data.team1.photoUrl ?? null} />
-        </div>
-        <h1 className="text-center text-2xl sm:text-3xl lg:text-4xl font-bold">
-          x
-        </h1>
-        <div className=" relative w-1/2 sm:h-32 lg:h-64 border  bg-indigo-200 flex items-center justify-center">
-          <ImgTeam img={data.team1.photoUrl ?? null} />
-        </div>
-      </div>
-
-      <div className="border-t-2 flex">
-        <div className=" w-1/2 ">
-       
-        </div>
+      <div className="border-2 flex ">
+        <div className=" w-1/2 p-3 ">teste1</div>
         <span className="border-x-2 h-auto"></span>
 
-        <div className="w-1/2 ">
-        
-        </div>
+        <div className="w-1/2 p-3">teste2</div>
       </div>
     </section>
   );

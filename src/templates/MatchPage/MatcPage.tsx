@@ -16,17 +16,16 @@ import { Button } from "@/components/ui/button";
 
 type Props = {
   isAdm: boolean;
-  dataSsr:ListMatches
+  dataSsr: ListMatches;
 };
 
-export function MatchPage({ isAdm , dataSsr}: Props) {
+export function MatchPage({ isAdm, dataSsr }: Props) {
   const router = useRouter();
   const filters = parseFiltersMatch(router.query);
 
-  const { data:dataquery, isFetching } = useListMatch({ filters   });
+  const { data: dataquery, isFetching } = useListMatch({ filters });
 
-    const data = isAdm ? dataquery : dataSsr;
-
+  const data = isAdm ? dataquery : dataSsr;
 
   const [selectedMatchId, setSelectedMatchId] = useState<string | null>(null);
   const [activeState, setActiveState] = useState<boolean | null>(null);
@@ -41,7 +40,6 @@ export function MatchPage({ isAdm , dataSsr}: Props) {
 
   return (
     <section className="flex flex-col mt-10 container gap-4">
-      {isAdm && (<Button>criar uma nova partida</Button>)}
       <HeaderMatch />
       {isFetching && <Loading />}
 
@@ -71,7 +69,7 @@ export function MatchPage({ isAdm , dataSsr}: Props) {
         </div>
       )}
       {/* pag acaba aqui e so confirmaçap do layout active e delete */}
-       <ConfirmLayout
+      <ConfirmLayout
         mensg="Tem certeza que deseja excluir essa partida?"
         open={confirmDelete.isOpen}
         onCancel={confirmDelete.closed}

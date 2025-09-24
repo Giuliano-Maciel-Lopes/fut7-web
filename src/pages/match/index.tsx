@@ -29,12 +29,12 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const isAdm = user?.role === "ADMIN";
 
   if (isAdm) {
-    await PrefetchMatch(queryClient, filters);
+    await PrefetchMatch(queryClient, filters , token);
   }
 
   let dataSSR = null;
   if (!isAdm ) {
-    dataSSR = await fetchDataListMatch({ filters });
+    dataSSR = await fetchDataListMatch({ filters , token });
   }
 
   return {
