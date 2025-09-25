@@ -31,11 +31,32 @@ export function MatchIdPage({ dataSsr, isAdm }: Props) {
       <Score data={data} />
       <MatchImageTeams data={data} />
 
-      <div className="border-2 flex ">
-        <div className=" w-1/2 p-3 ">teste1</div>
+      <div className="border-2 flex">
+        <div className="w-1/2 p-3 space-y-2">
+          <h2 className="font-semibold text-center">{data.team1.name}</h2>
+          {data.events
+            .filter((e) => e.player?.teamId === data.team1.id)
+            .map((e, idx) => (
+              <div key={idx} className="flex items-center gap-2">
+                <span className="text-sm">{e.type}</span>
+                <span className="font-medium">{e.player?.nameCart}</span>
+              </div>
+            ))}
+        </div>
+
         <span className="border-x-2 h-auto"></span>
 
-        <div className="w-1/2 p-3">teste2</div>
+        <div className="w-1/2 p-3 space-y-2">
+          <h2 className="font-semibold text-center">{data.team2.name}</h2>
+          {data.events
+            .filter((e) => e.player?.teamId === data.team2.id)
+            .map((e, idx) => (
+              <div key={idx} className="flex items-center gap-2">
+                <span className="text-sm">{e.type}</span>
+                <span className="font-medium">{e.player?.nameCart}</span>
+              </div>
+            ))}
+        </div>
       </div>
     </section>
   );

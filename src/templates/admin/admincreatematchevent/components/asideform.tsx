@@ -12,14 +12,14 @@ type Props = {
 };
 
 export function AsidematchEvent({ name, matchId, playerId, teamId }: Props) {
-  const { mutateAsync , isPending } = usematchEventCreate();
+  const { mutateAsync, isPending } = usematchEventCreate();
   const [eventType, setEventType] = useState<
     "GOAL" | "ASSIST" | "OWN_GOAL" | ""
   >("");
 
   return (
     <DialogForm
-    isPending={isPending}
+      isPending={isPending}
       title={`Selecionar tipo de evento para o jogador ${name}`}
       trigger={
         <Button size="icon">
@@ -29,7 +29,7 @@ export function AsidematchEvent({ name, matchId, playerId, teamId }: Props) {
       onConfirm={async () => {
         if (!eventType) return;
         await mutateAsync({ matchId, teamId, playerId, type: eventType });
-        setEventType(""); 
+        setEventType("");
       }}
     >
       <form className="flex flex-col gap-3">

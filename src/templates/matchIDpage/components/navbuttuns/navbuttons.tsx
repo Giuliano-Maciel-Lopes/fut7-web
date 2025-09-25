@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { FormUpdateStatus } from "./alterStatus";
 
 type Props = {
   IsAdm: boolean;
   id: string;
-  status: string;
+  status: "SCHEDULED" | "ONGOING" | "FINISHED";
 };
 
 export function NavButton({ IsAdm, id, status }: Props) {
@@ -22,7 +23,7 @@ export function NavButton({ IsAdm, id, status }: Props) {
       </Button>
       <div className="flex gap-2  items-center justify-center">
         <h4>{status}</h4>
-        {IsAdm && <Button variant={"secundary"}>altear status</Button>}
+        {IsAdm && <FormUpdateStatus id={id} statusPrev={status}/>}
       </div>
 
       {IsAdm && (

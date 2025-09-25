@@ -5,6 +5,7 @@ import { TeamMini } from "./getList";
 export type PlayerMini = {
   id: string;
   nameCart: string;
+  teamId: string | null;
 };
 
 // Cada time com players
