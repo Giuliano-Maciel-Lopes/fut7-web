@@ -3,7 +3,7 @@ import { CardAction } from "./card-action";
 
 export function InfoEventCart() {
   return (
-    <CardAction title="Informações do Evento">
+    <CardAction  link="/details" title="Informações do Evento">
       <div className="flex flex-col md:flex-row items-center gap-8">
         <div className="relative w-full md:w-1/2 h-48 md:h-64">
           <Image

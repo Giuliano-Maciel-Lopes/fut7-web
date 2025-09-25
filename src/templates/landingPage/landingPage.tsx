@@ -1,12 +1,13 @@
-import { SectionHero, SectionNew } from "./section";
-import { CallToAction } from "./section/call-to-action";
+import { SectionHero, SectionNew ,CallToAction , SectionFotter  } from "./section";
+
 
 export function LandingPage() {
   return (
-    <div className="flex flex-col gap-12 mb-10">
+    <div className="flex flex-col gap-12 ">
      <SectionHero/>
      <SectionNew/>
      <CallToAction/>
+     <SectionFotter/>
       
     </div>
   );

@@ -17,7 +17,7 @@ export function CardNew({ description, img, classname, icone }: Props) {
       <div className="  flex flex-col w-full h-full  rounded-xl  ">
         <div className="mt- flex justify-center h-5">{icone}</div>
         <div className="w-full relative h-[60%] flex ">
-          <Image alt="new" src={img} fill style={{ objectFit: "cover" }} />
+          <Image alt="new" src={img} fill  className="object-contain md:object-cover" />
         </div>
         <div className="rounded-lg w-full h-[40%] flex items-center justify-center p-2">
           <p className="text-center text-gray-200">{description}</p>
