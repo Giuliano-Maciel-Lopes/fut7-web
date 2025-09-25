@@ -1,18 +1,18 @@
 import { newReleases } from "../../utils/newReleases";
 import { CardNew } from "../../components/cardNew";
-import Image from "next/image";
+
 
 export function SectionNew() {
   return (
-    <section className="flex  flex-col gap-4  items-center">
+    <section className=" container flex  flex-col gap-4  items-center">
 
-      <div className="  container flex justify-center">
+      <div className="  flex justify-center">
         <h3 className="text-heading-lg text-blue-500">
           Novidades dessa Seseon
         </h3>
       </div>
 
-      <div className="flex gap-9 items-center justify-center mt-10">
+      <div className="flex flex-col md:flex-row gap-9 items-center justify-center mt-10">
         {newReleases.map((r) => (
           <CardNew
             classname={
