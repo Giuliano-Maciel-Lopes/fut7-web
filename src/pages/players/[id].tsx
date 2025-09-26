@@ -1,10 +1,8 @@
 import { LatterPlayerpage } from "@/templates/letterPlayerPage";
 import { fetchDataShowPlayerId } from "@/hooks/player/showId/showId";
 import { PlayerShows } from "@/types/api/players/get";
-import { DataPlayer } from "@/templates/letterPlayerPage/components/dataPlayer";
-import { verifyToken } from "@/utils/getToken";
+import { DataPlayer } from "@/templates/letterPlayerPage/subpages3/dataPlayer";
 import { GetServerSidePropsContext } from "next";
-import { FetchDataFIndByUser } from "@/hooks/player/findyByuser/findyByuser";
 import { api } from "@/services/axios";
 import { API_ROUTES } from "@/utils/routes";
 //ssr

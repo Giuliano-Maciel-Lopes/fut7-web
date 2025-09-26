@@ -20,7 +20,7 @@ export function UsePLayerFindByuser() {
   const userId = session?.datauser.id
 
   const query = useQuery({
-  queryFn: () => FetchDataFindByUser, 
+  queryFn: () => FetchDataFindByUser(), 
     queryKey: ["playersByUser" , userId],
     enabled:!!userId
     

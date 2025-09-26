@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { PlayerBodySchema } from "@/schemazod/player/create";
 import { PlayerBodySchemaupdate } from "@/schemazod/player/update";
-import { Player } from "@shared/prisma";
 import z from "zod";
+import { PlayerShows } from "@/types/api/players/get";
 
 type Props = {
-  player?: Player | null;
+  player?:PlayerShows| null;
 };
 
 export function useCreateEditPlayerForm({ player }: Props) {
