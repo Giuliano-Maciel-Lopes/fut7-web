@@ -9,7 +9,7 @@ const navPagesLinks = [
   { name: "Início", href: "/" },
   { name: "Times Confirmados", href: "/teamConfirmed" },
   { name: "Jogadores", href: "/players" },
-  { name: "Inscrição", href: "/" },
+  { name: "Inscrição", href: "/enrollment" },
  
 ];
 

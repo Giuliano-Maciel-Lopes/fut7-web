@@ -16,7 +16,7 @@ export function CardAction({ title, children, link, className, label }: Props) {
   // Define automaticamente o label se não vier via prop
   const defaultLabel = (() => {
     if (!link) return "Inscrever-se";
-    if (link === "/inscricao") return "Inscrever-se";
+    if (link === "/enrollment") return "Inscrever-se";
     if (link === "/details") return "Detalhes do evento";
     return "fale com um atendente";
   })();
@@ -52,7 +52,7 @@ export function CardAction({ title, children, link, className, label }: Props) {
           )
         ) : (
           <Button variant="secundary" asChild>
-            <Link href="/inscricao">{label || defaultLabel}</Link>
+            <Link href="/enrollment">{label || defaultLabel}</Link>
           </Button>
         )}
       </div>
