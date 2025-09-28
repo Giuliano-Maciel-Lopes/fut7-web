@@ -1,4 +1,4 @@
-import { StepTeam } from "./components/stepTeam";
+import { StepCarrrosel } from "../../components/stepcarrrosel/setcarrosel";
 import { Campo } from "../../components/campo/campo";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { useState } from "react";
@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { GetTeamReturn } from "@/types/api/TEAM/get";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/router";
-import Team from "@/pages/player/team";
 
 type Props = {
   data?: GetTeamReturn | GetTeamReturn[];
@@ -38,8 +37,8 @@ export function TeamConfirmedPage({ data, isCaptain }: Props) {
       <div>
         {team.length > 1 && (
           <div className="mt-10">
-            <StepTeam
-              nameTeam={nameTeam}
+            <StepCarrrosel
+              name={nameTeam}
               setCurrentIndex={setIndex}
               currentIndex={index}
             />

@@ -3,18 +3,18 @@ import { ArrowLeft } from "lucide-react";
 import { ArrowRight } from "lucide-react";
 
 type Props = {
-  nameTeam: string[];
+  name: string[];
   currentIndex: number;
   setCurrentIndex: (i: number) => void;
 };
 
-export function StepTeam({ nameTeam, currentIndex, setCurrentIndex }: Props) {
+export function StepCarrrosel({ name, currentIndex, setCurrentIndex }: Props) {
   function nextSlid() {
-    const next = (currentIndex + 1) % nameTeam.length;
+    const next = (currentIndex + 1) % name.length;
     setCurrentIndex(next);
   }
   function prevSlid() {
-    const next = (currentIndex - 1 + nameTeam.length) % nameTeam.length;
+    const next = (currentIndex - 1 + name.length) % name.length;
     setCurrentIndex(next);
   }
 
@@ -24,7 +24,7 @@ export function StepTeam({ nameTeam, currentIndex, setCurrentIndex }: Props) {
         <ArrowLeft />
       </Button>
       <div className="text-heading-lg truncate max-w-[200px] md:max-w-[700px] text-center">
-        {nameTeam[currentIndex]}
+        {name[currentIndex]}
       </div>
       <Button onClick={nextSlid} variant={"transparent"}>
         <ArrowRight />

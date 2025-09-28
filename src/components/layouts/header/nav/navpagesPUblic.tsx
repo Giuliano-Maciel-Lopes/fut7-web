@@ -6,9 +6,8 @@ type Props = {
 
 // Array de objetos com os links da navegação
 const navPagesLinks = [
-  { name: "Match", href: "/match" },
-
- 
+  { name: "Partidas", href: "/match" },
+  { name: "tebela de groups", href: "/groups" }
 ];
 
 export function NavPublicMenu({ className }: Props) {

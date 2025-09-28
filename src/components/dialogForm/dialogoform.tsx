@@ -20,10 +20,15 @@ type Props = {
 export function DialogForm({ title, trigger, onConfirm, children, isPending }: Props) {
   const [open, setOpen] = useState(false);
 
-  const handleConfirm = async () => {
-    await onConfirm();
-    setOpen(false);
-  };
+const handleConfirm = async () => {
+  try {
+    await onConfirm(); 
+    setOpen(false);    
+  } catch (error) {
+// aqui fica vazio pois o react query lida so coloquei try catch aqui pq o next reclama em dev 
+  }
+};
+
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
