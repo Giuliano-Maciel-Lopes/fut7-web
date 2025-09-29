@@ -5,6 +5,7 @@ type TableProps = {
 };
 
 export function Table({ group }: TableProps) {
+  // Só  numbers
   const staticTeam = [
     { abbrev: "pts", key: "points" },
     { abbrev: "vit", key: "win" },
@@ -13,47 +14,34 @@ export function Table({ group }: TableProps) {
     { abbrev: "gp", key: "goalsFor" },
     { abbrev: "gc", key: "goalsAgainst" },
     { abbrev: "sg", key: "goalDifference" },
-  ];
+  ] as const; 
 
   if (!group) return null;
 
   return (
-    <div className="flex flex-col gap-8 border p-2 rounded-sm">
-      <div className="flex flex-col border border-blue-500 rounded-sm">
-        <div className="flex">
-          <div className="w-[40%] border-2 p-2 font-bold ">Team</div>
-          <div className="overflow-x-auto scroll-smooth border-2 w-full hide-scrollbar">
-            <div className="flex min-w-max">
+    <div className="border p-2 rounded-sm">
+      <div className="overflow-x-auto scroll-smooth">
+        <div className="grid grid-cols-[2fr_repeat(7,1fr)] min-w-max border border-blue-500 rounded-sm">
+          {/* Cabeçalho */}
+          <div className="p-2 font-bold border">Team</div>
+          {staticTeam.map((s) => (
+            <div key={s.key} className="p-2 font-bold text-center border">
+              {s.abbrev}
+            </div>
+          ))}
+
+          {group.groupscore.map((team) => (
+            <div key={team.teamId} className="contents">
+              <div className="p-2 border">{team.team.name}</div>
+
               {staticTeam.map((s) => (
-                <div
-                  key={s.key}
-                  className="border-2 p-3 min-w-[60px] text-center flex-shrink-0 font-bold "
-                >
-                  {s.abbrev}
+                <div key={s.key} className="p-2 text-center border">
+                  {team[s.key] ?? 0} 
                 </div>
               ))}
             </div>
-          </div>
+          ))}
         </div>
-
-        {group.groupscore.map((team) => (
-          <div key={team.teamId} className="flex">
-            <div className="w-[40%] border-2 p-2">{team.team.name}</div>
-            <div className="overflow-x-auto border-2 w-full hide-scrollbar">
-              <div className="flex min-w-max">
-                {staticTeam.map((s) => (
-                  <div
-                    key={s.key}
-                    className="border-2 p-3 min-w-[60px] text-center flex-shrink-0"
-                  >
-                    {/* aqui mostra os valores reais do time */}
-                    {team[s.key as keyof typeof team] ?? 0}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );
