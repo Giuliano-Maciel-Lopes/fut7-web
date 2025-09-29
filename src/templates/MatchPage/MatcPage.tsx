@@ -12,7 +12,7 @@ import { UseDeleteMatch } from "@/hooks/match/delete/delete";
 import { useUpdateIsActiveMatch } from "@/hooks/match/updateActive/updateIsactive";
 import { Loading } from "@/components/loading/loading";
 import { ListMatches } from "@/types/api/match/getList";
-import { Button } from "@/components/ui/button";
+
 
 type Props = {
   isAdm: boolean;

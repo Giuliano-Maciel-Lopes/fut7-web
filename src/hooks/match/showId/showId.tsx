@@ -8,7 +8,7 @@ export async function fetchShowMatch(id: string, token?: string) {
     headers: token ? { Cookie: `token=${token}` } : undefined,
   });
 
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  //await new Promise((resolve) => setTimeout(resolve, 2000));
 
   return res.data;
 }

@@ -16,18 +16,21 @@ export default function Group({ dataSsr, isAdm }: PropsGroupPage) {
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const token = ctx.req.cookies["token"];
   const user = await verifyToken(token);
-  const queryclient = new QueryClient();
+  const queryClient = new QueryClient();
   const isAdm = user?.role === "ADMIN";
 
-  const dataSsr = await FetchDataGroups(token);
+const dataSsr = await FetchDataGroups(token);
 
-  await prefetchListGroups(queryclient, token);
+// Para admin: preenche cache com os dados SSR
+if (isAdm) {
+  queryClient.setQueryData(["groups"], dataSsr);
+}
 
   return {
     props: {
       isAdm,
       dataSsr,
-      dehydratedState: dehydrate(queryclient),
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }

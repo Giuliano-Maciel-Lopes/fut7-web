@@ -9,6 +9,8 @@ export async function FetchDataGroups(token?: string) {
   const res = await api.get<GrouplistScore>(`${API_ROUTES.GROUPS}`, {
     headers,
   });
+   await new Promise((resolve) => setTimeout(resolve, 2000));
+
 
   return res.data;
 }
