@@ -68,7 +68,7 @@ export function MatchPage({ isAdm, dataSsr }: Props) {
           ))}
         </div>
       )}
-      {/* pag acaba aqui e so confirmaçap do layout active e delete */}
+     
       <ConfirmLayout
         mensg="Tem certeza que deseja excluir essa partida?"
         open={confirmDelete.isOpen}

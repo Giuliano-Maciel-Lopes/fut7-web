@@ -19,12 +19,13 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
   const isAdm = user?.role === "ADMIN";
 
+  if(isAdm){
+    await prefetchListGroups(queryClient , token)
+  }
+
 const dataSsr = await FetchDataGroups(token);
 
-// Para admin: preenche cache com os dados SSR
-if (isAdm) {
-  queryClient.setQueryData(["groups"], dataSsr);
-}
+
 
   return {
     props: {
