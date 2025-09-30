@@ -1,17 +1,17 @@
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { UseAuth } from "@/hooks/context/useAuth";
+
 
 type Props = {
   onDelete: () => void;
   setActive: (isactive: boolean) => void;
   isactive: boolean;
+  Adm:boolean
 };
 
-export function DeleteActive({ onDelete, isactive, setActive }: Props) {
-  const { session } = UseAuth();
-  const Adm = session?.datauser.role === "ADMIN";
+export function DeleteActive({ onDelete, isactive, setActive , Adm }: Props) {
+
   return (
     <div>
       {Adm && (

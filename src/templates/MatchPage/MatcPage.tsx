@@ -49,8 +49,9 @@ export function MatchPage({ isAdm, dataSsr }: Props) {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {data.map((match) => (
             <div className="w-full md:w-80" key={match.id}>
-              {isAdm && (
+            
                 <DeleteActive
+                Adm={isAdm}
                   isactive={match.isActive}
                   setActive={(newState: boolean) => {
                     setSelectedMatchId(match.id);
@@ -62,7 +63,7 @@ export function MatchPage({ isAdm, dataSsr }: Props) {
                     confirmDelete.open();
                   }}
                 />
-              )}
+             
               <BoxMatch data={match} />
             </div>
           ))}

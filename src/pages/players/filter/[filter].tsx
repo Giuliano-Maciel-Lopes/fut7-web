@@ -1,43 +1,38 @@
-import { FetchaDataListPlayer } from "@/hooks/player/List/list";
-import { ListPlayerPage } from "@/templates/listPlayerPage/listPlayerPage";
-import { Player } from "@shared/prisma";
-import { ListPlayerParams } from "@/schemazod/player/list";
-import { FilterType } from "@/templates/listPlayerPage";
-import { getUserRole } from "@/utils/getUserRole";
+import { FetchaDataListPlayer, prefetchListPlayer } from "@/hooks/player/List/list";
+import { ListPlayerPage, PropsListplayerpage } from "@/templates/listPlayerPage/listPlayerPage";
+import { GetServerSidePropsContext } from "next";
+import { verifyToken } from "@/utils/getToken";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import {  parseFiltersServer } from "@/hooks/player/List/parsedParams";
 
-
-type Props = {
-  initialData: Player[];
-};
-
-export default function PlayerListFilter({ initialData }: Props) {
+export default function PlayerListFilter({ dataSsr, isAdm }: PropsListplayerpage) {
   return (
     <div>
-      <ListPlayerPage initialData={initialData} />
+      <ListPlayerPage dataSsr={dataSsr} isAdm={isAdm} />
     </div>
   );
 }
 
-// SSR
-export async function getServerSideProps(ctx: any) {
-    const role = await getUserRole(ctx);
-    
-  if (role === "ADMIN") {
-    return { props: {} };
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const token = ctx.req.cookies["token"];
+  const user = await verifyToken(token);
+  const isAdm = user?.role === "ADMIN";
+  const queryClient = new QueryClient();
+  const params = parseFiltersServer(ctx.query);
+
+  // Busca dados no servidor para todos os usuários
+  const dataSsr = await FetchaDataListPlayer(params);
+
+  if (isAdm) {
+    // Prefetch para React Query (hidratação)
+    await prefetchListPlayer(queryClient, params, token);
   }
 
-  const { params } = ctx;
-  const filterFromParam = params?.filter as FilterType | undefined;
-
-  const paramsPlayer: ListPlayerParams = {};
-
-  if (filterFromParam === "goals") paramsPlayer.goals = true;
-  if (filterFromParam === "assists") paramsPlayer.assists = true;
-  if (!filterFromParam || filterFromParam === "participatory")
-    paramsPlayer.participatory = true;
-
-  const initialData = await FetchaDataListPlayer(paramsPlayer);
-
-  return { props: { initialData } };
+  return {
+    props: {
+      isAdm,
+      dataSsr, // Dados SSR para todos
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 }
-

@@ -9,27 +9,23 @@ import { ConfirmLayout } from "@/components/confirmLogout";
 import { useDeletePlayer } from "@/hooks/player/delete/delete";
 import { useState } from "react";
 import { useListPlayer } from "@/hooks/player/List/list";
-import { useParamsListPlayer } from "@/hooks/player/List/queryParams";
-import { UseAuth } from "@/hooks/context/useAuth";
+import { useParsedFiltersClient } from "@/hooks/player/List/parsedParams";
 import { DeleteActive } from "../../components/deleteActive";
 import { useIsActivePlayer } from "@/hooks/player/isactiveUpdate/isactiveupdate";
 
-type Props = {
-  initialData?: Player[]; // veio de ssr
+export type PropsListplayerpage = {
+  isAdm: boolean;
+  dataSsr?: Player[];
 };
 
-export function ListPlayerPage({ initialData }: Props) {
+export function ListPlayerPage({ dataSsr, isAdm }: PropsListplayerpage) {
   const router = useRouter();
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
-  const { session } = UseAuth();
-  const ADM = session?.datauser.role === "ADMIN";
 
-  const { setSearch, search, params } = useParamsListPlayer();
-  const { data:dataquey, isLoading } = useListPlayer(params  );
-const data = router.pathname === "/players/search" || ADM
-  ? dataquey
-  : initialData;
+  const { params, search, setSearch } = useParsedFiltersClient();
+  const { data: dataquery, isFetching } = useListPlayer(params);
 
+ const data = (!!search || isAdm) && dataquery ? dataquery : dataSsr;
 
   const { mutateAsync: mutateDel, isPending: isPendingDel } = useDeletePlayer();
   const { mutateAsync: mutateActive, isPending: isPendingActive } =
@@ -39,9 +35,6 @@ const data = router.pathname === "/players/search" || ADM
   const confirmIsActive = useToggle();
   const [activeState, setActiveState] = useState<boolean | null>(null);
   const [selectPlayerId, setSelectPlayerId] = useState<string | null>(null);
-
- if (isLoading && !data) return <Loading />;
-
 
   return (
     <div className="container mx-auto px-4">
@@ -55,6 +48,7 @@ const data = router.pathname === "/players/search" || ADM
             <div key={pl.id}>
               <div>
                 <DeleteActive
+                  Adm={isAdm }
                   isactive={pl.isActive}
                   setActive={(newState: boolean) => {
                     setSelectPlayerId(pl.id);
@@ -70,7 +64,7 @@ const data = router.pathname === "/players/search" || ADM
               <PlayerLetter.container
                 onclick={() => {
                   router.push(
-                    ADM ? `/admin/player/${pl.id}` : `/players/${pl.id}`
+                    isAdm ? `/admin/player/${pl.id}` : `/players/${pl.id}`
                   );
                 }}
               >
