@@ -15,7 +15,7 @@ import { useIsActivePlayer } from "@/hooks/player/isactiveUpdate/isactiveupdate"
 
 export type PropsListplayerpage = {
   isAdm: boolean;
-  dataSsr?: Player[];
+  dataSsr: Player[];
 };
 
 export function ListPlayerPage({ dataSsr, isAdm }: PropsListplayerpage) {

@@ -18,30 +18,26 @@ export default function Match({ isAdm, dataSSR }: Props) {
     </div>
   );
 }
-
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const token = ctx.req.cookies["token"];
   const queryClient = new QueryClient();
-
   const filters = parseFiltersMatch(ctx.query);
-
   const user = await verifyToken(token);
   const isAdm = user?.role === "ADMIN";
 
-  if (isAdm) {
-    await PrefetchMatch(queryClient, filters , token);
-  }
+  // Fetch SSR para todos os usuários
+  const dataSSR = await fetchDataListMatch({ filters, token });
 
-  let dataSSR = null;
-  if (!isAdm ) {
-    dataSSR = await fetchDataListMatch({ filters , token });
+  // Prefetch React Query apenas para admin
+  if (isAdm) {
+    await PrefetchMatch(queryClient, filters, token);
   }
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
       isAdm,
-      dataSSR,
+      dataSSR, // Dados SSR para todos
     },
   };
 }

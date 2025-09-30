@@ -23,9 +23,9 @@ export function MatchPage({ isAdm, dataSsr }: Props) {
   const router = useRouter();
   const filters = parseFiltersMatch(router.query);
 
-  const { data: dataquery, isFetching } = useListMatch({ filters });
+  const { data: dataquery,  } = useListMatch({ filters });
 
-  const data = isAdm ? dataquery : dataSsr;
+  const data = (!!filters || isAdm) && dataquery ? dataquery : dataSsr;
 
   const [selectedMatchId, setSelectedMatchId] = useState<string | null>(null);
   const [activeState, setActiveState] = useState<boolean | null>(null);
@@ -41,7 +41,7 @@ export function MatchPage({ isAdm, dataSsr }: Props) {
   return (
     <section className="flex flex-col mt-10 container gap-4">
       <HeaderMatch />
-      {isFetching && <Loading />}
+      
 
       {!data || data.length === 0 ? (
         <NotfoundItems msgNotfound="nenhuma partida encontrada" />

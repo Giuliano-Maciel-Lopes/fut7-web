@@ -32,7 +32,6 @@ export function useListMatch({ filters }: Props = {}) {
   return useQuery({
     queryKey: ["match", filtersKey],
     queryFn: () => fetchDataListMatch({ filters }),
-    enabled: !!isAdm, // pq so admin vai poder usar react query usarios vai ser ssr
     staleTime: 1000 * 60 * 5,
   });
 }
