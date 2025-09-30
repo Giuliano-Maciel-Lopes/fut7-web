@@ -13,6 +13,7 @@ import { ImgTeam } from "../components/ImgTeam/img.team";
 
 
 export function TeamPlayerPageAdmin() {
+
   const router = useRouter();
   const id = router.query.id;
   const ConfirmEdit = useToggle();

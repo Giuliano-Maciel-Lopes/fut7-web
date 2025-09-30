@@ -41,8 +41,7 @@ export function MatchPage({ isAdm, dataSsr }: Props) {
   return (
     <section className="flex flex-col mt-10 container gap-4">
       <HeaderMatch />
-      
-
+  
       {!data || data.length === 0 ? (
         <NotfoundItems msgNotfound="nenhuma partida encontrada" />
       ) : (

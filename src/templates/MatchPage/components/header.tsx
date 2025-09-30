@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ButtonStatus, BUTTON_STAGE } from "../utils/buttonQuerys";
+import { SearchInput } from "@/templates/admin/adminteamsPage/components/search";
 
 
 export function HeaderMatch() {
@@ -33,9 +34,10 @@ export function HeaderMatch() {
   return (
     <header className="flex flex-col gap-4">
       <h2 className="text-heading-md text-center">PARTIDAS</h2>
-     
+    
 
-      <div className="flex gap-2 border-2 w-full p-3 rounded-xl">
+      <div className="flex overflow-y-auto  gap-2 border-2 w-full p-3 rounded-xl">
+    
         {ButtonStatus.map((btn) => (
           <Button
             key={btn.query}
