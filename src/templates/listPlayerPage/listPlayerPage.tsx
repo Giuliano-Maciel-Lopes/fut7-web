@@ -1,7 +1,6 @@
 import { HeaderlistPlayerPage } from "./heaader/header";
 import { PlayerLetter } from "@/components/LetterPlayer";
 import { Player } from "@shared/prisma";
-import { Loading } from "@/components/loading/loading";
 import { useRouter } from "next/router";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { useToggle } from "@/hooks/usetoggle";

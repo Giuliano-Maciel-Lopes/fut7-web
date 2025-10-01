@@ -4,14 +4,17 @@ import { GetTeamReturn } from "@/types/api/TEAM/get";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/router";
 import { AsidePlayersTeam } from "@/templates/teamConfirmedPage/components/asidePlayers";
+import { useTeamShowUserId } from "@/hooks/team/showIduserId/showUserId";
 
 type Props = {
-  data?: GetTeamReturn;
+  dataSsr?: GetTeamReturn;
   isCaptain?: boolean;
 };
 
-export function TeamUserIdPage({ data, isCaptain }: Props) {
+export function TeamUserIdPage({dataSsr , isCaptain }: Props) {
   const router = useRouter();
+  const {data:dataquery , } =  useTeamShowUserId()
+  const data = dataquery ?? dataSsr
 
   if (!data)
     return (

@@ -2,23 +2,27 @@ import { UseAuth } from "@/hooks/context/useAuth";
 import { api } from "@/services/axios";
 import { GetTeamReturn } from "@/types/api/TEAM/get";
 import { API_ROUTES } from "@/utils/routes";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 
-export async function fetchDataTeamUserId() {
-  const res = await api.get<GetTeamReturn>(`${API_ROUTES.TEAMS}/me`);
+export async function fetchDataTeamUserId(token?: string) {
+  const res = await api.get<GetTeamReturn>(`${API_ROUTES.TEAMS}/me`, {
+    headers: token ? { Cookie: `token=${token}` } : undefined, // ckiente usa cookie HTTP-only
+  });
+     await new Promise(resolve => setTimeout(resolve, 2000));
+ 
   return res.data;
 }
 
 export function useTeamShowUserId() {
-  const { session } = UseAuth(); 
-  const id = session?.datauser.id
-
-  const query = useQuery({
-    queryKey: ["team", id], 
-    queryFn: fetchDataTeamUserId,
-    staleTime: 1000 * 60 * 5, // 5 minutos
-    
+  return useQuery({
+    queryKey: ["teamUser"],
+    queryFn: () => fetchDataTeamUserId(),
+   
   });
-
-  return query;
+}
+export async function PrefetchQueryTeamUserId(queryClient: QueryClient, token?: string) {
+  await queryClient.prefetchQuery({
+    queryKey: ["teamUser"],
+    queryFn: () => fetchDataTeamUserId(token), // usa o token do SSR
+  });
 }

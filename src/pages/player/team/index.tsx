@@ -1,36 +1,52 @@
-import { TeamConfirmedPage } from "@/templates/teamConfirmedPage/teamConfirmedPage";
+import { dehydrate } from "@tanstack/react-query";
 import { GetTeamReturn } from "@/types/api/TEAM/get";
 import { GetServerSidePropsContext } from "next";
 import { verifyToken } from "@/utils/getToken";
-import { api } from "@/services/axios";
-import { API_ROUTES } from "@/utils/routes";
+import {
+  fetchDataTeamUserId,
+  PrefetchQueryTeamUserId,
+} from "@/hooks/team/showIduserId/showUserId";
 import { TeamUserIdPage } from "@/templates/jogadores/teamUser/teamUserIdd";
+import { QueryClient } from "@tanstack/react-query";
 
 type Props = {
-  data: GetTeamReturn;
+  dataSsr: GetTeamReturn;
   isCaptain?: boolean;
 };
 
-export default function Team({ data, isCaptain }: Props) {
+export default function Team({ dataSsr, isCaptain }: Props) {
   return (
     <div>
-      <TeamUserIdPage data={data} isCaptain={isCaptain} />
+      <TeamUserIdPage dataSsr={dataSsr} isCaptain={isCaptain} />
     </div>
   );
 }
+
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const token = ctx.req.cookies["token"];
   const user = await verifyToken(token);
+  const queryClient = new QueryClient();
 
-  const res = await api.get<GetTeamReturn>(`${API_ROUTES.TEAMS}/me`, {
-    headers: {
-      Cookie: `token=${token}`,
+  // Prefetch para hidratação
+  await PrefetchQueryTeamUserId(queryClient, token);
+
+  // Tenta pegar do cache do queryClient
+  let dataSsr = queryClient.getQueryData<GetTeamReturn>(["teamUser"]);
+
+ // se npegou nada no servidor preucaçao
+  if (!dataSsr) {
+    dataSsr = await fetchDataTeamUserId(token);
+  }
+
+  const isCaptain = dataSsr.captain
+    ? dataSsr.captain.userId === user?.userId
+    : false;
+
+  return {
+    props: {
+      dataSsr,
+      isCaptain,
+      dehydratedState: dehydrate(queryClient),
     },
-  });
-
-  const data = res.data;
-
-    const isCaptain = data.captain ? data.captain.userId === user?.userId : false;
-
-  return { props: { data, isCaptain } };
+  };
 }

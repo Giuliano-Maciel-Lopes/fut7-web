@@ -5,8 +5,7 @@ import { Player } from "@shared/prisma";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
-
-async function fetchUpdateTeamId(id:string) {
+async function fetchUpdateTeamId(id: string) {
   const res = await api.patch<Player>(`${API_ROUTES.TEAMS}/player/${id}`);
   return res.data;
 }
@@ -16,21 +15,23 @@ export function useUpdateTeamId() {
 
   return useMutation({
     mutationFn: fetchUpdateTeamId,
-    onSuccess: (data ) => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ["team-show" ,  data.teamId],
+        queryKey: ["team-show", data.teamId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["teamUser"],
       });
 
-     
       queryClient.invalidateQueries({
-        queryKey: ["playersByUser", data.id ],
+        queryKey: ["playersByUser", data.id],
       });
 
       toast.success(`Time do jogador ${data.nameCart} atualizado com sucesso!`);
     },
-     onError: (error) => {
-      const msg =  errosApiMessage(error)
-        toast.error(msg);
-      },
+    onError: (error) => {
+      const msg = errosApiMessage(error);
+      toast.error(msg);
+    },
   });
 }

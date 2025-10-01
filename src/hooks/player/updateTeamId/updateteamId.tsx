@@ -19,8 +19,10 @@ export function useUpdateTeamIdMe() {
       queryClient.invalidateQueries({
         queryKey: ["team-show" ,  data.teamId],
       });
+         queryClient.invalidateQueries({
+        queryKey: ["teamUser"],
+      });
 
-     
       queryClient.invalidateQueries({
         queryKey: ["playersByUser", data.id ],
       });
