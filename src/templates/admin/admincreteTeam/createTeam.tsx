@@ -11,8 +11,11 @@ import { NotfoundItems } from "@/components/notfound/nutfound";
 import { ConfirmLayout } from "@/components/confirmLogout";
 import { ImgTeam } from "../components/ImgTeam/img.team";
 
+type Props ={
+  isAdm:boolean
+}
 
-export function TeamPlayerPageAdmin() {
+export function EditTeamPage({isAdm}:Props) {
 
   const router = useRouter();
   const id = router.query.id;
@@ -45,6 +48,7 @@ export function TeamPlayerPageAdmin() {
         </div>
         <div className="md:w-1/2">
           <CreatEditFormTeam
+          isAdm={isAdm}
             editCreat={editCreat}
             onConfirm={ConfirmEdit.open}
             uploadfile={uploadfile}

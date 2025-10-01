@@ -1,9 +1,9 @@
-import { TeamPlayerPageAdmin } from "@/templates/admin";
+import {  EditTeamPage} from "@/templates/admin";
 
 export default function TeamId() {
   return (
     <div>
-      <TeamPlayerPageAdmin/>
+      <EditTeamPage isAdm={false}/>
     </div>
   );
 }

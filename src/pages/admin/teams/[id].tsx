@@ -1,9 +1,9 @@
-import { TeamPlayerPageAdmin } from "@/templates/admin";
+import {EditTeamPage } from "@/templates/admin";
 
 export default function CreateTeam() {
   return (
     <div>
-      <TeamPlayerPageAdmin />
+      <EditTeamPage isAdm={true} />
     </div>
   );
 }

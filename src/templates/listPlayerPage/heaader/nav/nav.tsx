@@ -9,29 +9,25 @@ import {
 import { Trophy, Award, Star, Filter } from "lucide-react";
 import { useRouter } from "next/router";
 
-
-export type FilterType =   "goals" | "assists" | "participatory";
+export type FilterType = "goals" | "assists" | "participatory";
 
 type NavItem = {
   label: string;
   icon: React.ReactNode;
   query: FilterType;
-
 };
-
-
 
 // Navegação
 const navItems: NavItem[] = [
-  { label: "Top 50", icon: <Trophy />, query: "participatory"  },
+  { label: "Top 50", icon: <Trophy />, query: "participatory" },
   { label: "Artilharia", icon: <Award />, query: "goals" },
   { label: "Assistência", icon: <Star />, query: "assists" },
 ];
 
 export function PlayerNav() {
-  const router =useRouter()
+  const router = useRouter();
   const [open, setOpen] = useState(false);
-
+  const currentFilter = router.query.filter as FilterType | undefined;
   const handleSelect = (filter: FilterType) => {
     router.push(`/players/filter/${filter}`);
     setOpen(false);
@@ -42,8 +38,9 @@ export function PlayerNav() {
       {/* Botão mobile  abrir o aside*/}
       <div className="md:hidden mb-4">
         <Button
+        
           onClick={() => setOpen(true)}
-          variant='secundary'
+          variant="secundary"
           className="border-2 rounded-lg bg-blue-950 flex items-center gap-2"
         >
           <Filter />
@@ -51,19 +48,22 @@ export function PlayerNav() {
         </Button>
       </div>
 
-      
+ 
       <nav className="hidden md:grid lg:flex gap-4">
-        {navItems.map((item) => (
-          <Button
-            key={item.label}
-            variant="secundary"
-            className="flex items-center gap-2"
-            onClick={() => handleSelect(item.query)}
-          >
-            {item.icon}
-            {item.label}
-          </Button>
-        ))}
+        {navItems.map((item) => {
+          const isActive = item.query === currentFilter;
+          return (
+            <Button
+              key={item.label}
+              variant={isActive ? "default" : "secundary"} 
+              className={`flex items-center gap-2 ${isActive ? "bg-green-600 text-white" : ""}`}
+              onClick={() => handleSelect(item.query)}
+            >
+              {item.icon}
+              {item.label}
+            </Button>
+          );
+        })}
       </nav>
 
       {/* aside mobile */}
@@ -76,18 +76,21 @@ export function PlayerNav() {
             </Button>
           </DrawerClose>
 
-          <div className="flex flex-col gap-4 mt-4">
-            {navItems.map((item) => (
-              <Button
-                key={item.label}
-                variant="secundary"
-                className="flex items-center gap-2"
-                onClick={() => handleSelect(item.query)}
-              >
-                {item.icon}
-                {item.label}
-              </Button>
-            ))}
+      <div className="flex flex-col gap-4 mt-4">
+            {navItems.map((item) => {
+              const isActive = item.query === currentFilter;
+              return (
+                <Button
+                  key={item.label}
+                  variant={isActive ? "default" : "secundary"}
+                  className={`flex items-center gap-2 ${isActive ? "bg-green-600 text-white" : ""}`}
+                  onClick={() => handleSelect(item.query)}
+                >
+                  {item.icon}
+                  {item.label}
+                </Button>
+              );
+            })}
           </div>
         </DrawerContent>
       </Drawer>

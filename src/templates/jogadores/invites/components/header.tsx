@@ -29,28 +29,33 @@ export function HeaderInvites({ isFetching, IsCaptain }: Props) {
       <h1 className="text-center text-heading-xl flex items-center gap-2">
         <Mail /> CAIXA DE ENTRADA
       </h1>
-
-      <div className="flex gap-2">
-        {buttons.map((btn) => {
-           const isActive = btn.query === queryStatus || (!queryStatus && btn.query === "PENDING"); 
-          return (
-            <Button
-              key={btn.query}
-              className={`border-2 hover:bg-blue-700 ${isActive ? "bg-blue-500 text-white" : ""}`} 
-              variant="transparent"
-              onClick={() =>
-                router.push({
-                  pathname: "/player/invite",
-                  query: { status: btn.query },
-                })
-              }
-            >
-              {btn.name}
-            </Button>
-          );
-        })}
-      </div>
       
+      {IsCaptain && (
+        <div className="flex gap-2">
+          {buttons.map((btn) => {
+            const isActive =
+              btn.query === queryStatus ||
+              (!queryStatus && btn.query === "PENDING");
+            return (
+              <Button
+                key={btn.query}
+                className={`border-2 hover:bg-blue-700 ${
+                  isActive ? "bg-blue-500 text-white" : ""
+                }`}
+                variant="transparent"
+                onClick={() =>
+                  router.push({
+                    pathname: "/player/invite",
+                    query: { status: btn.query },
+                  })
+                }
+              >
+                {btn.name}
+              </Button>
+            );
+          })}
+        </div>
+      )}
     </header>
   );
 }

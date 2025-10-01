@@ -1,7 +1,6 @@
 import { ImgTeam } from "../../components/ImgTeam/img.team";
 import { DeleteActive } from "@/components/deleteActive";
 import { CopyIdButton } from "@/components/copieIdButton/copieIdButton";
-import { UseAuth } from "@/hooks/context/useAuth";
 
 type Props = {
   img?: string | null;
@@ -10,8 +9,7 @@ type Props = {
   onDelete: () => void;
   setActive: (isActive: boolean) => void;
   isActive: boolean;
-  id:string,
-  adm:boolean
+  id: string;
 };
 
 export function BoxTeams({
@@ -23,13 +21,11 @@ export function BoxTeams({
   setActive,
   id,
 }: Props) {
-  const {session} =  UseAuth()
-  const isAdm = session?.datauser.role === "ADMIN"
   return (
     <div className=" flex flex-col gap-2 w-40 md:w-52">
       <div className="">
         <DeleteActive
-        Adm={isAdm}
+          Adm={true}
           onDelete={onDelete}
           isactive={isActive}
           setActive={setActive}
@@ -43,7 +39,7 @@ export function BoxTeams({
         {/* Foto ocupa 80% */}
         <div className="flex flex-col h-[80%] w-full items-center justify-center bg-blue-700">
           <div className=" relative border-4 w-20 h-20 md:w-28 md:h-28 bg-white flex items-center justify-center overflow-hidden rounded-lg">
-             <ImgTeam img={img ?? null} />
+            <ImgTeam img={img ?? null} />
           </div>
         </div>
 
@@ -52,7 +48,7 @@ export function BoxTeams({
           {nameTeam}
         </div>
       </div>
-      <CopyIdButton id={id}/>
+      <CopyIdButton id={id} />
     </div>
   );
 }

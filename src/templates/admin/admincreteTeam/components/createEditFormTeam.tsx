@@ -3,17 +3,16 @@ import { CreatEditLayout } from "@/templates/letterPlayerPage";
 import { Button } from "@/components/ui/button";
 import { FormTeamReturn } from "@/hooks/team/createEdit/form";
 import { Uploadinput } from "@/hooks/uplods/uploads";
-import { UseAuth } from "@/hooks/context/useAuth";
 
 type Props = {
   editCreat: FormTeamReturn;
   uploadfile: Uploadinput;
   onConfirm: () => void;
+  isAdm:boolean
 };
 
-export function CreatEditFormTeam({ editCreat, uploadfile, onConfirm }: Props) {
-  const { session } = UseAuth();
-  const ADM = session?.datauser.role === "ADMIN";
+export function CreatEditFormTeam({ editCreat, uploadfile, onConfirm , isAdm }: Props) {
+ 
 
   const {
     formState: { errors },
@@ -30,7 +29,7 @@ export function CreatEditFormTeam({ editCreat, uploadfile, onConfirm }: Props) {
           {...register("name")}
         />
 
-        {ADM && (
+        {isAdm && (
           <>
             <Input
               legend="Id do Grupo"

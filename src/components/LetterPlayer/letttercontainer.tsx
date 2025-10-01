@@ -1,5 +1,5 @@
 import { sizes } from "./size";
-import { UseAuth } from "@/hooks/context/useAuth";
+
 
 type PlayerCardContainerProps = {
   size?: "md" | "lg"|"sm" |"md2";
