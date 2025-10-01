@@ -3,7 +3,6 @@ import { NavPages } from "../nav/navPages";
 import { NavRest } from "../nav/navRest";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
-import { UseAuth } from "@/hooks/context/useAuth";
 import { NavPublicMenu } from "../nav/navpagesPUblic";
 import { useLogout } from "@/hooks/auth/session/uselogoout";
 
@@ -19,7 +18,7 @@ export function Menu() {
             <NavPages className="flex flex-col gap-2" />
           </div>
           
-          <NavPublicMenu/>
+          <NavPublicMenu className="gap-2 flex flex-col"/>
           <NavRest />
 
           <Button isLoading={isPending} onClick={() => logout()}>

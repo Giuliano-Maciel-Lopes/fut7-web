@@ -3,8 +3,10 @@ import { API_ROUTES } from "@/utils/routes";
 import { PlayerShows } from "@/types/api/players/get";
 import { useQuery } from "@tanstack/react-query";
 
-export async function fetchDataShowPlayerId(id: string) {
-  const res = await api.get<PlayerShows>(`${API_ROUTES.PLAYERS}/${id}`);
+export async function fetchDataShowPlayerId(id: string , token?:string) {
+  const res = await api.get<PlayerShows>(`${API_ROUTES.PLAYERS}/${id}` , {
+      headers: token ? { Cookie: `token=${token}` } : undefined,
+  });
   return res.data;
 }
 

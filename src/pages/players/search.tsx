@@ -3,7 +3,11 @@ import { GetServerSidePropsContext } from "next";
 import { verifyToken } from "@/utils/getToken";
 import { QueryClient } from "@tanstack/react-query";
 
-export default function PlayerSearchFilter({ isAdm }) {
+type Props ={
+  isAdm:boolean
+}
+
+export default function PlayerSearchFilter({ isAdm }:Props) {
   return (
     <div>
       <ListPlayerPage dataSsr={[]} isAdm={isAdm} />

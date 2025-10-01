@@ -3,8 +3,8 @@ import { fetchDataShowPlayerId } from "@/hooks/player/showId/showId";
 import { PlayerShows } from "@/types/api/players/get";
 import { DataPlayer } from "@/templates/letterPlayerPage/subpages3/dataPlayer";
 import { GetServerSidePropsContext } from "next";
-import { api } from "@/services/axios";
-import { API_ROUTES } from "@/utils/routes";
+import { FetchDataFindByUser } from "@/hooks/player/findyByuser/findyByuser";
+
 //ssr
 type Props = {
   data: PlayerShows;
@@ -27,20 +27,33 @@ export async function getServerSideProps(
   const { id } = ctx.params;
   const token = ctx.req.cookies["token"];
 
-  const data = await fetchDataShowPlayerId(id);
+  // Busca dados do jogador que está sendo visualizado
+  const data = await fetchDataShowPlayerId(id, token);
 
-  const res = await api.get<PlayerShows>(`${API_ROUTES.PLAYERS}/me`, {
-     headers: {
-      Cookie: `token=${token}`, 
-    },
-  });
-  const dataLogged = res.data;
+  // Se não tiver token, retorna n tem time e nem e capitao
+  if (!token) {
+    return {
+      props: { 
+        data, 
+        isCaptain: false, 
+        teamIdCaptain: '' 
+      },
+    };
+  }
 
-  const isCaptain = dataLogged.role === "CAPITAO";
-  const teamIdCaptain = dataLogged.teamId
+  // Se tiver token, busca dados do usuário logado
+  const dataLogged = await FetchDataFindByUser(token);
+
+  // Verifica se é capitão e não é o próprio jogador sendo visualizado
+  const isCaptain = dataLogged.role === "CAPITAO" && dataLogged.id !== data.id;
+  const teamIdCaptain = dataLogged.teamId || '';
 
   return {
-    props: { data, isCaptain , teamIdCaptain },
+    props: { 
+      data, 
+      isCaptain, 
+      teamIdCaptain 
+    },
   };
 }
 

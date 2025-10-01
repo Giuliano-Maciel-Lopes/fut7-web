@@ -33,9 +33,7 @@ export function PlayerNav() {
   const [open, setOpen] = useState(false);
 
   const handleSelect = (filter: FilterType) => {
-   
     router.push(`/players/filter/${filter}`);
-
     setOpen(false);
   };
 

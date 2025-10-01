@@ -23,7 +23,7 @@ export function ListPlayerPage({ dataSsr, isAdm }: PropsListplayerpage) {
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
 
   const { params, search, setSearch } = useParsedFiltersClient();
-  const { data: dataquery, isFetching } = useListPlayer(params);
+  const { data: dataquery,  } = useListPlayer(params);
 
  const data = (!!search || isAdm) && dataquery ? dataquery : dataSsr;
 
