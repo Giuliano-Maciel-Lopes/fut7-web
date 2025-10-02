@@ -22,7 +22,7 @@ export function useIsActivePlayer() {
   const mutate = useMutation({
     mutationFn: FetchIsActiveUpdatePlayer,
     onSuccess(data, variables, context) {
-      useQuery.invalidateQueries({ queryKey: ["playersByUser", variables.id] }); 
+      useQuery.invalidateQueries({ queryKey: ["playersById", variables.id] }); 
       
     
  useQuery.setQueriesData<Player[]>({ queryKey: ["ListPlayer"] }, (old) =>

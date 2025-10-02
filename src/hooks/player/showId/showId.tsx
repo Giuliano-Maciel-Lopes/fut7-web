@@ -13,7 +13,7 @@ export async function fetchDataShowPlayerId(id: string , token?:string) {
 export function useShowPlayerId(id: string) {
   const query = useQuery({
     queryFn: () =>  fetchDataShowPlayerId(id),
-    queryKey: ["playersByUser", id],
+    queryKey: ["playersById", id],
     enabled: !!id
   });
   return { ...query };

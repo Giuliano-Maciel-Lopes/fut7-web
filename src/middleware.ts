@@ -7,35 +7,33 @@ const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
 
 
 export async function middleware(req: NextRequest) {
+  const path = req.nextUrl.pathname;
   const token = req.cookies.get("token")?.value;
 
-  if (!token) {
+  let payload: MyJwtPayload | null = null;
+
+  if (token) {
+    try {
+      const { payload: verifiedPayload } = await jwtVerify(token, secret);
+      payload = verifiedPayload as unknown as MyJwtPayload;
+    } catch {
+      payload = null; // token inválido
+    }
+  }
+
+  //  Home: redireciona apenas logados
+  if (path === "/" && payload) {
+    if (payload.role === "ADMIN") return NextResponse.redirect(new URL("/admin", req.url));
+    if (payload.role === "PLAYER") return NextResponse.redirect(new URL("/player", req.url));
+  }
+
+  //  Proteção admin
+  if (path.startsWith("/admin") && payload?.role !== "ADMIN") {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  let payload: MyJwtPayload;
-
-  try {
-    const { payload: verifiedPayload } = await jwtVerify(token, secret);
-   
-    payload = verifiedPayload as unknown as MyJwtPayload;
-
-    console.log("Payload decodificado:", payload);
-  } catch (err) {
-    console.log("Erro ao verificar token:", err);
-    return NextResponse.redirect(new URL("/", req.url));
-  }
-
-  const role = payload.role;
-  const path = req.nextUrl.pathname;
-
-  // ADMIN acessa /admin
-  if (path.startsWith("/admin") && role !== "ADMIN") {
-    return NextResponse.redirect(new URL("/", req.url));
-  }
-
-  
-  if (path.startsWith("/player") && role !== "PLAYER") {
+  //  Proteção player
+  if (path.startsWith("/player") && payload?.role !== "PLAYER") {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
@@ -43,5 +41,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/player/:path*"],
+  matcher: ["/", "/admin/:path*", "/player/:path*"],
 };

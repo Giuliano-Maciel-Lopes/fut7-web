@@ -1,4 +1,4 @@
-import { UseAuth } from "@/hooks/context/useAuth";
+
 import { api } from "@/services/axios";
 import { GetTeamReturn } from "@/types/api/TEAM/get";
 import { API_ROUTES } from "@/utils/routes";

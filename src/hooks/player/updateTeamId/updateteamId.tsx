@@ -24,7 +24,7 @@ export function useUpdateTeamIdMe() {
       });
 
       queryClient.invalidateQueries({
-        queryKey: ["playersByUser", data.id ],
+        queryKey: ["playersById", data.id ],
       });
 
       toast.success(`Time do jogador ${data.nameCart} atualizado com sucesso!`);

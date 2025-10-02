@@ -1,4 +1,3 @@
-import { UseAuth } from "@/hooks/context/useAuth";
 import { ParamsMatch } from "@/schemazod/match/paramsList";
 import { api } from "@/services/axios";
 import { ListMatches } from "@/types/api/match/getList";
@@ -24,8 +23,6 @@ export async function fetchDataListMatch({ filters, token }: Props) {
 }
 
 export function useListMatch({ filters }: Props = {}) {
-  const { session } = UseAuth();
-  const isAdm = session?.datauser.role === "ADMIN";
 
   const filtersKey = JSON.stringify(filters ?? {});
 

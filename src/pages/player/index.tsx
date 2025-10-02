@@ -1,6 +1,6 @@
 import { LandingPage } from "@/templates/landingPage/landingPage"
 
-export function PlayerDashBorads() {
+export default function PlayerDashBorads() {
   return (
     <div>
       <LandingPage/>

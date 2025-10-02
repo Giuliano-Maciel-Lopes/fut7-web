@@ -25,7 +25,7 @@ export function EditTeamPage({isAdm}:Props) {
   const { mutate, isPending } = useCreateEditTeam();
   const uploadfile = useUpload();
 
-  const editCreat = useCreateEditFormTeam({ team: data });
+  const editCreat = useCreateEditFormTeam({ team: data, isAdm });
 
   const { handleConfirm } = useUploadFormConfirm({
     entityName: "TEAM",

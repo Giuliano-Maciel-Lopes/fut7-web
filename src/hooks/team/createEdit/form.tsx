@@ -3,17 +3,16 @@ import { TeamBodySchema } from "@/schemazod/team/create";
 import { TeamUpdateSchema } from "@/schemazod/team/update";
 import { Team } from "@shared/prisma";
 import { zodResolver ,  } from "@hookform/resolvers/zod";
-import { UseAuth } from "@/hooks/context/useAuth";
 import { useEffect } from "react";
 import z from "zod";
 
 type Props = {
   team?: Team;
+  isAdm:boolean
 };
 
-export function useCreateEditFormTeam({ team }: Props) {
-  const { session } = UseAuth();
-  const ADM = session?.datauser.role === "ADMIN";
+export function useCreateEditFormTeam({ team , isAdm }: Props) {
+ 
 
   const isEdit = !!team;
 
@@ -24,8 +23,8 @@ export function useCreateEditFormTeam({ team }: Props) {
   const getFormValues = (): TeamFormInput => ({
     name: team?.name ?? "",
     photoUrl: team?.photoUrl ?? "",
-    captainId: ADM ? team?.captainId ?? undefined : undefined,
-    groupId: ADM ? team?.groupId ?? undefined : undefined,
+    captainId: isAdm ? team?.captainId ?? undefined : undefined,
+    groupId: isAdm ? team?.groupId ?? undefined : undefined,
   });
 
   const form = useForm<TeamFormInput>({

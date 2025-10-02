@@ -1,9 +1,7 @@
-import { UseAuth } from "@/hooks/context/useAuth";
 import { api } from "@/services/axios";
 import { API_ROUTES } from "@/utils/routes";
 import { PlayerShows } from "@/types/api/players/get";
 import { useQuery } from "@tanstack/react-query";
-
 
 export async function FetchDataFindByUser(token?: string) {
   const headers = token ? { Cookie: `token=${token}` } : undefined;
@@ -16,14 +14,9 @@ export async function FetchDataFindByUser(token?: string) {
 }
 
 export function UsePLayerFindByuser() {
-  const {session} = UseAuth()
-  const userId = session?.datauser.id
-
   const query = useQuery({
-  queryFn: () => FetchDataFindByUser(), 
-    queryKey: ["playersByUser" , userId],
-    enabled:!!userId
-    
+    queryFn: () => FetchDataFindByUser(),
+    queryKey: ["playersByUser"],
   });
   return { ...query };
 }

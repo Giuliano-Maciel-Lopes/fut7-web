@@ -4,7 +4,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updatePlayerInput } from "@/schemazod/player/update";
 import { PlayerInput } from "@/schemazod/player/create";
 import { toast } from "react-toastify";
-import { UseAuth } from "@/hooks/context/useAuth";
 import { errosApiMessage } from "@/utils/ErrosApi";
 
 type Props = {
@@ -25,15 +24,13 @@ async function Fetchdata({ id, data }: Props) {
 
 export function useCreateEditPlayer() {
   const queryClient = useQueryClient();
-  const {session} = UseAuth()
-  const userId = session?.datauser.id
 
   return useMutation({
     mutationFn: Fetchdata,
     onSuccess: (_, variables) => {
       
-      queryClient.invalidateQueries({ queryKey: ["playersByUser", userId] });
-      queryClient.invalidateQueries({ queryKey: ["playersByUser", variables.id] });
+      queryClient.invalidateQueries({ queryKey: ["playersByUser"] });
+      queryClient.invalidateQueries({ queryKey: ["playersById", variables.id] });
       queryClient.invalidateQueries({ queryKey: ["ListPlayer"] });
       
 

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { AuthResponse } from "@/types/auth";
 import { UseAuth } from "@/hooks/context/useAuth";
+import { useRouter } from "next/router";
 
 async function FetchData(data: CreateSessionInput) {
   const res = await api.post<AuthResponse>("/session", data);
@@ -16,6 +17,7 @@ async function FetchData(data: CreateSessionInput) {
 export function UseLoguin(closedAside?: () => void) {
   const [erroMsg, setErroMsg] = useState<null | string>(null);
   const { save } = UseAuth();
+  const router = useRouter();
 
   const mutation = useMutation({
     mutationFn: FetchData,
@@ -23,6 +25,8 @@ export function UseLoguin(closedAside?: () => void) {
       toast.success(`Tenha um bom jogo ${data.datauser.name}`);
       save(data);
       if (closedAside) closedAside();
+      if (data.datauser.role === "ADMIN") router.push("/admin");
+      else if (data.datauser.role === "PLAYER") router.push("/player");
     },
 
     onError(error) {
