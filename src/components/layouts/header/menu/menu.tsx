@@ -1,14 +1,17 @@
 import { MenuLayout } from "./layout/menuLayout";
 import { NavPages } from "../nav/navPages";
-import { NavRest } from "../nav/navRest";
+import { NavPlayers } from "../nav/navRest";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { NavPublicMenu } from "../nav/navpagesPUblic";
 import { useLogout } from "@/hooks/auth/session/uselogoout";
 
+type Props={
+ isPLayer:boolean
+}
 
-export function Menu() {
-   const { mutate: logout, isPending } = useLogout();
+export function Menu({isPLayer}:Props) {
+  const { mutate: logout, isPending } = useLogout();
 
   return (
     <aside>
@@ -17,9 +20,10 @@ export function Menu() {
           <div className="md:hidden ">
             <NavPages className="flex flex-col gap-2" />
           </div>
-          
-          <NavPublicMenu className="gap-2 flex flex-col"/>
-          <NavRest />
+
+          <NavPublicMenu className="gap-2 flex flex-col" />
+
+        {isPLayer&& (<NavPlayers  />)}  
 
           <Button isLoading={isPending} onClick={() => logout()}>
             {" "}

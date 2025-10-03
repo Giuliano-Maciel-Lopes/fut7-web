@@ -12,27 +12,23 @@ type Props = {
 };
 
 // Função de fetch
-export async function fetchDataListInvites({ token, status }:Props = {}) {
+export async function fetchDataListInvites({ token, status }: Props = {}) {
   const headers = token ? { Cookie: `token=${token}` } : undefined;
 
   const res = await api.get<InvitesList>(API_ROUTES.INVITES, {
     headers,
-    params: { status }, 
+    params: { status },
   });
 
   return res.data;
 }
 
 // Hook React Query
-export function useListInvites({ token, status }:Props = {}) {
-  const { session } = UseAuth();
-  const userId = session?.datauser.id;
-
+export function useListInvites({ status }: Props = {}) {
   return useQuery({
-    queryKey: ["invites", userId ], 
-    queryFn: () => fetchDataListInvites({ token, status }),
+    queryKey: ["invites"],
+    queryFn: () => fetchDataListInvites({  status }),
     staleTime: 1000 * 60 * 5,
-    enabled: !!userId,
   });
 }
 
@@ -45,7 +41,7 @@ export async function prefetchInvites(
   if (!userId) return;
 
   await queryClient.prefetchQuery({
-    queryKey: ["invites", userId], 
+    queryKey: ["invites", userId],
     queryFn: () => fetchDataListInvites({ token, status }),
   });
 }

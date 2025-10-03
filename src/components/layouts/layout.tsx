@@ -4,12 +4,13 @@ import { Fotter } from "./fotter";
 
 type props = {
   children: React.ReactNode;
+  role?: "PLAYER" | "ADMIN";
 };
 
-export function Layout({ children }: props) {
+export function Layout({ children  , role}: props) {
   return (
     <div className="min-h-screen  flex flex-col  text-white bg-gray-900 ">
-      <Header />
+      <Header role={role} />
 
       <main className="flex-1 flex flex-col items-center mt-20 md:mt-24">
        <div className="w-full max-w-12xl ">{children}</div>

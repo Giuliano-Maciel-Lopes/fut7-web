@@ -8,17 +8,22 @@ import { AsideAuthProvider } from "@/context/authaside";
 import { GlobalAuth } from "@/components/auth/global/globalauth";
 import { ToastProvider } from "@/services/toast";
 import { AuthProvider } from "@/context/auth";
+import { UseAuth } from "@/hooks/context/useAuth";
+
 
 export default function App({ Component, pageProps }: AppProps) {
   if (pageProps.dehydratedState) {
     hydrate(query, pageProps.dehydratedState);
   }
+  const {session} = UseAuth()
+  const name = session?.datauser.name 
+  
   return (
     
     <QueryClientProvider client={query}>
       <AuthProvider>
         <AsideAuthProvider>
-          <Layout>
+          <Layout  >
             <GlobalAuth />
             <ToastProvider />
             <Component {...pageProps} />

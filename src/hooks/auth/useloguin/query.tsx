@@ -25,6 +25,7 @@ export function UseLoguin(closedAside?: () => void) {
       toast.success(`Tenha um bom jogo ${data.datauser.name}`);
       save(data);
       if (closedAside) closedAside();
+      
       if (data.datauser.role === "ADMIN") router.push("/admin");
       else if (data.datauser.role === "PLAYER") router.push("/player");
     },

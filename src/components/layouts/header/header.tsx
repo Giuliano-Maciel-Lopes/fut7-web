@@ -2,17 +2,26 @@ import { useAsideAuth } from "@/hooks/context/useAuthaside";
 import { HeaderContainer } from "./components/container";
 import { HeaderLogged } from "./components/logout";
 import { HeaderPublic } from "./components/public";
-import { UseAuth } from "@/hooks/context/useAuth";
+import { useRouter } from "next/router";
 
-export function Header() {
+
+
+type Props ={
+ 
+  role?: "PLAYER" | "ADMIN";
+}
+
+export function Header({role}:Props) {
   const { loguin } = useAsideAuth();
-  const { session } = UseAuth();
-  const user = session?.datauser.role;
+  
+  const router = useRouter()
+  const isLoggedRoute = router.pathname.startsWith("/player") || router.pathname.startsWith("/admin");
+  const isPlayer = router.pathname.startsWith("/player");
 
   return (
     <header className="bg-blue-800 w-full text-md h-20 md:h-24 flex items-center fixed z-50 border-b-2 border-gray-400">
       <HeaderContainer>
-        {user ? <HeaderLogged /> : <HeaderPublic loguin={loguin.open} />}
+        {isLoggedRoute? <HeaderLogged isPlayer={isPlayer} /> : <HeaderPublic loguin={loguin.open} />}
       </HeaderContainer>
     </header>
   );

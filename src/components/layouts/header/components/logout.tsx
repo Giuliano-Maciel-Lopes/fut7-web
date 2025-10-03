@@ -2,15 +2,19 @@ import { Menu } from "../menu";
 import { NavPages } from "../nav/navPages";
 import { Logo } from "@/components/logo";
 
-export function HeaderLogged() {
+type Props ={
+  isPlayer:boolean
+}
+
+export function HeaderLogged({isPlayer}:Props) {
   return (
     <>
       <div className="md:hidden">
-        <Menu />
+        <Menu  isPLayer={isPlayer}/>
       </div>
 
       <div className="hidden md:flex items-center gap-4">
-        <Menu />
+        <Menu  isPLayer={isPlayer}/>
       </div>
       <NavPages className="hidden md:flex gap-20" />
 
