@@ -3,7 +3,6 @@ import { useQuery, QueryClient } from "@tanstack/react-query";
 import { api } from "@/services/axios";
 import { InvitesList } from "@/types/api/invites/getInvites";
 import { API_ROUTES } from "@/utils/routes";
-import { UseAuth } from "@/hooks/context/useAuth";
 
 // Tipagem para fetch
 type Props = {
@@ -26,22 +25,21 @@ export async function fetchDataListInvites({ token, status }: Props = {}) {
 // Hook React Query
 export function useListInvites({ status }: Props = {}) {
   return useQuery({
-    queryKey: ["invites"],
-    queryFn: () => fetchDataListInvites({  status }),
+    queryKey: ["invites", status],
+    queryFn: () => fetchDataListInvites({ status }),
     staleTime: 1000 * 60 * 5,
   });
 }
 
-// Função SSR
+// Função SSR para prefetch
 export async function prefetchInvites(
   queryClient: QueryClient,
-  userId?: string,
-  { token, status }: Props = {}
+  { status , token}: Props = {}
+  
 ) {
-  if (!userId) return;
-
-  await queryClient.prefetchQuery({
-    queryKey: ["invites", userId],
-    queryFn: () => fetchDataListInvites({ token, status }),
+  const data = await queryClient.prefetchQuery({
+    queryKey: ["invites", status],
+    queryFn: () => fetchDataListInvites({ status , token }),
   });
+  return data; 
 }

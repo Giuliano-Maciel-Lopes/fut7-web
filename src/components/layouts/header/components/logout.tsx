@@ -3,18 +3,18 @@ import { NavPages } from "../nav/navPages";
 import { Logo } from "@/components/logo";
 
 type Props ={
-  isPlayer:boolean
+  
 }
 
-export function HeaderLogged({isPlayer}:Props) {
+export function HeaderLogged() {
   return (
     <>
       <div className="md:hidden">
-        <Menu  isPLayer={isPlayer}/>
+        <Menu  />
       </div>
 
       <div className="hidden md:flex items-center gap-4">
-        <Menu  isPLayer={isPlayer}/>
+        <Menu  />
       </div>
       <NavPages className="hidden md:flex gap-20" />
 

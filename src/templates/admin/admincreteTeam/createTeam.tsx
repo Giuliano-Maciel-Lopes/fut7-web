@@ -11,12 +11,11 @@ import { NotfoundItems } from "@/components/notfound/nutfound";
 import { ConfirmLayout } from "@/components/confirmLogout";
 import { ImgTeam } from "../components/ImgTeam/img.team";
 
-type Props ={
-  isAdm:boolean
-}
+type Props = {
+  isAdm: boolean;
+};
 
-export function EditTeamPage({isAdm}:Props) {
-
+export function EditTeamPage({ isAdm }: Props) {
   const router = useRouter();
   const id = router.query.id;
   const ConfirmEdit = useToggle();
@@ -35,20 +34,16 @@ export function EditTeamPage({isAdm}:Props) {
     id: data?.id, // c tiver time vai ser data caso contrario vai esta criando
   });
   if (isLoading) return <Loading />;
-  if (!data)
-    return (
-      <NotfoundItems msgNotfound="Este Time não existe mais ou foi excluído." />
-    );
 
   return (
     <aside className="container my-10">
       <div className="flex flex-col md:flex-row gap-6">
         <div className="bg-white relative md:w-1/2 h-60 border-2 flex items-center justify-center">
-        <ImgTeam img={data.photoUrl ?? null}/>
+          <ImgTeam img={data?.photoUrl ?? null} />
         </div>
         <div className="md:w-1/2">
           <CreatEditFormTeam
-          isAdm={isAdm}
+            isAdm={isAdm}
             editCreat={editCreat}
             onConfirm={ConfirmEdit.open}
             uploadfile={uploadfile}
@@ -60,7 +55,7 @@ export function EditTeamPage({isAdm}:Props) {
         onCancel={ConfirmEdit.closed}
         onConfirm={async () => {
           await handleConfirm();
-          ConfirmEdit.closed() 
+          ConfirmEdit.closed();
         }}
         open={ConfirmEdit.isOpen}
         onOpenChange={ConfirmEdit.toggle}

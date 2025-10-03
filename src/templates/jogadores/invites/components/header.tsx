@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/router";
 
 type Props = {
-  isFetching: boolean;
+  
   IsCaptain: boolean;
 };
 
-export function HeaderInvites({ isFetching, IsCaptain }: Props) {
+export function HeaderInvites({ IsCaptain }: Props) {
   const buttons = [
     { name: "Aceitos", query: "ACCEPTED" },
     { name: "Recusados", query: "REJECT" },
@@ -22,9 +22,6 @@ export function HeaderInvites({ isFetching, IsCaptain }: Props) {
 
   return (
     <header className="flex flex-col items-center gap-2 mb-5">
-      {isFetching && (
-        <span className="ml-2 text-sm text-white">Atualizando...</span>
-      )}
 
       <h1 className="text-center text-heading-xl flex items-center gap-2">
         <Mail /> CAIXA DE ENTRADA

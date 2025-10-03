@@ -9,7 +9,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ButtonStatus, BUTTON_STAGE } from "../utils/buttonQuerys";
-import { SearchInput } from "@/templates/admin/adminteamsPage/components/search";
 
 
 export function HeaderMatch() {

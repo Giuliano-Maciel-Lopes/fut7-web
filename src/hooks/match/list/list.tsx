@@ -17,7 +17,7 @@ export async function fetchDataListMatch({ filters, token }: Props) {
     headers: token ? { Cookie: `token=${token}` } : undefined,
   });
 
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  //await new Promise((resolve) => setTimeout(resolve, 2000));
 
   return res.data;
 }

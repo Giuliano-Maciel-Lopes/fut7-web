@@ -61,6 +61,7 @@ export function ListPlayerPage({ dataSsr, isAdm }: PropsListplayerpage) {
                 />
               </div>
               <PlayerLetter.container
+              className="cursor-pointer"
                 onclick={() => {
                   router.push(
                     isAdm ? `/admin/player/${pl.id}` : `/players/${pl.id}`
@@ -79,6 +80,8 @@ export function ListPlayerPage({ dataSsr, isAdm }: PropsListplayerpage) {
           ))}
         </div>
       )}
+
+      
       <ConfirmLayout
         mensg="Tem certeza que deseja excluir esse player ?"
         onCancel={confirmmDel.closed}

@@ -1,17 +1,19 @@
-import { prefetchInvites } from "@/hooks/invites/list/list";
+import { prefetchInvites ,fetchDataListInvites } from "@/hooks/invites/list/list";
 import { InvitePages } from "@/templates/jogadores/invites/invitespage";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSidePropsContext } from "next";
 import { verifyToken } from "@/utils/getToken";
 import { FetchDataFindByUser } from "@/hooks/player/findyByuser/findyByuser";
+import { InvitesList } from "@/types/api/invites/getInvites";
 type Props = {
   isCaptain: boolean;
+  dataSsr:InvitesList
 };
 
-export default function Invite({ isCaptain }: Props) {
+export default function Invite({ isCaptain , dataSsr }: Props) {
   return (
     <div>
-      <InvitePages isCaptain={isCaptain} />
+      <InvitePages  dataSsr={dataSsr} isCaptain={isCaptain} />
     </div>
   );
 }
@@ -21,7 +23,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const user = await verifyToken(token);
   const queryClient = new QueryClient();
 
-  const data = await FetchDataFindByUser(token); // busco player logado
+  const data= await FetchDataFindByUser(token); // busco player logado
 
   const isCaptain = data.team?.captain?.userId === user?.userId;
   const queryStatus = ctx.query.status as
@@ -36,13 +38,14 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   } else {
     status = "PENDING"; // não capitão só pendentes
   }
-
-  await prefetchInvites(queryClient, user?.userId, { token, status });
+const dataSsr = await fetchDataListInvites({token , status})
+  await prefetchInvites(queryClient, {status ,token}) ;
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
       isCaptain,
+      dataSsr
     },
   };
 }

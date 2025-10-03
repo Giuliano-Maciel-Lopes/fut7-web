@@ -10,7 +10,6 @@ import { ConfirmLayout } from "@/components/confirmLogout";
 import { useToggle } from "@/hooks/usetoggle";
 import { UseDeleteMatch } from "@/hooks/match/delete/delete";
 import { useUpdateIsActiveMatch } from "@/hooks/match/updateActive/updateIsactive";
-import { Loading } from "@/components/loading/loading";
 import { ListMatches } from "@/types/api/match/getList";
 
 

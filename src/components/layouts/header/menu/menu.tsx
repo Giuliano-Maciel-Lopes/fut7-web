@@ -5,13 +5,17 @@ import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { NavPublicMenu } from "../nav/navpagesPUblic";
 import { useLogout } from "@/hooks/auth/session/uselogoout";
+import { UseAuth } from "@/hooks/context/useAuth";
+
 
 type Props={
- isPLayer:boolean
+
 }
 
-export function Menu({isPLayer}:Props) {
+export function Menu() {
   const { mutate: logout, isPending } = useLogout();
+  const {session} = UseAuth()
+  const isPLayer = session?.datauser.role === "PLAYER"
 
   return (
     <aside>
