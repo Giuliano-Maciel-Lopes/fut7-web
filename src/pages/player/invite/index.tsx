@@ -8,6 +8,7 @@ import { InvitesList } from "@/types/api/invites/getInvites";
 type Props = {
   isCaptain: boolean;
   dataSsr:InvitesList
+   status?: "PENDING" | "ACCEPTED" | "REJECT";
 };
 
 export default function Invite({ isCaptain , dataSsr }: Props) {
@@ -26,26 +27,16 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const data= await FetchDataFindByUser(token); // busco player logado
 
   const isCaptain = data.team?.captain?.userId === user?.userId;
-  const queryStatus = ctx.query.status as
-    | "PENDING"
-    | "ACCEPTED"
-    | "REJECT"
-    | undefined;
+const status = (ctx.query.status as "PENDING" | "ACCEPTED" | "REJECT") ?? "PENDING";
 
-  let status: "PENDING" | "ACCEPTED" | "REJECT";
-  if (isCaptain) {
-    status = queryStatus ?? "PENDING"; // capitão também vê PENDING por padrão
-  } else {
-    status = "PENDING"; // não capitão só pendentes
-  }
-const dataSsr = await fetchDataListInvites({token , status})
-  await prefetchInvites(queryClient, {status ,token}) ;
+
+  await prefetchInvites(queryClient, { token , status}) ;
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
       isCaptain,
-      dataSsr
+      
     },
   };
 }

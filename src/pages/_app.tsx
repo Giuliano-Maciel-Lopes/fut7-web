@@ -8,7 +8,6 @@ import { AsideAuthProvider } from "@/context/authaside";
 import { GlobalAuth } from "@/components/auth/global/globalauth";
 import { ToastProvider } from "@/services/toast";
 import { AuthProvider } from "@/context/auth";
-import { UseAuth } from "@/hooks/context/useAuth";
 
 
 export default function App({ Component, pageProps }: AppProps) {

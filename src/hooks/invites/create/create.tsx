@@ -4,7 +4,6 @@ import { errosApiMessage } from "@/utils/ErrosApi";
 import { API_ROUTES } from "@/utils/routes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { UseAuth } from "@/hooks/context/useAuth";
 import { InviteSingle,} from "@/types/api/invites/getInvites";
 
 async function FetchInvite(data: InviteBodyInput) {
@@ -14,13 +13,11 @@ async function FetchInvite(data: InviteBodyInput) {
 
 export function useInviteCreate() {
   const queryClient = useQueryClient();
-  const { session } = UseAuth();
-  const userId = session?.datauser.id;
 
   const mutation = useMutation({
     mutationFn: FetchInvite,
     onSuccess( ) {
-      queryClient.invalidateQueries({ queryKey: ["invites", userId] }); 
+      queryClient.invalidateQueries({ queryKey: ["invites"] }); 
 
       toast.success("pedido enviado  com sucesso ")
     },
