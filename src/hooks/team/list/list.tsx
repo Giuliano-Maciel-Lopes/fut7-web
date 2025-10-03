@@ -13,7 +13,7 @@ export async function fetchDataListTeam(params?: ParamsTeam) {
 export function uselistTeam(params?: ParamsTeam) {
   const query = useQuery({
     queryFn: () => fetchDataListTeam(params),
-    queryKey: ["listTeam", params],
+    queryKey: ["listTeam"],
     staleTime: 1000 * 60 * 5
   });
   return { ...query };

@@ -1,7 +1,6 @@
 import { HeaderlistPlayerPage } from "./heaader/header";
 import { PlayerLetter } from "@/components/LetterPlayer";
 import { Player } from "@shared/prisma";
-import { useRouter } from "next/router";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { useToggle } from "@/hooks/usetoggle";
 import { ConfirmLayout } from "@/components/confirmLogout";
@@ -11,6 +10,7 @@ import { useListPlayer } from "@/hooks/player/List/list";
 import { useParsedFiltersClient } from "@/hooks/player/List/parsedParams";
 import { DeleteActive } from "../../components/deleteActive";
 import { useIsActivePlayer } from "@/hooks/player/isactiveUpdate/isactiveupdate";
+import { AdmAsideRoutes } from "./components/selectAdmin";
 
 export type PropsListplayerpage = {
   isAdm: boolean;
@@ -18,13 +18,12 @@ export type PropsListplayerpage = {
 };
 
 export function ListPlayerPage({ dataSsr, isAdm }: PropsListplayerpage) {
-  const router = useRouter();
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
 
   const { params, search, setSearch } = useParsedFiltersClient();
-  const { data: dataquery,  } = useListPlayer(params);
+  const { data: dataquery } = useListPlayer(params);
 
- const data = (!!search || isAdm) && dataquery ? dataquery : dataSsr;
+  const data = (!!search || isAdm) && dataquery ? dataquery : dataSsr;
 
   const { mutateAsync: mutateDel, isPending: isPendingDel } = useDeletePlayer();
   const { mutateAsync: mutateActive, isPending: isPendingActive } =
@@ -32,6 +31,7 @@ export function ListPlayerPage({ dataSsr, isAdm }: PropsListplayerpage) {
 
   const confirmmDel = useToggle();
   const confirmIsActive = useToggle();
+  const asideAdm = useToggle();
   const [activeState, setActiveState] = useState<boolean | null>(null);
   const [selectPlayerId, setSelectPlayerId] = useState<string | null>(null);
 
@@ -45,9 +45,9 @@ export function ListPlayerPage({ dataSsr, isAdm }: PropsListplayerpage) {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-items-center items-center my-10">
           {data.map((pl) => (
             <div key={pl.id}>
-              <div>
+              <div className=" mb-2">
                 <DeleteActive
-                  Adm={isAdm }
+                  Adm={isAdm}
                   isactive={pl.isActive}
                   setActive={(newState: boolean) => {
                     setSelectPlayerId(pl.id);
@@ -61,27 +61,34 @@ export function ListPlayerPage({ dataSsr, isAdm }: PropsListplayerpage) {
                 />
               </div>
               <PlayerLetter.container
-              className="cursor-pointer"
-                onclick={() => {
-                  router.push(
-                    isAdm ? `/admin/player/${pl.id}` : `/players/${pl.id}`
-                  );
-                }}
+                className="cursor-pointer"
+                href={!isAdm ? `/players/${pl.id}` : undefined}
+                onclick={
+                  isAdm
+                    ? () => {setSelectPlayerId(pl.id); asideAdm.open() }
+                    : undefined
+                }
               >
-                <PlayerLetter.image img={`${BaseURL}/${pl.photoUrl}`} />
-
+                <PlayerLetter.image img={pl.photoUrl ? `${BaseURL}/${pl.photoUrl}` : undefined} />
                 <PlayerLetter.data
                   assistencia={pl.assists}
                   gols={pl.goals}
                   nameCart={pl.nameCart}
                 />
+
+                {isAdm && selectPlayerId === pl.id && (
+                  <AdmAsideRoutes
+                    pl={pl}
+                    open={asideAdm.isOpen}
+                  onOpenChange={asideAdm.toggle}
+                  />
+                )}
               </PlayerLetter.container>
             </div>
           ))}
         </div>
       )}
 
-      
       <ConfirmLayout
         mensg="Tem certeza que deseja excluir esse player ?"
         onCancel={confirmmDel.closed}

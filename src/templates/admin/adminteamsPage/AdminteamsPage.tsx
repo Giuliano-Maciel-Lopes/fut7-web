@@ -35,7 +35,7 @@ export function AdminTeamsPage() {
     <section className="container mt-10">
       <SearchInput search={search} setSearch={setSearch} />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 items-center">
         <Link
           href="/admin/teams/create"
           className="flex items-center justify-center w-40 h-40 md:w-52 md:h-52 

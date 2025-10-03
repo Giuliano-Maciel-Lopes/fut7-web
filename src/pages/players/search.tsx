@@ -1,16 +1,17 @@
-import { ListPlayerPage } from "@/templates/listPlayerPage/listPlayerPage";
+import { ListPlayerPage, PropsListplayerpage } from "@/templates/listPlayerPage/listPlayerPage";
 import { GetServerSidePropsContext } from "next";
 import { verifyToken } from "@/utils/getToken";
-import { QueryClient } from "@tanstack/react-query";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { FetchaDataListPlayer , prefetchListPlayer } from "@/hooks/player/List/list";
+import { parseFiltersServer } from "@/hooks/player/List/parsedParams";
 
-type Props ={
-  isAdm:boolean
-}
 
-export default function PlayerSearchFilter({ isAdm }:Props) {
+
+
+export default function PlayerSearchFilter({ isAdm , dataSsr}:PropsListplayerpage) {
   return (
     <div>
-      <ListPlayerPage dataSsr={[]} isAdm={isAdm} />
+      <ListPlayerPage dataSsr={dataSsr} isAdm={isAdm} />
     </div>
   );
 }
@@ -19,11 +20,22 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const token = ctx.req.cookies["token"];
   const user = await verifyToken(token);
   const isAdm = user?.role === "ADMIN";
+  const queryClient = new QueryClient();
+  const params = parseFiltersServer(ctx.query);
+
+  // Busca dados no servidor para todos os usuários
+  const dataSsr = await FetchaDataListPlayer(params);
+
+  if (isAdm) {
+    // Prefetch para React Query (hidratação)
+    await prefetchListPlayer(queryClient, params, token);
+  }
 
   return {
     props: {
       isAdm,
-      dataSsr: [], // Array vazio para search
+      dataSsr, // Dados SSR para todos
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }
