@@ -45,8 +45,8 @@ export async function getServerSideProps(
   const dataLogged = await FetchDataFindByUser(token);
 
   // Verifica se é capitão e não é o próprio jogador sendo visualizado
-  const isCaptain = dataLogged.role === "CAPITAO" && dataLogged.id !== data.id;
-  const teamIdCaptain = dataLogged.teamId || '';
+  const isCaptain = dataLogged?.role === "CAPITAO" && dataLogged?.id !== data.id;
+  const teamIdCaptain = dataLogged?.teamId || '';
 
   return {
     props: { 

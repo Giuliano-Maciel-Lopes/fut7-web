@@ -5,34 +5,30 @@ import {
   PlayerPositionIndex,
 } from "@/types/api/TEAM/get";
 import { ContainerCampo } from "../container";
-import {
-  DndContext,
-  DragEndEvent,
-  rectIntersection,
-} from "@dnd-kit/core";
+import { DndContext, DragEndEvent, rectIntersection } from "@dnd-kit/core";
 import { SlotDroppable } from "@/components/campo/campoEditable/dnd-kit/slotDropper";
 import { DraggablePlayer } from "@/components/campo/campoEditable/dnd-kit/dragable";
 import { playerPositions } from "../positionfixed";
-import { useState,  } from "react";
+import { useState } from "react";
 import { Button } from "../../ui/button";
 import { updatePlayerPositions } from "./dnd-kit/updatePlayerPositions";
-
+import { Plus } from "lucide-react";
 
 type Props = {
   data: GetTeamReturn;
-  onSave: ( data: {players: PlayerPositionIndex[]}) => void;
+  onSave: (data: { players: PlayerPositionIndex[] }) => void;
 };
 
 export function CampoEditable({ data, onSave }: Props) {
   const BaseURL = process.env.NEXT_PUBLIC_BASE_API;
   const [players, setPlayers] = useState<PlayerMini[]>(data.players);
 
-function handleDragEnd(event: DragEndEvent) {
-  const { active, over } = event;
-  if (!over || active.id === over.id) return;
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
 
-  setPlayers(prev => updatePlayerPositions(prev, active.id, over.id));
-}
+    setPlayers((prev) => updatePlayerPositions(prev, active.id, over.id));
+  }
 
   return (
     <div className="flex flex-col md:flex-row gap-8">
@@ -48,7 +44,7 @@ function handleDragEnd(event: DragEndEvent) {
               <SlotDroppable
                 id={index.toString()}
                 key={index}
-                className={`${playerPositions[index]} border-2 bg- w-16 h-20 cursor-pointer hover:scale-110 hover:shadow-lg transition-all duration-200`}
+                className={`${playerPositions[index]} bg- w-16 h-20 cursor-pointer hover:scale-110 hover:shadow-lg transition-all duration-200`}
               >
                 {player ? (
                   <DraggablePlayer player={player} className={` w-full h-full`}>
@@ -70,11 +66,12 @@ function handleDragEnd(event: DragEndEvent) {
                     </PlayerLetter.container>
                   </DraggablePlayer>
                 ) : (
-                  <div
-                    className={` w-14 h-14 bg-gray-200 rounded flex items-center justify-center`}
+                  <PlayerLetter.container
+                    size="sm"
+                    className="text-center flex items-center justify-center"
                   >
-                    +
-                  </div>
+                    <Plus className="w-6 h-6 text-gray-500" />
+                  </PlayerLetter.container>
                 )}
               </SlotDroppable>
             );
@@ -101,9 +98,12 @@ function handleDragEnd(event: DragEndEvent) {
                       </PlayerLetter.container>
                     </DraggablePlayer>
                   ) : (
-                    <div className="w-14 h-14 bg-gray-200 rounded flex items-center justify-center">
-                      +
-                    </div>
+                       <PlayerLetter.container
+                    size="sm"
+                    className="text-center flex items-center justify-center"
+                  >
+                    <Plus className="w-6 h-6 text-gray-500" />
+                  </PlayerLetter.container>
                   )}
                 </SlotDroppable>
               );
@@ -112,15 +112,18 @@ function handleDragEnd(event: DragEndEvent) {
         </div>
       </DndContext>
 
- 
-<Button
-  onClick={() =>
-    onSave({ players: players.map(p => ({ id: p.id, positionIndex: p.positionIndex })) })
-  }
->
-  Salvar alterações
-</Button>
-
+      <Button
+        onClick={() =>
+          onSave({
+            players: players.map((p) => ({
+              id: p.id,
+              positionIndex: p.positionIndex,
+            })),
+          })
+        }
+      >
+        Salvar alterações
+      </Button>
     </div>
   );
 }

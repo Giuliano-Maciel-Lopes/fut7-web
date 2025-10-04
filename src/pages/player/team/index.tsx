@@ -29,18 +29,12 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
   // Prefetch para hidratação
   await PrefetchQueryTeamUserId(queryClient, token);
-
   // Tenta pegar do cache do queryClient
   let dataSsr = queryClient.getQueryData<GetTeamReturn>(["teamUser"]);
 
- // se npegou nada no servidor preucaçao
-  if (!dataSsr) {
-    dataSsr = await fetchDataTeamUserId(token);
-  }
+ 
 
-  const isCaptain = dataSsr.captain
-    ? dataSsr.captain.userId === user?.userId
-    : false;
+const isCaptain = dataSsr?.captain?.userId === user?.userId;
 
   return {
     props: {
