@@ -16,10 +16,11 @@ export function Menu() {
   const { mutate: logout, isPending } = useLogout();
   const {session} = UseAuth()
   const isPLayer = session?.datauser.role === "PLAYER"
+  const name = session?.datauser.name
 
   return (
     <aside>
-      <MenuLayout>
+      <MenuLayout name={name}>
         <nav className="flex flex-col gap-2 text-white  ">
           <div className="md:hidden ">
             <NavPages className="flex flex-col gap-2" />

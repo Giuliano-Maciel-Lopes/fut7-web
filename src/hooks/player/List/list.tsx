@@ -12,7 +12,7 @@ export async function FetchaDataListPlayer(params?: ListPlayerParams) {
   const res = await api.get<Player[]>(`${API_ROUTES.PLAYERS}`, {
     params: dataParams,
   });
-   await new Promise((resolve) => setTimeout(resolve, 2000));
+ //  await new Promise((resolve) => setTimeout(resolve, 2000));
   return res.data;
 }
 

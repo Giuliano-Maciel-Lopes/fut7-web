@@ -8,7 +8,7 @@ export async function fetchDataTeamUserId(token?: string) {
   const res = await api.get<GetTeamReturn>(`${API_ROUTES.TEAMS}/me`, {
     headers: token ? { Cookie: `token=${token}` } : undefined, // ckiente usa cookie HTTP-only
   });
-     await new Promise(resolve => setTimeout(resolve, 2000));
+   //  await new Promise(resolve => setTimeout(resolve, 2000));
  
   return res.data;
 }

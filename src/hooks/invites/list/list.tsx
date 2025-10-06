@@ -18,7 +18,7 @@ export async function fetchDataListInvites({ token, status }: Props = {}) {
     headers,
     params: { status },
   });
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+ // await new Promise((resolve) => setTimeout(resolve, 2000));
   return res.data;
 }
 
