@@ -1,0 +1,47 @@
+ import Image from "next/image";
+import { ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+ 
+ export function HeroMobile() {
+   return (
+    <div>
+     <div className="text-blue-200 flex gap-1 mb-4">
+          {[...Array(5)].map((_, i) => (
+            <ChevronRight key={i} />
+          ))}
+        </div>
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <div className="flex flex-col w-full md:w-1/2 gap-6">
+            <div className="bg-green-400 px-4 py-2 rounded-xl inline-block">
+              <h3 className="text-heading-xl font-bold">
+                KINGS 2025 VAI ENCARAR?
+              </h3>
+            </div>
+
+            <h1 className="text-heading-hg font-extrabold">NEW SEASON</h1>
+
+            <p className="text-lg leading-relaxed">
+              O maior campeonato de Fut7 de ipatinga está de volta em 2025,
+              trazendo muitas novidades, mais emoção e disputas inesquecíveis!
+            </p>
+            <Button className="w-32">INCREVA-SE</Button>
+
+            <div className="text-blue-200  gap-1 flex justify-end">
+              {[...Array(5)].map((_, i) => (
+                <ChevronRight key={i} />
+              ))}
+            </div>
+          </div>
+
+          <div className="w-full md:w-1/2 flex justify-center max-w-screnn">
+            <Image
+              src={"/assets/campeonatofut6.png"}
+              alt="imagem"
+              width={500}
+              height={300}
+            />
+          </div>
+        </div>
+        </div>
+   );
+ }

@@ -1,4 +1,4 @@
-import { StepCarrrosel } from "../../components/stepcarrrosel/setcarrosel";
+import { StepCarouselText } from "@/components/stepcarrrosel/setcarroseltext";
 import { Campo } from "../../components/campo/campo";
 import { NotfoundItems } from "@/components/notfound/nutfound";
 import { useState } from "react";
@@ -24,8 +24,8 @@ export function TeamConfirmedPage({ data, }: Props) {
     <section className="flex flex-col container gap-4 pt-10 pb-28">
       {team.length > 1 && (
         <div className="mt-10">
-          <StepCarrrosel
-            name={nameTeam}
+          < StepCarouselText
+           text={nameTeam}
             setCurrentIndex={setIndex}
             currentIndex={index}
           />

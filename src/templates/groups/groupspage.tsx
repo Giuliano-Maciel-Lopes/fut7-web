@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { uselistGroups } from "@/hooks/group/list/list";
-import { StepCarrrosel } from "@/components/stepcarrrosel/setcarrosel";
+import { StepCarouselText } from "@/components/stepcarrrosel/setcarroseltext";
 import { Table } from "./components/table";
 import { GrouplistScore } from "@/types/api/groups/getListgroups";
 import { NotfoundItems } from "@/components/notfound/nutfound";
@@ -30,8 +30,8 @@ export function GroupsPage({ dataSsr, isAdm }: PropsGroupPage) {
         </div>
       )}
 
-      <StepCarrrosel
-        name={carouselNames}
+      <StepCarouselText
+        text={carouselNames}
         currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex}
       />
