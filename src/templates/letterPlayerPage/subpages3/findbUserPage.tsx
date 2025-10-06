@@ -33,6 +33,7 @@ export  function FindyByuserPlayerPage() {
       <LatterPlayerpage data={data}>
 
         <CreateEditForm
+        playerPosition={data?.position}
           editCreat={editcreat}
           uploadfile={uploadfile}
           onConfirm={confirm.open}

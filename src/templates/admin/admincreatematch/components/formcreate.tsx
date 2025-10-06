@@ -35,8 +35,8 @@ export function FormCreateMatch() {
       <form onSubmit={onsubmit} className="flex flex-col gap-3">
         
         <Controller
-        // obs para quem nunca usou o shadcn junto com react hook form 
-          name="stage"   // o nome do campo no RHF do useform 
+      
+          name="stage"   
           control={control} // o objeto control vindo do useForm()
           render={(
             { field } // field tem value, onChange, onBlur...

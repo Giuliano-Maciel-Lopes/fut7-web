@@ -47,6 +47,7 @@ export function AdminUpdatePlayerPage() {
     <div>
       <LatterPlayerpage data={data}>
         <CreateEditForm
+          playerPosition={data.position}
           editCreat={editCreate}
           uploadfile={uploadFile}
           onConfirm={confirm.open}
